@@ -77,21 +77,19 @@ class HeritageController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { code } = req.body;
+    const { code, company_id } = req.body;
 
-    const codeExists = await Heritage.findOne({ where: { code } });
+    const codeExists = await Heritage.findOne({
+      where: { code, company_id },
+    });
 
     if (codeExists) {
       return res.status(400).json({ error: 'Code already exist' });
     }
 
-    const {
-      id,
-      name,
-      description,
-      company_id,
-      environment_id,
-    } = await Heritage.create(req.body);
+    const { id, name, description, environment_id } = await Heritage.create(
+      req.body
+    );
 
     return res.json({
       id,
@@ -119,17 +117,27 @@ class HeritageController {
 
     const heritage = await Heritage.findByPk(id);
 
-    if (code && code !== heritage.code) {
-      const codeExists = await Heritage.findOne({ where: { code } });
-
-      if (codeExists) {
-        return res.status(400).json({ error: 'Code already exist' });
-      }
+    if (code) {
+      return res.status(400).json({ error: 'Code cannot be changed' });
     }
 
     await heritage.update(req.body);
 
-    return res.json({ id, name, description, code });
+    return res.json({ id, name, description });
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const heritage = await Heritage.findByPk(id);
+
+    if (!heritage) {
+      return res.status(400).json({ error: 'Heritage does not exist' });
+    }
+
+    await Heritage.destroy({ where: { id } });
+
+    return res.status(200).json({ success: 'Heritage has been deleted' });
   }
 }
 

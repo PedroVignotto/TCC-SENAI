@@ -38,6 +38,7 @@ routes.get(
 routes.get('/:company_id/heritages/:id', HeritageController.show);
 routes.post('/heritages', HeritageController.store);
 routes.put('/heritages/:id', HeritageController.update);
+routes.delete('/heritages/:id', HeritageController.delete);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
