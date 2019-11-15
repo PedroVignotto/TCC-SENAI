@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { darken } from 'polished';
+import { Modal } from 'react-bootstrap';
 
 import colors from '~/styles/colors';
 
@@ -56,6 +58,69 @@ export const Container = styled.div`
             color: ${colors.red};
           }
         }
+      }
+    }
+  }
+`;
+
+export const Modals = styled(Modal)`
+  div.modal-header {
+    display: flex;
+    align-items: center;
+
+    h4 {
+      font-weight: 500;
+      color: ${colors.primary};
+      text-transform: uppercase;
+    }
+
+    button {
+      border: 0;
+      background: none;
+      font-weight: bold;
+      font-size: 24px;
+      color: ${colors.primary};
+    }
+  }
+
+  form {
+    padding: 16px 32px;
+
+    input {
+      background: none;
+      border: 1px solid ${colors.secondary};
+      border-radius: 4px;
+      width: 100%;
+      height: 32px;
+      padding: 0 15px;
+      color: ${colors.secondary};
+      margin: 0 0 10px;
+
+      &::placeholder {
+        color: ${colors.secondary};
+      }
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 5px 0 0;
+      width: 100%;
+      height: 40px;
+      background: ${colors.primary};
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+      transition: background 0.2s;
+
+      svg {
+        margin-right: 5px;
+      }
+
+      &:hover {
+        background: ${darken(0.05, colors.primary)};
       }
     }
   }
