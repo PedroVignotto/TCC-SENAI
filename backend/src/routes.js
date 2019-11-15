@@ -30,6 +30,12 @@ routes.post('/environments', EnvironmentController.store);
 routes.put('/environments/:id', EnvironmentController.update);
 routes.delete('/environments/:id', EnvironmentController.delete);
 
+routes.get('/:company_id/heritages', HeritageController.index);
+routes.get(
+  '/:company_id/environments/:environment_id/heritages',
+  HeritageController.list
+);
+routes.get('/:company_id/heritages/:id', HeritageController.show);
 routes.post('/heritages', HeritageController.store);
 routes.put('/heritages/:id', HeritageController.update);
 
