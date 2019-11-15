@@ -25,7 +25,7 @@ export const Content = styled.div`
 
     a {
       font-weight: 500;
-      font-size: 18px;
+      font-size: 16px;
       color: ${colors.secondary};
       margin: 0 16px;
 
@@ -51,6 +51,7 @@ export const Content = styled.div`
 
 export const Profile = styled.div`
   display: flex;
+  margin-top: -5px;
 
   a {
     display: flex;
@@ -70,6 +71,5 @@ export const Profile = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin-top: -5px;
   }
 `;

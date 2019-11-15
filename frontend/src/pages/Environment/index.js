@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { MdDeleteForever, MdCached, MdSave } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Input, Form } from '@rocketseat/unform';
+import {
+  MdDeleteForever,
+  MdCached,
+  MdSave,
+  MdSearch,
+  MdAddCircleOutline,
+} from 'react-icons/md';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
 
 import colors from '~/styles/colors';
-import { Container, Modals } from './styles';
+import { Container, Modals, Search } from './styles';
 
 export default function Environment() {
   const [environments, setEnvironments] = useState([]);
   const [edit, setEdit] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
+  const [showAdd, setShowAdd] = useState(false);
 
   const profile = useSelector(state => state.user.profile);
 
@@ -50,7 +57,7 @@ export default function Environment() {
         }
       });
     } catch (err) {
-      toast.error('Something went wrong try again');
+      toast.error(err.response.data.error);
     }
   }
 
@@ -66,7 +73,22 @@ export default function Environment() {
       toast.success('Data updated successfully');
       setShowEdit(false);
     } catch (err) {
-      toast.error('Something went wrong try again');
+      toast.error(err.response.data.error);
+    }
+  }
+
+  async function handleAdd({ name, user_id }) {
+    try {
+      await api.post('environments', {
+        name,
+        user_id,
+        company_id: profile.company_id,
+      });
+
+      toast.success('Environment successfully added');
+      setShowAdd(false);
+    } catch (err) {
+      toast.error(err.response.data.error);
     }
   }
 
@@ -74,6 +96,18 @@ export default function Environment() {
     <>
       <Container>
         <Top title="Ambientes" subtitle="Gerenciamento de ambientes" />
+
+        <Search>
+          <div>
+            <input type="text" placeholder="PESQUISAR" />
+            <button type="button">
+              <MdSearch size={28} />
+            </button>
+          </div>
+          <button type="button">
+            <MdAddCircleOutline size={28} onClick={() => setShowAdd(true)} />
+          </button>
+        </Search>
 
         <ul>
           {environments.map(environment => (
@@ -114,6 +148,26 @@ export default function Environment() {
             <Input name="id" type="hidden" />
             <Input name="name" />
             <Input name="user_id" />
+            <button type="submit">
+              <MdSave size={22} />
+              Salvar
+            </button>
+          </Form>
+        </Modals.Body>
+      </Modals>
+
+      <Modals show={showAdd} onHide={() => setShowAdd(false)} animation>
+        <Modals.Header>
+          <h4>Adicionar ambiente</h4>
+          <button type="button" onClick={() => setShowAdd(false)}>
+            x
+          </button>
+        </Modals.Header>
+        <Modals.Body>
+          <Form onSubmit={handleAdd}>
+            <Input name="id" type="hidden" />
+            <Input name="name" placeholder="Nome" />
+            <Input name="user_id" placeholder="Gerenciador" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
