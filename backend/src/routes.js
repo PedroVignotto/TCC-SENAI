@@ -31,6 +31,7 @@ routes.put('/environments/:id', EnvironmentController.update);
 routes.delete('/environments/:id', EnvironmentController.delete);
 
 routes.post('/heritages', HeritageController.store);
+routes.put('/heritages/:id', HeritageController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

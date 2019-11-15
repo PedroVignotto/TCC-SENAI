@@ -18,7 +18,7 @@ class HeritageController {
     const codeExists = await Heritage.findOne({ where: { code } });
 
     if (codeExists) {
-      return res.status(400).json({ error: 'Code already exists' });
+      return res.status(400).json({ error: 'Code already exist' });
     }
 
     const {
@@ -30,6 +30,35 @@ class HeritageController {
     } = await Heritage.create(req.body);
 
     return res.json({ id, name, description, company_id, environment_id });
+  }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      description: Yup.string(),
+      code: Yup.string(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { id } = req.params;
+    const { name, code, description } = req.body;
+
+    const heritage = await Heritage.findByPk(id);
+
+    if (code && code !== heritage.code) {
+      const codeExists = await Heritage.findOne({ where: { code } });
+
+      if (codeExists) {
+        return res.status(400).json({ error: 'Code already exist' });
+      }
+    }
+
+    await heritage.update(req.body);
+
+    return res.json({ id, name, description, code });
   }
 }
 
