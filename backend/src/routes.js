@@ -24,6 +24,7 @@ routes.put('/users', UserController.update);
 routes.put('/companies/:id', CompanyController.update);
 
 routes.post('/environments', EnvironmentController.store);
+routes.put('/environments/:id', EnvironmentController.update);
 
 routes.post('/files', upload.single('file'), FileController.store);
 
