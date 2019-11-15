@@ -27,6 +27,7 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",
     "styled-components": "^4.4.1",
+    "sweetalert2": "^9.3.11",
     "yup": "^0.27.0"
   },
   "scripts": {

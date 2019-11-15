@@ -12,10 +12,10 @@ export default function Header() {
   return (
     <Container>
       <Content>
+        <img src={logo} alt="Heritage" />
         <nav>
-          <img src={logo} alt="Heritage" width="150" />
           <Link to="/dashboard">HOME</Link>
-          <Link to="/dashboard">AMBIENTES</Link>
+          <Link to="/environments">AMBIENTES</Link>
           <Link to="/dashboard">PATRIMÔNIOS</Link>
           <Link to="/dashboard">USUÁRIOS</Link>
           <Link to="/dashboard">HISTÓRICO</Link>

@@ -5,6 +5,13 @@ import colors from '~/styles/colors';
 export const Container = styled.div`
   background: #fff;
   padding: 0 30px;
+
+  img {
+    margin-top: 8px;
+    margin-right: 16px;
+    width: 200px;
+    height: 65px;
+  }
 `;
 
 export const Content = styled.div`
@@ -17,12 +24,9 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
 
-    img {
-      margin-right: 16px;
-    }
-
     a {
       font-weight: 500;
+      font-size: 18px;
       color: ${colors.secondary};
       margin: 0 16px;
 
@@ -58,13 +62,15 @@ export const Profile = styled.div`
 
   strong {
     font-weight: 500;
+    font-size: 18px;
     color: ${colors.secondary};
     margin-right: 8px;
   }
 
   img {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    margin-top: -5px;
   }
 `;

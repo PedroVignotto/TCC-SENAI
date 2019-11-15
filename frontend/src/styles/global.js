@@ -47,6 +47,11 @@ export default createGlobalStyle`
 
   button {
     cursor: pointer;
+
+    :focus {
+      -webkit-box-shadow: none !important;
+      box-shadow: none !important;
+    }
   }
 
   ::selection {
