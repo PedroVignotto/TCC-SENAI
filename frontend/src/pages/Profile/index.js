@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { MdExitToApp, MdCached } from 'react-icons/md';
 
 import { signOut } from '~/store/modules/auth/actions';
 import { updateProfileRequest } from '~/store/modules/user/actions';
@@ -38,11 +39,15 @@ export default function Profile() {
           placeholder="Confirmar senha"
         />
 
-        <button type="submit">Atualizar perfil</button>
+        <button type="submit">
+          <MdCached size={22} />
+          Atualizar perfil
+        </button>
       </Form>
 
       <button type="button" onClick={handleSignOut}>
-        Sair do GoBarber
+        <MdExitToApp size={22} />
+        Sair
       </button>
     </Container>
   );
