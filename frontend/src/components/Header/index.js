@@ -2,9 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Notifications from '~/components/Notifications';
-
-import logo from '~/assets/logo-purple.svg';
+import logo from '~/assets/logo.svg';
 
 import { Container, Content, Profile } from './styles';
 
@@ -15,18 +13,20 @@ export default function Header() {
     <Container>
       <Content>
         <nav>
-          <img src={logo} alt="GoBarber" />
-          <Link to="/dashboard">DASHBOARD</Link>
+          <img src={logo} alt="Heritage" width="150" />
+          <Link to="/dashboard">HOME</Link>
+          <Link to="/dashboard">AMBIENTES</Link>
+          <Link to="/dashboard">PATRIMÔNIOS</Link>
+          <Link to="/dashboard">USUÁRIOS</Link>
+          <Link to="/dashboard">HISTÓRICO</Link>
+          {profile.user_level === 1 ? <Link to="/dashboard">EMPRESA</Link> : ''}
+
+          <Link to="/dashboard">COMO USAR</Link>
         </nav>
 
-        <aside>
-          <Notifications />
-
-          <Profile>
-            <div>
-              <strong>{profile.name}</strong>
-              <Link to="/profile">Meu perfil</Link>
-            </div>
+        <Profile>
+          <Link to="/profile">
+            <strong>{profile.name}</strong>
             <img
               src={
                 (profile.avatar && profile.avatar.url) ||
@@ -34,8 +34,8 @@ export default function Header() {
               }
               alt="Avatar"
             />
-          </Profile>
-        </aside>
+          </Link>
+        </Profile>
       </Content>
     </Container>
   );

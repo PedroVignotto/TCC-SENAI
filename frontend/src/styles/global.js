@@ -2,12 +2,11 @@ import { createGlobalStyle } from 'styled-components';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import colors from '~/styles/colors';
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+  @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
   * {
     margin: 0;
