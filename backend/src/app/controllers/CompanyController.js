@@ -40,6 +40,44 @@ class CompanyController {
 
     return res.json({ id, name, email, cnpj });
   }
+
+  async update(req, res) {
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      cnpj: Yup.string(),
+      email: Yup.string().email(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { id } = req.params;
+
+    const { email, cnpj } = req.body;
+
+    const company = await Company.findByPk(id);
+
+    if (email && email !== company.email) {
+      const emailExists = await Company.findOne({ where: { email } });
+
+      if (emailExists) {
+        return res.status(400).json({ error: 'Email not available' });
+      }
+    }
+
+    if (cnpj && cnpj !== company.cnpj) {
+      const cnpjExists = await Company.findOne({ where: { cnpj } });
+
+      if (cnpjExists) {
+        return res.status(400).json({ error: 'CNPJ not available' });
+      }
+    }
+
+    const { name } = await company.update(req.body);
+
+    return res.json({ id, name, cnpj, email });
+  }
 }
 
 export default new CompanyController();
