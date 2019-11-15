@@ -24,7 +24,7 @@ class EnvironmentController {
     });
 
     if (!environment) {
-      return res.status(400).json({ error: 'Environment not found' });
+      return res.status(400).json({ error: 'Environment does not exist' });
     }
 
     const { name, user_id } = environment;
@@ -79,6 +79,20 @@ class EnvironmentController {
     await environment.update(req.body);
 
     return res.json({ id, name });
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const environment = await Environment.findByPk(id);
+
+    if (!environment) {
+      return res.status(400).json({ error: 'Environment does not exist' });
+    }
+
+    await Environment.destroy({ where: { id } });
+
+    return res.status(200).json({ success: 'Environment has been deleted' });
   }
 }
 
