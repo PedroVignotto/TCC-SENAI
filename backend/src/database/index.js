@@ -4,10 +4,11 @@ import User from '../app/models/User';
 import File from '../app/models/File';
 import Company from '../app/models/Company';
 import Environment from '../app/models/Environment';
+import Heritage from '../app/models/Heritage';
 
 import databaseConfig from '../config/database';
 
-const models = [User, File, Company, Environment];
+const models = [User, File, Company, Environment, Heritage];
 
 class Database {
   constructor() {
