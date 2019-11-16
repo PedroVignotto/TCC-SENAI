@@ -3,6 +3,25 @@ import User from '../models/User';
 import File from '../models/File';
 
 class UserController {
+  async index(req, res) {
+    const { company_id } = req.params;
+
+    const heritage = await User.findAll({
+      where: { company_id },
+      attributes: ['id', 'name', 'email', 'user_level', 'company_id'],
+      order: ['name'],
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
+
+    return res.json(heritage);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

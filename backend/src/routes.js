@@ -20,6 +20,7 @@ routes.post('/companies', CompanyController.store);
 
 routes.use(authMiddleware);
 
+routes.get('/:company_id/users', UserController.index);
 routes.put('/users', UserController.update);
 
 routes.put('/companies/:id', CompanyController.update);
