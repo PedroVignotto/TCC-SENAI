@@ -52,7 +52,7 @@ class UserController {
 
     const user = await User.findByPk(req.userId);
 
-    if (email !== user.email) {
+    if (email && email !== user.email) {
       const userExists = await User.findOne({ where: { email } });
 
       if (userExists) {
@@ -66,17 +66,20 @@ class UserController {
 
     await user.update(req.body);
 
-    const { id, name, avatar } = await User.findByPk(req.userId, {
-      include: [
-        {
-          model: File,
-          as: 'avatar',
-          attributes: ['id', 'path', 'url'],
-        },
-      ],
-    });
+    const { id, name, avatar, company_id, user_level } = await User.findByPk(
+      req.userId,
+      {
+        include: [
+          {
+            model: File,
+            as: 'avatar',
+            attributes: ['id', 'path', 'url'],
+          },
+        ],
+      }
+    );
 
-    return res.json({ id, name, email, avatar });
+    return res.json({ id, name, email, avatar, company_id, user_level });
   }
 }
 

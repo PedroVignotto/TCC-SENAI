@@ -11,6 +11,13 @@ class EnvironmentController {
       where: { company_id },
       attributes: ['id', 'name', 'user_id', 'company_id'],
       order: ['name'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'name'],
+        },
+      ],
     });
 
     return res.json(environment);

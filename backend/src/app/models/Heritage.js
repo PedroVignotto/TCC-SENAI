@@ -17,11 +17,11 @@ class Heritage extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.File, {
+    this.belongsTo(models.Environment, {
       foreignKey: 'environment_id',
       as: 'environment',
     });
-    this.belongsTo(models.File, { foreignKey: 'company_id', as: 'company' });
+    this.belongsTo(models.Company, { foreignKey: 'company_id', as: 'company' });
   }
 }
 
