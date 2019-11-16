@@ -119,7 +119,8 @@ export const Modals = styled(Modal)`
   form {
     padding: 16px 32px;
 
-    input {
+    input,
+    select {
       background: none;
       border: 1px solid ${colors.secondary};
       border-radius: 4px;

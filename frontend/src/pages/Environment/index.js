@@ -39,7 +39,7 @@ export default function Environment() {
     }
 
     loadEnvironments();
-  }, [environments, profile.company_id]);
+  }, [environments]); //eslint-disable-line
 
   function handleDelete(id) {
     try {
@@ -60,7 +60,6 @@ export default function Environment() {
       toast.error(err.response.data.error);
     }
   }
-
   async function handleEdit({ id, name, user_id }) {
     console.tron.log(id, name, user_id);
 
@@ -70,7 +69,7 @@ export default function Environment() {
         user_id,
       });
 
-      toast.success('Data updated successfully');
+      toast.success('Environment updated successfully');
       setShowEdit(false);
     } catch (err) {
       toast.error(err.response.data.error);
@@ -91,7 +90,6 @@ export default function Environment() {
       toast.error(err.response.data.error);
     }
   }
-
   return (
     <>
       <Container>
@@ -111,10 +109,10 @@ export default function Environment() {
 
         <ul>
           {environments.map(environment => (
-            <li>
+            <li key={environment.id}>
               <Link to="dashboard">
                 <strong>{environment.name}</strong>
-                <span>{environment.user_id}</span>
+                <span>{environment.user.name}</span>
               </Link>
 
               <div>
@@ -135,7 +133,6 @@ export default function Environment() {
           ))}
         </ul>
       </Container>
-
       <Modals show={showEdit} onHide={() => setShowEdit(false)} animation>
         <Modals.Header>
           <h4>Editar ambiente</h4>
@@ -147,7 +144,13 @@ export default function Environment() {
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
             <Input name="name" />
-            <Input name="user_id" />
+            <select name="user">
+              {environments.map(environment => (
+                <option value={environment.user_id}>
+                  {environment.user.name}
+                </option>
+              ))}
+            </select>
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -165,7 +168,6 @@ export default function Environment() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd}>
-            <Input name="id" type="hidden" />
             <Input name="name" placeholder="Nome" />
             <Input name="user_id" placeholder="Gerenciador" />
             <button type="submit">
