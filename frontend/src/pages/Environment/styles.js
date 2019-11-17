@@ -8,12 +8,20 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1024px;
   margin: 0 auto;
+  padding: 0 30px;
 
   ul {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
     margin-top: 30px;
+
+    @media (max-width: 950px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 630px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
 
     li {
       display: flex;
@@ -119,8 +127,7 @@ export const Modals = styled(Modal)`
   form {
     padding: 16px 32px;
 
-    input,
-    select {
+    input {
       background: none;
       border: 1px solid ${colors.secondary};
       border-radius: 4px;

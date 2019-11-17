@@ -26,12 +26,28 @@ export default function Header() {
         </button>
 
         <nav className="header">
-          <Link to="/dashboard">HOME</Link>
-          <Link to="/environments">AMBIENTES</Link>
-          <Link to="/dashboard">PATRIMÔNIOS</Link>
-          <Link to="/dashboard">USUÁRIOS</Link>
-          <Link to="/dashboard">HISTÓRICO</Link>
-          {profile.user_level === 1 ? <Link to="/dashboard">EMPRESA</Link> : ''}
+          <Link to="/dashboard" onClick={handleTogleVisible}>
+            HOME
+          </Link>
+          <Link to="/environments" onClick={handleTogleVisible}>
+            AMBIENTES
+          </Link>
+          <Link to="/dashboard" onClick={handleTogleVisible}>
+            PATRIMÔNIOS
+          </Link>
+          <Link to="/dashboard" onClick={handleTogleVisible}>
+            USUÁRIOS
+          </Link>
+          <Link to="/dashboard" onClick={handleTogleVisible}>
+            HISTÓRICO
+          </Link>
+          {profile.user_level === 1 ? (
+            <Link to="/dashboard" onClick={handleTogleVisible}>
+              EMPRESA
+            </Link>
+          ) : (
+            ''
+          )}
 
           <Link to="/dashboard">COMO USAR</Link>
         </nav>

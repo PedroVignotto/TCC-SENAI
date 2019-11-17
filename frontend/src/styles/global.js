@@ -37,6 +37,14 @@ export default createGlobalStyle`
 
   h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}
 
+  @media (max-width: 1366px) {
+    h1{font-size:34px}h2{font-size:28px}h3{font-size:22px}h4{font-size:18px}h5{font-size:16px}h6{font-size:14px}
+  }
+
+  @media (max-width: 767.98px) {
+    h1{font-size:32px}h2{font-size:26px}h3{font-size:20px}h4{font-size:16px}h5{font-size:14px}h6{font-size:12px}
+  }
+
   a {
     text-decoration: none !important;
   }

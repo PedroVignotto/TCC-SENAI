@@ -31,13 +31,13 @@ export default function Environment() {
     setShowEdit(true);
   }
 
+  async function loadEnvironments() {
+    const response = await api.get(`${profile.company_id}/environments`);
+
+    setEnvironments(response.data);
+  }
+
   useEffect(() => {
-    async function loadEnvironments() {
-      const response = await api.get(`${profile.company_id}/environments`);
-
-      setEnvironments(response.data);
-    }
-
     loadEnvironments();
   }, []); //eslint-disable-line
 
@@ -60,13 +60,15 @@ export default function Environment() {
       toast.error(err.response.data.error);
     }
   }
-  async function handleEdit({ id, name, user_id }) {
-    console.tron.log(id, name, user_id);
+  async function handleEdit({ id, name, ...rest }) {
+    const { email } = rest.user;
 
     try {
+      const response = await api.get(`${profile.company_id}/managers/${email}`);
+
       await api.put(`environments/${id}`, {
         name,
-        user_id,
+        user_id: response.data.id,
       });
 
       toast.success('Environment updated successfully');
@@ -76,11 +78,13 @@ export default function Environment() {
     }
   }
 
-  async function handleAdd({ name, user_id }) {
+  async function handleAdd({ name, email }) {
     try {
+      const response = await api.get(`${profile.company_id}/managers/${email}`);
+
       await api.post('environments', {
         name,
-        user_id,
+        user_id: response.data.id,
         company_id: profile.company_id,
       });
 
@@ -112,7 +116,7 @@ export default function Environment() {
             <li key={environment.id}>
               <Link to="dashboard">
                 <strong>{environment.name}</strong>
-                <span>{environment.user.name}</span>
+                <span>{environment.user.email}</span>
               </Link>
 
               <div>
@@ -145,13 +149,7 @@ export default function Environment() {
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
             <Input name="name" />
-            <select name="user">
-              {environments.map(environment => (
-                <option value={environment.user_id}>
-                  {environment.user.name}
-                </option>
-              ))}
-            </select>
+            <Input name="user.email" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -170,7 +168,7 @@ export default function Environment() {
         <Modals.Body>
           <Form onSubmit={handleAdd}>
             <Input name="name" placeholder="Nome" />
-            <Input name="user_id" placeholder="Gerenciador" />
+            <Input name="email" placeholder="Gerenciador" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
