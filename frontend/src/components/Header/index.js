@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdReorder } from 'react-icons/md';
+import { MdReorder, MdClear } from 'react-icons/md';
 
 import logo from '~/assets/logo.svg';
 
@@ -22,7 +22,7 @@ export default function Header() {
         <img src={logo} alt="Heritage" />
 
         <button type="button" onClick={handleTogleVisible}>
-          <MdReorder size={36} />
+          {visible ? <MdClear size={36} /> : <MdReorder size={36} />}
         </button>
 
         <nav className="header">
@@ -35,7 +35,7 @@ export default function Header() {
           <Link to="/dashboard" onClick={handleTogleVisible}>
             PATRIMÔNIOS
           </Link>
-          <Link to="/dashboard" onClick={handleTogleVisible}>
+          <Link to="/users" onClick={handleTogleVisible}>
             USUÁRIOS
           </Link>
           <Link to="/dashboard" onClick={handleTogleVisible}>

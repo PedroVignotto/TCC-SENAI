@@ -1,7 +1,13 @@
 import React from 'react';
 
-// import { Container } from './styles';
+import heritage from '~/assets/heritage.png';
+
+import { Container } from './styles';
 
 export default function Dashboard() {
-  return <div />;
+  return (
+    <Container>
+      <img src={heritage} alt="Heritage" />
+    </Container>
+  );
 }

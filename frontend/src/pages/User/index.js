@@ -3,13 +3,14 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Input, Form } from '@rocketseat/unform';
+import { Input, Form, Select } from '@rocketseat/unform';
 import {
   MdDeleteForever,
   MdCached,
   MdSave,
   MdSearch,
   MdAddCircleOutline,
+  MdInfo,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -18,27 +19,39 @@ import Top from '~/components/Top';
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
 
-export default function Environment() {
-  const [environments, setEnvironments] = useState([]);
+export default function User() {
+  const [users, setUsers] = useState([]);
   const [edit, setEdit] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
 
+  const options = [
+    { id: 1, title: 'Administrador' },
+    { id: 2, title: 'Gerenciador' },
+    { id: 3, title: 'Suporte' },
+  ];
+
   const profile = useSelector(state => state.user.profile);
 
-  function handleShowEdit(environment) {
-    setEdit(environment);
+  function handleShowEdit(user) {
+    setEdit(user);
     setShowEdit(true);
   }
 
-  async function loadEnvironments() {
-    const response = await api.get(`${profile.company_id}/environments`);
-
-    setEnvironments(response.data);
+  function handleShowInfo(user) {
+    setEdit(user);
+    setShowInfo(true);
   }
 
   useEffect(() => {
-    loadEnvironments();
+    async function loadUsers() {
+      const response = await api.get(`${profile.company_id}/users`);
+
+      setUsers(response.data);
+    }
+
+    loadUsers();
   }, []); //eslint-disable-line
 
   function handleDelete(id) {
@@ -52,60 +65,38 @@ export default function Environment() {
         confirmButtonText: 'Yes, delete it!',
       }).then(result => {
         if (result.value) {
-          api.delete(`environments/${id}`);
-          toast.success('Environment successfully deleted');
+          api.delete(`users/${id}`);
+          toast.success('User successfully deleted');
         }
       });
     } catch (err) {
       toast.error(err.response.data.error);
     }
   }
-  async function handleEdit({ id, name, ...rest }) {
-    const { email } = rest.user;
+
+  async function handleEdit({ user_level, id }) {
+    console.tron.log(user_level, id);
 
     try {
-      if (email) {
-        const response = await api.get(
-          `${profile.company_id}/managers/${email}`
-        );
-
-        await api.put(`environments/${id}`, {
-          name,
-          user_id: response.data.id,
-        });
-      }
-
-      await api.put(`environments/${id}`, {
-        name,
+      await api.put(`users/${id}`, {
+        user_level,
       });
 
-      toast.success('Environment updated successfully');
+      toast.success('User level updated successfully');
       setShowEdit(false);
     } catch (err) {
       toast.error(err.response.data.error);
     }
   }
 
-  async function handleAdd({ name, email }) {
+  async function handleAdd({ user_level, email }) {
     try {
-      if (email) {
-        const response = await api.get(
-          `${profile.company_id}/managers/${email}`
-        );
-
-        await api.post('environments', {
-          name,
-          user_id: response.data.id,
-          company_id: profile.company_id,
-        });
-      }
-
-      await api.post('environments', {
-        name,
+      await api.put(`company/users/${email}`, {
+        user_level,
         company_id: profile.company_id,
       });
 
-      toast.success('Environment successfully added');
+      toast.success('User successfully added');
       setShowAdd(false);
     } catch (err) {
       toast.error(err.response.data.error);
@@ -114,7 +105,10 @@ export default function Environment() {
   return (
     <>
       <Container>
-        <Top title="Ambientes" subtitle="Gerenciamento de ambientes" />
+        <Top
+          title="Usuários"
+          subtitle="Veja as informações dos usuários e mude seu nivel de permissão"
+        />
 
         <Search>
           <div>
@@ -129,26 +123,32 @@ export default function Environment() {
         </Search>
 
         <ul>
-          {environments.map(environment => (
-            <li key={environment.id}>
+          {users.map(user => (
+            <li key={user.id}>
               <Link to="dashboard">
-                <strong>{environment.name}</strong>
-                <span>
-                  {(environment.user && environment.user.email) || ''}
-                </span>
+                <img
+                  src={
+                    (user.avatar && user.avatar.url) ||
+                    `https://api.adorable.io/avatar/50/${user.name}.pnc`
+                  }
+                  alt={user.name}
+                />
+                <div>
+                  <strong>{user.name}</strong>
+                  <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
+                  <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
+                  <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
+                </div>
               </Link>
 
               <div>
-                <button
-                  type="button"
-                  onClick={() => handleShowEdit(environment)}
-                >
+                <button type="button" onClick={() => handleShowInfo(user)}>
+                  <MdInfo size={22} />
+                </button>
+                <button type="button" onClick={() => handleShowEdit(user)}>
                   <MdCached size={22} />
                 </button>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(environment.id)}
-                >
+                <button type="button" onClick={() => handleDelete(user.id)}>
                   <MdDeleteForever size={22} />
                 </button>
               </div>
@@ -157,9 +157,32 @@ export default function Environment() {
         </ul>
       </Container>
 
+      <Modals show={showInfo} onHide={() => setShowInfo(false)} animation>
+        <Modals.Header>
+          <h4>Informações do usuário</h4>
+          <button type="button" onClick={() => setShowInfo(false)}>
+            x
+          </button>
+        </Modals.Header>
+        <Modals.Body>
+          <Form initialData={edit} onSubmit={handleEdit}>
+            <img
+              src={
+                (edit.avatar && edit.avatar.url) ||
+                `https://api.adorable.io/avatar/50/${edit.name}.pnc`
+              }
+              alt={edit.name}
+            />
+
+            <Input name="name" readOnly />
+            <Input name="email" readOnly />
+          </Form>
+        </Modals.Body>
+      </Modals>
+
       <Modals show={showEdit} onHide={() => setShowEdit(false)} animation>
         <Modals.Header>
-          <h4>Editar ambiente</h4>
+          <h4>Alterar permissões do usuário</h4>
           <button type="button" onClick={() => setShowEdit(false)}>
             x
           </button>
@@ -167,8 +190,7 @@ export default function Environment() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" />
-            <Input name="user.email" />
+            <Select name="user_level" options={options} />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -186,8 +208,13 @@ export default function Environment() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd}>
-            <Input name="name" placeholder="Nome" />
-            <Input name="email" placeholder="Gerenciador" />
+            <Input name="email" placeholder="Email" required />
+            <Select
+              name="user_level"
+              options={options}
+              placeholder="Nível de permissão"
+              required
+            />
             <button type="submit">
               <MdSave size={22} />
               Salvar
