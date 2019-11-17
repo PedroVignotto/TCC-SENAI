@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Input, Form, Select } from '@rocketseat/unform';
@@ -129,7 +128,7 @@ export default function User() {
         <ul>
           {users.map(user => (
             <li key={user.id}>
-              <Link to="dashboard">
+              <section>
                 <img
                   src={
                     (user.avatar && user.avatar.url) ||
@@ -143,7 +142,7 @@ export default function User() {
                   <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
                   <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
                 </div>
-              </Link>
+              </section>
 
               <div>
                 {profile.user_level === 1 ? (

@@ -4,6 +4,21 @@ import { Op } from 'sequelize';
 import Company from '../models/Company';
 
 class CompanyController {
+  async show(req, res) {
+    const { company_id } = req.params;
+
+    const company = await Company.findOne({
+      where: { id: company_id },
+      attributes: ['name', 'cnpj', 'email'],
+    });
+
+    if (!company) {
+      return res.status(400).json({ error: 'Company not found' });
+    }
+
+    return res.json(company);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

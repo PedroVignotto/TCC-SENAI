@@ -28,7 +28,7 @@ export const Container = styled.div`
       color: #333;
       border: 1px solid ${colors.details};
 
-      a {
+      section {
         display: flex;
         align-items: center;
         padding: 0 15px;

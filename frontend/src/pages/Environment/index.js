@@ -184,8 +184,8 @@ export default function Environment() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" />
-            <Input name="user.email" />
+            <Input name="name" placeholder="Nome do ambiente" />
+            <Input name="user.email" placeholder="Email do gerenciador" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -203,8 +203,8 @@ export default function Environment() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd}>
-            <Input name="name" placeholder="Nome" />
-            <Input name="email" placeholder="Gerenciador" />
+            <Input name="name" placeholder="Nome do ambiente" />
+            <Input name="email" placeholder="Email do gerenciador" />
             <button type="submit">
               <MdSave size={22} />
               Salvar

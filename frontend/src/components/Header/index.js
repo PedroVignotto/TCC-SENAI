@@ -42,7 +42,7 @@ export default function Header() {
             HISTÓRICO
           </Link>
           {profile.user_level === 1 ? (
-            <Link to="/dashboard" onClick={handleTogleVisible}>
+            <Link to="/company" onClick={handleTogleVisible}>
               EMPRESA
             </Link>
           ) : (
