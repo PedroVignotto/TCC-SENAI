@@ -15,7 +15,7 @@ class EnvironmentController {
         {
           model: User,
           as: 'user',
-          attributes: ['id', 'name'],
+          attributes: ['id', 'email'],
         },
       ],
     });

@@ -22,6 +22,27 @@ class UserController {
     return res.json(heritage);
   }
 
+  async show(req, res) {
+    const { company_id, email } = req.params;
+
+    const user = await User.findOne({
+      where: { company_id, email },
+      attributes: ['id', 'name', 'email', 'user_level'],
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Email not found' });
+    }
+
+    const { user_level } = user;
+
+    if (user_level !== 2) {
+      return res.status(400).json({ error: 'Please enter a valid manager' });
+    }
+
+    return res.json(user);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
