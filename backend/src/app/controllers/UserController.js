@@ -73,12 +73,14 @@ class UserController {
     const { email } = req.params;
 
     const user = await User.findOne({
-      where: { email },
+      where: { email, company_id: null },
       attributes: ['id', 'name', 'email', 'user_level', 'company_id'],
     });
 
     if (!user) {
-      return res.status(400).json({ error: 'Email not found' });
+      return res
+        .status(400)
+        .json({ error: 'Email not found or user joins another company' });
     }
 
     await user.update(req.body);
