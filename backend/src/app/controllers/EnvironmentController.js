@@ -50,10 +50,12 @@ class EnvironmentController {
 
     const { user_id } = req.body;
 
-    const userExists = await User.findByPk(user_id);
+    if (user_id) {
+      const userExists = await User.findByPk(user_id);
 
-    if (!userExists) {
-      return res.status(400).json({ error: 'User does not exist' });
+      if (!userExists) {
+        return res.status(400).json({ error: 'User does not exist' });
+      }
     }
 
     const { id, name, company_id } = await Environment.create(req.body);

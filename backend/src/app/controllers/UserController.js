@@ -69,6 +69,37 @@ class UserController {
     return res.json({ id, name, email });
   }
 
+  async findAndUpdate(req, res) {
+    const { email } = req.params;
+
+    const user = await User.findOne({
+      where: { email },
+      attributes: ['id', 'name', 'email', 'user_level', 'company_id'],
+    });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Email not found' });
+    }
+
+    await user.update(req.body);
+
+    return res.json(user);
+  }
+
+  async edit(req, res) {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(400).json({ error: 'User does not exist' });
+    }
+
+    const { user_level } = await user.update(req.body);
+
+    return res.json({ user_level });
+  }
+
   async update(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string(),
@@ -120,6 +151,20 @@ class UserController {
     );
 
     return res.json({ id, name, email, avatar, company_id, user_level });
+  }
+
+  async delete(req, res) {
+    const { id } = req.params;
+
+    const user = await User.findByPk(id);
+
+    if (!user) {
+      return res.status(400).json({ error: 'User does not exist' });
+    }
+
+    await User.destroy({ where: { id } });
+
+    return res.status(200).json({ success: 'User has been deleted' });
   }
 }
 
