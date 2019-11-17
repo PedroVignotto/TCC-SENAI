@@ -5,7 +5,7 @@ import { MdReorder } from 'react-icons/md';
 
 import logo from '~/assets/logo.svg';
 
-import { Container, Content, Profile, Button } from './styles';
+import { Container, Content, Profile } from './styles';
 
 export default function Header() {
   const [visible, setVisible] = useState(false);
@@ -21,9 +21,9 @@ export default function Header() {
       <Content visible={visible}>
         <img src={logo} alt="Heritage" />
 
-        <Button type="button" onClick={handleTogleVisible}>
-          <MdReorder size={30} color="#7159c1" />
-        </Button>
+        <button type="button" onClick={handleTogleVisible}>
+          <MdReorder size={36} />
+        </button>
 
         <nav className="header">
           <Link to="/dashboard">HOME</Link>

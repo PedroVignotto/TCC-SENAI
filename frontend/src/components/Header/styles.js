@@ -8,8 +8,8 @@ export const Container = styled.div`
 
   img {
     margin-top: 8px;
-    width: 200px;
-    height: 65px;
+    width: 180px;
+    height: 55px;
   }
 `;
 
@@ -19,13 +19,20 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  @media (min-width: 1024px) {
+  button {
+    border: 0;
+    background: 0;
+    z-index: 2;
+    color: ${colors.primary};
+  }
+
+  @media (min-width: 1200px) {
     button {
       display: none;
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1199px) {
     flex-direction: row-reverse;
 
     nav.header {
@@ -82,14 +89,12 @@ export const Content = styled.div`
       :hover::after {
         width: 30px;
       }
+
+      @media (min-width: 1200px) and (max-width: 1366px) {
+        font-size: 14px;
+      }
     }
   }
-`;
-
-export const Button = styled.button`
-  border: 0;
-  background: none;
-  z-index: 2;
 `;
 
 export const Profile = styled.div`
@@ -108,11 +113,29 @@ export const Profile = styled.div`
     font-size: 18px;
     color: ${colors.secondary};
     margin-right: 8px;
+
+    :after {
+      background: ${colors.primary};
+      content: '';
+      display: block;
+      height: 3px;
+      width: 20px;
+      transition: 0.5s;
+    }
+
+    :hover::after {
+      width: 30px;
+    }
+
+    @media (max-width: 1366px) {
+      font-size: 16px;
+    }
   }
 
   img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    margin-top: -1px;
   }
 `;

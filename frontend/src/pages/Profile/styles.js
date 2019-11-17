@@ -6,6 +6,7 @@ import colors from '~/styles/colors';
 export const Container = styled.div`
   max-width: 600px;
   margin: 50px auto;
+  padding: 0 30px;
 
   form {
     display: flex;
