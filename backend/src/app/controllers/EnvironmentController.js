@@ -24,19 +24,20 @@ class EnvironmentController {
   }
 
   async show(req, res) {
-    const { company_id, id } = req.params;
-
-    const environment = await Environment.findOne({
-      where: { company_id, id },
+    const environment = await Environment.findAll({
+      where: { user_id: req.userId },
+      attributes: ['id', 'name', 'user_id', 'company_id'],
+      order: ['name'],
+      include: [
+        {
+          model: User,
+          as: 'user',
+          attributes: ['id', 'email'],
+        },
+      ],
     });
 
-    if (!environment) {
-      return res.status(400).json({ error: 'Environment does not exist' });
-    }
-
-    const { name, user_id } = environment;
-
-    return res.json({ id, name, user_id, company_id });
+    return res.json(environment);
   }
 
   async store(req, res) {
