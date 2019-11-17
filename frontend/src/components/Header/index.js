@@ -1,19 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { MdReorder } from 'react-icons/md';
 
 import logo from '~/assets/logo.svg';
 
-import { Container, Content, Profile } from './styles';
+import { Container, Content, Profile, Button } from './styles';
 
 export default function Header() {
+  const [visible, setVisible] = useState(false);
+
   const profile = useSelector(state => state.user.profile);
+
+  function handleTogleVisible() {
+    setVisible(!visible);
+  }
 
   return (
     <Container>
-      <Content>
+      <Content visible={visible}>
         <img src={logo} alt="Heritage" />
-        <nav>
+
+        <Button type="button" onClick={handleTogleVisible}>
+          <MdReorder size={30} color="#7159c1" />
+        </Button>
+
+        <nav className="header">
           <Link to="/dashboard">HOME</Link>
           <Link to="/environments">AMBIENTES</Link>
           <Link to="/dashboard">PATRIMÔNIOS</Link>

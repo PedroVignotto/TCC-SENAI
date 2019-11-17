@@ -19,6 +19,42 @@ export const Content = styled.div`
   justify-content: space-between;
   align-items: center;
 
+  @media (min-width: 1024px) {
+    button {
+      display: none;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: row-reverse;
+
+    nav.header {
+      display: ${props => (props.visible ? 'flex' : 'none')};
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.9);
+
+      a {
+        font-size: 18px;
+        line-height: 32px;
+
+        :after {
+          content: none;
+        }
+      }
+    }
+
+    img:first-child {
+      display: none;
+    }
+  }
+
   nav {
     display: flex;
     align-items: center;
@@ -28,6 +64,7 @@ export const Content = styled.div`
       font-size: 16px;
       color: ${colors.secondary};
       margin: 0 16px;
+      white-space: nowrap;
 
       :hover {
         color: ${colors.primary};
@@ -47,6 +84,12 @@ export const Content = styled.div`
       }
     }
   }
+`;
+
+export const Button = styled.button`
+  border: 0;
+  background: none;
+  z-index: 2;
 `;
 
 export const Profile = styled.div`

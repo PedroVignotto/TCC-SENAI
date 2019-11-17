@@ -38,7 +38,7 @@ export default createGlobalStyle`
   h1{font-size:36px}h2{font-size:30px}h3{font-size:24px}h4{font-size:20px}h5{font-size:18px}h6{font-size:16px}
 
   a {
-    text-decoration: none;
+    text-decoration: none !important;
   }
 
   ul {

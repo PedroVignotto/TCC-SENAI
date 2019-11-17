@@ -39,7 +39,7 @@ export default function Environment() {
     }
 
     loadEnvironments();
-  }, [environments]); //eslint-disable-line
+  }, []); //eslint-disable-line
 
   function handleDelete(id) {
     try {
@@ -133,6 +133,7 @@ export default function Environment() {
           ))}
         </ul>
       </Container>
+
       <Modals show={showEdit} onHide={() => setShowEdit(false)} animation>
         <Modals.Header>
           <h4>Editar ambiente</h4>
