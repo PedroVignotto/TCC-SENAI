@@ -117,9 +117,13 @@ export default function User() {
               <MdSearch size={28} />
             </button>
           </div>
-          <button type="button">
-            <MdAddCircleOutline size={28} onClick={() => setShowAdd(true)} />
-          </button>
+          {profile.user_level === 1 ? (
+            <button type="button">
+              <MdAddCircleOutline size={28} onClick={() => setShowAdd(true)} />
+            </button>
+          ) : (
+            ''
+          )}
         </Search>
 
         <ul>
@@ -142,15 +146,23 @@ export default function User() {
               </Link>
 
               <div>
-                <button type="button" onClick={() => handleShowInfo(user)}>
-                  <MdInfo size={22} />
-                </button>
-                <button type="button" onClick={() => handleShowEdit(user)}>
-                  <MdCached size={22} />
-                </button>
-                <button type="button" onClick={() => handleDelete(user.id)}>
-                  <MdDeleteForever size={22} />
-                </button>
+                {profile.user_level === 1 ? (
+                  <>
+                    <button type="button" onClick={() => handleShowInfo(user)}>
+                      <MdInfo size={22} />
+                    </button>
+                    <button type="button" onClick={() => handleShowEdit(user)}>
+                      <MdCached size={22} />
+                    </button>
+                    <button type="button" onClick={() => handleDelete(user.id)}>
+                      <MdDeleteForever size={22} />
+                    </button>
+                  </>
+                ) : (
+                  <button type="button" onClick={() => handleShowInfo(user)}>
+                    <MdInfo size={22} color="#2a7ae4" />
+                  </button>
+                )}
               </div>
             </li>
           ))}

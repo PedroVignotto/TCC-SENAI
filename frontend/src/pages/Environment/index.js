@@ -32,9 +32,15 @@ export default function Environment() {
   }
 
   async function loadEnvironments() {
-    const response = await api.get(`${profile.company_id}/environments`);
+    if (profile.user_level === 1) {
+      const response = await api.get(`${profile.company_id}/environments`);
 
-    setEnvironments(response.data);
+      setEnvironments(response.data);
+    } else {
+      const response = await api.get('/environments');
+
+      setEnvironments(response.data);
+    }
   }
 
   useEffect(() => {
@@ -123,9 +129,13 @@ export default function Environment() {
               <MdSearch size={28} />
             </button>
           </div>
-          <button type="button">
-            <MdAddCircleOutline size={28} onClick={() => setShowAdd(true)} />
-          </button>
+          {profile.user_level === 1 ? (
+            <button type="button">
+              <MdAddCircleOutline size={28} onClick={() => setShowAdd(true)} />
+            </button>
+          ) : (
+            ''
+          )}
         </Search>
 
         <ul>
@@ -139,18 +149,25 @@ export default function Environment() {
               </Link>
 
               <div>
-                <button
-                  type="button"
-                  onClick={() => handleShowEdit(environment)}
-                >
-                  <MdCached size={22} />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleDelete(environment.id)}
-                >
-                  <MdDeleteForever size={22} />
-                </button>
+                {profile.user_level === 1 ? (
+                  <>
+                    {' '}
+                    <button
+                      type="button"
+                      onClick={() => handleShowEdit(environment)}
+                    >
+                      <MdCached size={22} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleDelete(environment.id)}
+                    >
+                      <MdDeleteForever size={22} />
+                    </button>
+                  </>
+                ) : (
+                  ''
+                )}
               </div>
             </li>
           ))}
