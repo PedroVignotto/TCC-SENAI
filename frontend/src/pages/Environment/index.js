@@ -104,15 +104,18 @@ export default function Environment() {
           user_id: response.data.id,
           company_id: profile.company_id,
         });
+
+        toast.success('Environment successfully added');
+        setShowAdd(false);
+      } else {
+        await api.post('environments', {
+          name,
+          company_id: profile.company_id,
+        });
+
+        toast.success('Environment successfully added');
+        setShowAdd(false);
       }
-
-      await api.post('environments', {
-        name,
-        company_id: profile.company_id,
-      });
-
-      toast.success('Environment successfully added');
-      setShowAdd(false);
     } catch (err) {
       toast.error(err.response.data.error);
     }
