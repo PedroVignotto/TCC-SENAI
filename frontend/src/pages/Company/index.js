@@ -6,6 +6,8 @@ import { MdSave } from 'react-icons/md';
 
 import api from '~/services/api';
 
+import Top from '~/components/Top';
+
 import { Container } from './styles';
 
 export default function Profile() {
@@ -23,12 +25,21 @@ export default function Profile() {
     loadCompany();
   }, []); //eslint-disable-line
 
-  async function handleSubmit({ name, cnpj, email }) {
+  console.tron.log(company);
+
+  async function handleSubmit(data) {
+    const { name, cnpj, email, cep, address, district, city, state } = data;
+
     try {
       await api.put(`companies/${profile.company_id}`, {
         name,
         cnpj,
         email,
+        cep,
+        address,
+        district,
+        city,
+        state,
       });
 
       toast.success('Empresa atualizada com sucesso');
@@ -39,10 +50,23 @@ export default function Profile() {
 
   return (
     <Container>
+      <Top title="Empresa" subtitle="Gerenciamento de dados da empresa" />
+
       <Form initialData={company} onSubmit={handleSubmit}>
-        <Input name="name" placeholder="Nome da empresa" />
-        <Input name="cnpj" placeholder="CNPJ da empresa" />
-        <Input name="email" placeholder="Email da empresa" />
+        <Input name="name" placeholder="Nome" />
+        <Input name="email" placeholder="Email" />
+        <div>
+          <Input name="cnpj" placeholder="CNPJ" />
+          <Input name="cep" placeholder="Cep" />
+        </div>
+        <div>
+          <Input name="address" placeholder="Endereço" />
+          <Input name="district" placeholder="Bairro" />
+        </div>
+        <div>
+          <Input name="city" placeholder="Cidade" />
+          <Input name="state" placeholder="Estado" />
+        </div>
 
         <button type="submit">
           <MdSave size={22} />

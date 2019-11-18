@@ -13,11 +13,21 @@ export const Container = styled.div`
     flex-direction: column;
     margin-top: 30px;
 
+    div {
+      display: flex;
+      flex-direction: row;
+
+      input:first-of-type {
+        margin-right: 10px;
+      }
+    }
+
     input {
       background: none;
       border: 1px solid ${colors.secondary};
       border-radius: 4px;
       height: 44px;
+      width: 100%;
       padding: 0 15px;
       color: ${colors.secondary};
       margin: 0 0 10px;

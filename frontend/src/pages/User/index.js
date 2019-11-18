@@ -212,7 +212,7 @@ export default function User() {
 
       <Modals show={showAdd} onHide={() => setShowAdd(false)} animation>
         <Modals.Header>
-          <h4>Adicionar ambiente</h4>
+          <h4>Adicionar usuário</h4>
           <button type="button" onClick={() => setShowAdd(false)}>
             x
           </button>
