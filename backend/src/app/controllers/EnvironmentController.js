@@ -49,7 +49,7 @@ class EnvironmentController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const { user_id } = req.body;
+    const { user_id, name } = req.body;
 
     if (user_id) {
       const userExists = await User.findByPk(user_id);
@@ -59,7 +59,13 @@ class EnvironmentController {
       }
     }
 
-    const { id, name, company_id } = await Environment.create(req.body);
+    const nameExist = await Environment.findOne({ where: { name } });
+
+    if (nameExist) {
+      return res.status(400).json({ error: 'Environment already exist' });
+    }
+
+    const { id, company_id } = await Environment.create(req.body);
 
     return res.json({ id, name, company_id, user_id });
   }
