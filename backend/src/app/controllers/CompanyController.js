@@ -9,7 +9,16 @@ class CompanyController {
 
     const company = await Company.findOne({
       where: { id: company_id },
-      attributes: ['name', 'cnpj', 'email'],
+      attributes: [
+        'name',
+        'cnpj',
+        'email',
+        'cep',
+        'address',
+        'district',
+        'city',
+        'state',
+      ],
     });
 
     if (!company) {
