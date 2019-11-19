@@ -32,7 +32,7 @@ export default function Header() {
           <Link to="/environments" onClick={handleTogleVisible}>
             AMBIENTES
           </Link>
-          <Link to="/dashboard" onClick={handleTogleVisible}>
+          <Link to="/heritages" onClick={handleTogleVisible}>
             PATRIMÔNIOS
           </Link>
           <Link to="/users" onClick={handleTogleVisible}>

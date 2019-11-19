@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import Heritage from '../models/Heritage';
+import Enviroment from '../models/Environment';
 
 class HeritageController {
   async index(req, res) {
@@ -17,6 +18,13 @@ class HeritageController {
         'environment_id',
       ],
       order: ['name'],
+      include: [
+        {
+          model: Enviroment,
+          as: 'environment',
+          attributes: ['id', 'name'],
+        },
+      ],
     });
 
     return res.json(heritage);
@@ -70,7 +78,7 @@ class HeritageController {
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
-      description: Yup.string().required(),
+      description: Yup.string(),
     });
 
     if (!(await schema.isValid(req.body))) {

@@ -10,6 +10,7 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
+  MdInfo,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -18,33 +19,33 @@ import Top from '~/components/Top';
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
 
-export default function Environment() {
-  const [environments, setEnvironments] = useState([]);
+export default function Heritage() {
+  const [heritages, setHeritages] = useState([]);
   const [edit, setEdit] = useState([]);
+  const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
 
   const profile = useSelector(state => state.user.profile);
 
-  function handleShowEdit(environment) {
-    setEdit(environment);
+  function handleShowEdit(heritage) {
+    setEdit(heritage);
     setShowEdit(true);
   }
 
-  async function loadEnvironments() {
-    if (profile.user_level === 1) {
-      const response = await api.get(`${profile.company_id}/environments`);
+  function handleShowInfo(heritage) {
+    setEdit(heritage);
+    setShowInfo(true);
+  }
 
-      setEnvironments(response.data);
-    } else {
-      const response = await api.get('/environments');
+  async function loadHeritages() {
+    const response = await api.get(`${profile.company_id}/heritages`);
 
-      setEnvironments(response.data);
-    }
+    setHeritages(response.data);
   }
 
   useEffect(() => {
-    loadEnvironments();
+    loadHeritages();
   }, []); //eslint-disable-line
 
   function handleDelete(id) {
@@ -58,36 +59,36 @@ export default function Environment() {
         confirmButtonText: 'Yes, delete it!',
       }).then(result => {
         if (result.value) {
-          api.delete(`environments/${id}`);
-          toast.success('Environment successfully deleted');
+          api.delete(`heritages/${id}`);
+          toast.success('Heritage successfully deleted');
         }
       });
     } catch (err) {
       toast.error(err.response.data.error);
     }
   }
-  async function handleEdit({ id, name, ...rest }) {
-    const { email } = rest.user;
-
+  async function handleEdit({ id, name, description, ...rest }) {
+    console.tron.log(rest.environment.name);
     try {
-      if (email) {
+      if (rest.environment.name) {
         const response = await api.get(
-          `${profile.company_id}/managers/${email}`
+          `${profile.company_id}/environments/${rest.environment.name}`
         );
-
-        await api.put(`environments/${id}`, {
+        await api.put(`heritages/${id}`, {
           name,
-          user_id: response.data.id,
+          description,
+          environment_id: response.data.id,
         });
 
-        toast.success('Environment updated successfully');
+        toast.success('Heritage updated successfully');
         setShowEdit(false);
       } else {
-        await api.put(`environments/${id}`, {
+        await api.put(`heritages/${id}`, {
           name,
+          description,
         });
 
-        toast.success('Environment updated successfully');
+        toast.success('Heritage updated successfully');
         setShowEdit(false);
       }
     } catch (err) {
@@ -95,28 +96,29 @@ export default function Environment() {
     }
   }
 
-  async function handleAdd({ name, email }) {
+  async function handleAdd({ environment_name, name, description, code }) {
     try {
-      if (email) {
+      if (environment_name) {
         const response = await api.get(
-          `${profile.company_id}/managers/${email}`
+          `${profile.company_id}/environments/${environment_name}`
         );
-
-        await api.post('environments', {
+        await api.post('heritages', {
           name,
-          user_id: response.data.id,
+          description,
+          code,
           company_id: profile.company_id,
+          environment_id: response.data.id,
         });
-
-        toast.success('Environment successfully added');
+        toast.success('Heritage successfully added');
         setShowAdd(false);
       } else {
-        await api.post('environments', {
+        await api.post('heritages', {
           name,
+          description,
+          code,
           company_id: profile.company_id,
         });
-
-        toast.success('Environment successfully added');
+        toast.success('Heritage successfully added');
         setShowAdd(false);
       }
     } catch (err) {
@@ -126,7 +128,7 @@ export default function Environment() {
   return (
     <>
       <Container>
-        <Top title="Ambientes" subtitle="Gerenciamento de ambientes" />
+        <Top title="Patrimônios" subtitle="Gerenciamento de patrimônios" />
 
         <Search>
           <div>
@@ -145,34 +147,44 @@ export default function Environment() {
         </Search>
 
         <ul>
-          {environments.map(environment => (
-            <li key={environment.id}>
+          {heritages.map(heritage => (
+            <li key={heritage.id}>
               <Link to="dashboard">
-                <strong>{environment.name}</strong>
+                <strong>{heritage.code}</strong>
                 <span>
-                  {(environment.user && environment.user.email) || ''}
+                  {(heritage.environment && heritage.environment.name) || ''}
                 </span>
               </Link>
 
               <div>
                 {profile.user_level === 1 ? (
                   <>
-                    {' '}
                     <button
                       type="button"
-                      onClick={() => handleShowEdit(environment)}
+                      onClick={() => handleShowInfo(heritage)}
+                    >
+                      <MdInfo size={22} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleShowEdit(heritage)}
                     >
                       <MdCached size={22} />
                     </button>
                     <button
                       type="button"
-                      onClick={() => handleDelete(environment.id)}
+                      onClick={() => handleDelete(heritage.id)}
                     >
                       <MdDeleteForever size={22} />
                     </button>
                   </>
                 ) : (
-                  ''
+                  <button
+                    type="button"
+                    onClick={() => handleShowInfo(heritage)}
+                  >
+                    <MdInfo size={22} />
+                  </button>
                 )}
               </div>
             </li>
@@ -180,9 +192,35 @@ export default function Environment() {
         </ul>
       </Container>
 
+      <Modals show={showInfo} onHide={() => setShowInfo(false)} animation>
+        <Modals.Header>
+          <h4>Informações do usuário</h4>
+          <button type="button" onClick={() => setShowInfo(false)}>
+            x
+          </button>
+        </Modals.Header>
+        <Modals.Body>
+          <Form initialData={edit} onSubmit={handleEdit}>
+            <Input name="id" type="hidden" />
+            <Input name="name" placeholder="Nome do patrimônio" readOnly />
+            <Input
+              name="description"
+              placeholder="Descrição do patrimônio"
+              readOnly
+            />
+            <Input
+              name="environment.name"
+              placeholder="Não possui ambiente"
+              readOnly
+            />
+            <Input name="code" placeholder="Código do patrimônio" readOnly />
+          </Form>
+        </Modals.Body>
+      </Modals>
+
       <Modals show={showEdit} onHide={() => setShowEdit(false)} animation>
         <Modals.Header>
-          <h4>Editar ambiente</h4>
+          <h4>Editar patrimônio</h4>
           <button type="button" onClick={() => setShowEdit(false)}>
             x
           </button>
@@ -190,8 +228,10 @@ export default function Environment() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" placeholder="Nome do ambiente" />
-            <Input name="user.email" placeholder="Email do gerenciador" />
+            <Input name="name" placeholder="Nome do patrimônio" />
+            <Input name="description" placeholder="Descrição do patrimônio" />
+            <Input name="environment.name" placeholder="Nome do ambiente" />
+            <Input name="code" placeholder="Código do patrimônio" readOnly />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -202,15 +242,17 @@ export default function Environment() {
 
       <Modals show={showAdd} onHide={() => setShowAdd(false)} animation>
         <Modals.Header>
-          <h4>Adicionar ambiente</h4>
+          <h4>Adicionar patrimônio</h4>
           <button type="button" onClick={() => setShowAdd(false)}>
             x
           </button>
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd}>
-            <Input name="name" placeholder="Nome do ambiente" />
-            <Input name="email" placeholder="Email do gerenciador" />
+            <Input name="name" placeholder="Nome do patrimônio" />
+            <Input name="description" placeholder="Descrição" />
+            <Input name="code" placeholder="Código do patrimônio" />
+            <Input name="environment_name" placeholder="Nome do ambiente" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
