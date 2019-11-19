@@ -32,7 +32,7 @@ export const Container = styled.div`
       color: #333;
       border: 1px solid ${colors.details};
 
-      a {
+      div {
         display: flex;
         flex-direction: column;
         padding: 0 15px;

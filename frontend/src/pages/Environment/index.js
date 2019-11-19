@@ -147,7 +147,7 @@ export default function Environment() {
         <ul>
           {environments.map(environment => (
             <li key={environment.id}>
-              <Link to="dashboard">
+              <Link to="/dashboard">
                 <strong>{environment.name}</strong>
                 <span>
                   {(environment.user && environment.user.email) || ''}

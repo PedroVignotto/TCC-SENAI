@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Input, Form } from '@rocketseat/unform';
@@ -149,12 +148,12 @@ export default function Heritage() {
         <ul>
           {heritages.map(heritage => (
             <li key={heritage.id}>
-              <Link to="dashboard">
+              <div>
                 <strong>{heritage.code}</strong>
                 <span>
                   {(heritage.environment && heritage.environment.name) || ''}
                 </span>
-              </Link>
+              </div>
 
               <div>
                 {profile.user_level === 1 ? (
@@ -183,7 +182,7 @@ export default function Heritage() {
                     type="button"
                     onClick={() => handleShowInfo(heritage)}
                   >
-                    <MdInfo size={22} />
+                    <MdInfo size={22} color="#2a7ae4" />
                   </button>
                 )}
               </div>
@@ -194,7 +193,7 @@ export default function Heritage() {
 
       <Modals show={showInfo} onHide={() => setShowInfo(false)} animation>
         <Modals.Header>
-          <h4>Informações do usuário</h4>
+          <h4>Informações do patrimônio</h4>
           <button type="button" onClick={() => setShowInfo(false)}>
             x
           </button>
