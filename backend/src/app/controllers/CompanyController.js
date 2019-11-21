@@ -60,9 +60,27 @@ class CompanyController {
       return res.status(400).json({ error: 'Company already exists' });
     }
 
-    const { id, name } = await Company.create(req.body);
+    const {
+      id,
+      name,
+      cep,
+      address,
+      district,
+      city,
+      state,
+    } = await Company.create(req.body);
 
-    return res.json({ id, name, email, cnpj });
+    return res.json({
+      id,
+      name,
+      email,
+      cnpj,
+      cep,
+      address,
+      district,
+      city,
+      state,
+    });
   }
 
   async update(req, res) {
