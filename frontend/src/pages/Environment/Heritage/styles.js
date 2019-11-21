@@ -32,12 +32,10 @@ export const Container = styled.div`
       color: #333;
       border: 1px solid ${colors.details};
 
-      button {
+      div {
         display: flex;
         flex-direction: column;
-        padding: 0 0 0 15px;
-        border: 0;
-        background: none;
+        padding: 0 15px;
 
         strong {
           font-weight: 500;
@@ -62,9 +60,13 @@ export const Container = styled.div`
         button {
           border: 0;
           background: 0;
-          color: ${colors.primary};
+          color: ${colors.secondary};
 
           + button {
+            color: ${colors.primary};
+          }
+
+          :last-of-type {
             color: ${colors.red};
           }
         }

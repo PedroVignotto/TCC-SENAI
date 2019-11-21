@@ -27,12 +27,14 @@ const schema = Yup.object().shape({
   environment_name: Yup.string(),
 });
 
-export default function Heritage() {
+export default function Heritage({ match }) {
   const [heritages, setHeritages] = useState([]);
   const [edit, setEdit] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+
+  const { environment_id } = match.params;
 
   const profile = useSelector(state => state.user.profile);
 
@@ -47,7 +49,9 @@ export default function Heritage() {
   }
 
   async function loadHeritages() {
-    const response = await api.get(`${profile.company_id}/heritages`);
+    const response = await api.get(
+      `${profile.company_id}/environments/${environment_id}/heritages`
+    );
 
     setHeritages(response.data);
   }
@@ -136,7 +140,10 @@ export default function Heritage() {
   return (
     <>
       <Container>
-        <Top title="Patrimônios" subtitle="Gerenciamento de patrimônios" />
+        <Top
+          title="Patrimônios"
+          subtitle="Gerenciamento de patrimônios do ambiente"
+        />
 
         <Search>
           <div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import { Form } from '@rocketseat/unform';
@@ -14,6 +13,7 @@ import {
 } from 'react-icons/md';
 
 import api from '~/services/api';
+import history from '~/services/history';
 import Top from '~/components/Top';
 import Input from '~/components/Input';
 
@@ -154,12 +154,15 @@ export default function Environment() {
         <ul>
           {environments.map(environment => (
             <li key={environment.id}>
-              <Link to="/dashboard">
+              <button
+                type="button"
+                onClick={() => history.push(`/${environment.id}/heritages`)}
+              >
                 <strong>{environment.name}</strong>
                 <span>
                   {(environment.user && environment.user.email) || ''}
                 </span>
-              </Link>
+              </button>
 
               <div>
                 {profile.user_level === 1 ? (

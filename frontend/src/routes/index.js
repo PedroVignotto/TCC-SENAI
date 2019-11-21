@@ -7,6 +7,7 @@ import SignUp from '~/pages/SignUp';
 
 import Dashboard from '~/pages/Dashboard';
 import Environment from '~/pages/Environment';
+import EnvironmentHeritage from '~/pages/Environment/Heritage';
 import Profile from '~/pages/Profile';
 import User from '~/pages/User';
 import Company from '~/pages/Company';
@@ -23,6 +24,11 @@ export default function Routes() {
       <Route path="/users" component={User} isPrivate />
       <Route path="/company" component={Company} isPrivate />
       <Route path="/heritages" component={Heritage} isPrivate />
+      <Route
+        path="/:environment_id/heritages"
+        component={EnvironmentHeritage}
+        isPrivate
+      />
       <Route path="/profile" component={Profile} isPrivate />
     </Switch>
   );

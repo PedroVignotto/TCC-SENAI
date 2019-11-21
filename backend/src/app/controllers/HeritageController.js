@@ -43,6 +43,13 @@ class HeritageController {
         'company_id',
         'environment_id',
       ],
+      include: [
+        {
+          model: Environment,
+          as: 'environment',
+          attributes: ['id', 'name'],
+        },
+      ],
     });
 
     if (!heritage) {
@@ -57,6 +64,13 @@ class HeritageController {
 
     const heritage = await Heritage.findOne({
       where: { company_id, id },
+      include: [
+        {
+          model: Environment,
+          as: 'environment',
+          attributes: ['id', 'name'],
+        },
+      ],
     });
 
     if (!heritage) {
