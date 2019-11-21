@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Input, Form } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
+import * as Yup from 'yup';
 import {
   MdDeleteForever,
   MdCached,
@@ -14,9 +15,15 @@ import {
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Input from '~/components/Input';
 
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
+
+const schema = Yup.object().shape({
+  email: Yup.string().email('Invalid e-mail address'),
+  name: Yup.string().required('Name is required'),
+});
 
 export default function Environment() {
   const [environments, setEnvironments] = useState([]);
@@ -190,8 +197,12 @@ export default function Environment() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" placeholder="Nome do ambiente" />
-            <Input name="user.email" placeholder="Email do gerenciador" />
+            <Input label="Nome do ambiente" name="name" />
+            <Input
+              label="Email do gerenciador"
+              type="email"
+              name="user.email"
+            />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -208,9 +219,9 @@ export default function Environment() {
           </button>
         </Modals.Header>
         <Modals.Body>
-          <Form onSubmit={handleAdd}>
-            <Input name="name" placeholder="Nome do ambiente" />
-            <Input name="email" placeholder="Email do gerenciador" />
+          <Form onSubmit={handleAdd} schema={schema}>
+            <Input label="Nome do ambiente" name="name" />
+            <Input label="Email do gerenciador" type="email" name="email" />
             <button type="submit">
               <MdSave size={22} />
               Salvar

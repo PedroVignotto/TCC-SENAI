@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
+import Input from '~/components/Input';
 import { signUpRequest } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/logo.svg';
@@ -30,12 +31,12 @@ export default function SignUp() {
       <img src={logo} alt="GoBarber" />
 
       <Form schema={schema} onSubmit={handleSubmit}>
-        <Input name="name" placeholder="Seu nome completo" />
-        <Input name="email" placeholder="Seu e-mail" />
-        <Input name="password" type="password" placeholder="Sua senha" />
+        <Input placeholder="Seu nome completo" name="name" />
+        <Input placeholder="Seu email" name="email" />
+        <Input placeholder="Sua senha" name="password" type="password" />
 
         <button type="submit">Criar conta</button>
-        <Link to="/">Já tenho login</Link>
+        <Link to="/">Já tenho conta</Link>
       </Form>
     </>
   );

@@ -129,22 +129,7 @@ export const Modals = styled(Modal)`
   }
 
   form {
-    padding: 16px 32px;
-
-    input {
-      background: none;
-      border: 1px solid ${colors.secondary};
-      border-radius: 4px;
-      width: 100%;
-      height: 32px;
-      padding: 0 15px;
-      color: ${colors.secondary};
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: ${colors.secondary};
-      }
-    }
+    padding: 0 32px;
 
     button {
       display: flex;

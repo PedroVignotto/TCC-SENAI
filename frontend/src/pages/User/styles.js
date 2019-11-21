@@ -136,8 +136,12 @@ export const Modals = styled(Modal)`
     }
   }
 
+  label {
+    width: 100%;
+  }
+
   form {
-    padding: 16px 32px;
+    padding: 0 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;

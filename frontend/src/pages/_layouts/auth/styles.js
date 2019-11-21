@@ -23,28 +23,8 @@ export const Content = styled.div`
   form {
     display: flex;
     flex-direction: column;
+    text-align: start;
     margin-top: 30px;
-
-    input {
-      background: none;
-      border: 1px solid ${colors.secondary};
-      border-radius: 4px;
-      height: 44px;
-      padding: 0 15px;
-      color: ${colors.secondary};
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: ${colors.secondary};
-      }
-    }
-
-    span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
-      font-weight: bold;
-    }
 
     button {
       margin: 5px 0 0;
@@ -62,6 +42,7 @@ export const Content = styled.div`
     }
 
     a {
+      align-self: center;
       color: ${darken(0.03, colors.secondary)};
       margin-top: 15px;
       font-size: 16px;

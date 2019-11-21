@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Form, Input } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import { MdSave } from 'react-icons/md';
 
 import api from '~/services/api';
 
 import Top from '~/components/Top';
+import Input from '~/components/Input';
 
 import { Container } from './styles';
 
@@ -53,19 +54,19 @@ export default function Profile() {
       <Top title="Empresa" subtitle="Gerenciamento de dados da empresa" />
 
       <Form initialData={company} onSubmit={handleSubmit}>
-        <Input name="name" placeholder="Nome" />
-        <Input name="email" placeholder="Email" />
+        <Input name="name" label="Nome" />
+        <Input name="email" label="Email" />
         <div>
-          <Input name="cnpj" placeholder="CNPJ" />
-          <Input name="cep" placeholder="Cep" />
+          <Input name="cnpj" label="CNPJ" />
+          <Input name="cep" label="Cep" />
         </div>
         <div>
-          <Input name="address" placeholder="Endereço" />
-          <Input name="district" placeholder="Bairro" />
+          <Input name="address" label="Endereço" />
+          <Input name="district" label="Bairro" />
         </div>
         <div>
-          <Input name="city" placeholder="Cidade" />
-          <Input name="state" placeholder="Estado" />
+          <Input name="city" label="Cidade" />
+          <Input name="state" label="Estado" />
         </div>
 
         <button type="submit">

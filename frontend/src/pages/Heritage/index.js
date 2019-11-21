@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Input, Form } from '@rocketseat/unform';
+import { Form } from '@rocketseat/unform';
+import * as Yup from 'yup';
 import {
   MdDeleteForever,
   MdCached,
@@ -14,9 +15,17 @@ import {
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Input from '~/components/Input';
 
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Name is required'),
+  description: Yup.string(),
+  code: Yup.string().required('Code is required'),
+  environment_name: Yup.string(),
+});
 
 export default function Heritage() {
   const [heritages, setHeritages] = useState([]);
@@ -201,18 +210,10 @@ export default function Heritage() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" placeholder="Nome do patrimônio" readOnly />
-            <Input
-              name="description"
-              placeholder="Descrição do patrimônio"
-              readOnly
-            />
-            <Input
-              name="environment.name"
-              placeholder="Não possui ambiente"
-              readOnly
-            />
-            <Input name="code" placeholder="Código do patrimônio" readOnly />
+            <Input label="Código" name="code" readOnly />
+            <Input label="Nome" name="name" readOnly />
+            <Input label="Descrição" name="description" readOnly />
+            <Input label="Ambiente" name="environment.name" readOnly />
           </Form>
         </Modals.Body>
       </Modals>
@@ -227,10 +228,10 @@ export default function Heritage() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <Input name="id" type="hidden" />
-            <Input name="name" placeholder="Nome do patrimônio" />
-            <Input name="description" placeholder="Descrição do patrimônio" />
-            <Input name="environment.name" placeholder="Nome do ambiente" />
-            <Input name="code" placeholder="Código do patrimônio" readOnly />
+            <Input label="Código" name="code" readOnly />
+            <Input label="Nome" name="name" />
+            <Input label="Descrição" name="description" />
+            <Input label="Ambientte" name="environment.name" />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -247,11 +248,11 @@ export default function Heritage() {
           </button>
         </Modals.Header>
         <Modals.Body>
-          <Form onSubmit={handleAdd}>
-            <Input name="name" placeholder="Nome do patrimônio" />
-            <Input name="description" placeholder="Descrição" />
-            <Input name="code" placeholder="Código do patrimônio" />
-            <Input name="environment_name" placeholder="Nome do ambiente" />
+          <Form onSubmit={handleAdd} schema={schema}>
+            <Input label="Nome" name="name" />
+            <Input label="Descrição" name="description" />
+            <Input label="Código" name="code" />
+            <Input label="Ambiente" name="environment_name" />
             <button type="submit">
               <MdSave size={22} />
               Salvar

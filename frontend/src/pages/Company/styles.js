@@ -17,23 +17,12 @@ export const Container = styled.div`
       display: flex;
       flex-direction: row;
 
-      input:first-of-type {
-        margin-right: 10px;
-      }
-    }
+      label {
+        width: 100%;
 
-    input {
-      background: none;
-      border: 1px solid ${colors.secondary};
-      border-radius: 4px;
-      height: 44px;
-      width: 100%;
-      padding: 0 15px;
-      color: ${colors.secondary};
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: ${colors.secondary};
+        :first-of-type {
+          margin-right: 10px;
+        }
       }
     }
 

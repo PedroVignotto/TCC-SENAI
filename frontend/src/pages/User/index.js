@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
-import { Input, Form, Select } from '@rocketseat/unform';
+import { Form, Select } from '@rocketseat/unform';
 import {
   MdDeleteForever,
   MdCached,
@@ -14,6 +14,7 @@ import {
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Input from '~/components/Input';
 
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
@@ -219,7 +220,7 @@ export default function User() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd}>
-            <Input name="email" placeholder="Email" required />
+            <Input name="email" placeholder="Email" type="email" required />
             <Select
               name="user_level"
               options={options}
