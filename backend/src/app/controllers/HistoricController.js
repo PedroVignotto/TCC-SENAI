@@ -1,4 +1,6 @@
 import Historic from '../models/Historic';
+import Environment from '../models/Environment';
+import Heritage from '../models/Heritage';
 
 class HistoricController {
   async index(req, res) {
@@ -13,6 +15,18 @@ class HistoricController {
         'heritage_id',
         'company_id',
         'environment_id',
+      ],
+      include: [
+        {
+          model: Environment,
+          as: 'environment',
+          attributes: ['id', 'name'],
+        },
+        {
+          model: Heritage,
+          as: 'heritage',
+          attributes: ['id', 'code'],
+        },
       ],
     });
 
