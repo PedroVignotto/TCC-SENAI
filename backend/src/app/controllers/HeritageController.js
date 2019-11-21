@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 import Heritage from '../models/Heritage';
-import Enviroment from '../models/Environment';
+import Environment from '../models/Environment';
 
 class HeritageController {
   async index(req, res) {
@@ -20,7 +20,7 @@ class HeritageController {
       order: ['name'],
       include: [
         {
-          model: Enviroment,
+          model: Environment,
           as: 'environment',
           attributes: ['id', 'name'],
         },

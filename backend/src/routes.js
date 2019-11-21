@@ -8,6 +8,7 @@ import FileController from './app/controllers/FileController';
 import CompanyController from './app/controllers/CompanyController';
 import EnvironmentController from './app/controllers/EnvironmentController';
 import HeritageController from './app/controllers/HeritageController';
+import HistoricController from './app/controllers/HistoricController';
 
 import authMiddleware from './app/middlewares/auth';
 
@@ -46,6 +47,8 @@ routes.get('/:company_id/heritages/:id', HeritageController.show);
 routes.post('/heritages', HeritageController.store);
 routes.put('/heritages/:id', HeritageController.update);
 routes.delete('/heritages/:id', HeritageController.delete);
+
+routes.get('/:id/historical', HistoricController.index);
 
 routes.post('/files', upload.single('file'), FileController.store);
 

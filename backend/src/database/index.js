@@ -5,10 +5,11 @@ import File from '../app/models/File';
 import Company from '../app/models/Company';
 import Environment from '../app/models/Environment';
 import Heritage from '../app/models/Heritage';
+import Historic from '../app/models/Historic';
 
 import databaseConfig from '../config/database';
 
-const models = [User, File, Company, Environment, Heritage];
+const models = [User, File, Company, Environment, Heritage, Historic];
 
 class Database {
   constructor() {
