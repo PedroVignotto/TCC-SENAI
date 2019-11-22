@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Environment from '../models/Environment';
 import User from '../models/User';
@@ -6,9 +7,14 @@ import User from '../models/User';
 class EnvironmentController {
   async index(req, res) {
     const { company_id } = req.params;
+    const { q = null } = req.query;
+
+    const where = q
+      ? { company_id, name: { [Op.like]: `%${q}%` } }
+      : { company_id };
 
     const environment = await Environment.findAll({
-      where: { company_id },
+      where,
       attributes: ['id', 'name', 'user_id', 'company_id'],
       order: ['name'],
       include: [
@@ -24,8 +30,14 @@ class EnvironmentController {
   }
 
   async show(req, res) {
+    const { q = null } = req.query;
+
+    const where = q
+      ? { user_id: req.userId, name: { [Op.like]: `%${q}%` } }
+      : { user_id: req.userId };
+
     const environment = await Environment.findAll({
-      where: { user_id: req.userId },
+      where,
       attributes: ['id', 'name', 'user_id', 'company_id'],
       order: ['name'],
       include: [
@@ -36,20 +48,6 @@ class EnvironmentController {
         },
       ],
     });
-
-    return res.json(environment);
-  }
-
-  async findOne(req, res) {
-    const { company_id, name } = req.params;
-
-    const environment = await Environment.findOne({
-      where: { company_id, name },
-    });
-
-    if (!environment) {
-      return res.status(400).json({ error: 'Environment does not exist' });
-    }
 
     return res.json(environment);
   }

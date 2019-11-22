@@ -25,6 +25,7 @@ export default function User() {
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [search, setSearch] = useState('');
 
   const options = [
     { id: 1, title: 'Administrador' },
@@ -44,13 +45,15 @@ export default function User() {
     setShowInfo(true);
   }
 
+  async function loadUsers() {
+    const response = await api.get(`${profile.company_id}/users`, {
+      params: { q: search },
+    });
+
+    setUsers(response.data);
+  }
+
   useEffect(() => {
-    async function loadUsers() {
-      const response = await api.get(`${profile.company_id}/users`);
-
-      setUsers(response.data);
-    }
-
     loadUsers();
   }, []); //eslint-disable-line
 
@@ -80,8 +83,6 @@ export default function User() {
   }
 
   async function handleEdit({ user_level, id }) {
-    console.tron.log(user_level, id);
-
     try {
       await api.put(`users/${id}`, {
         user_level,
@@ -109,6 +110,7 @@ export default function User() {
       toast.error(err.response.data.error);
     }
   }
+
   return (
     <>
       <Container>
@@ -119,8 +121,14 @@ export default function User() {
 
         <Search>
           <div>
-            <input type="text" placeholder="PESQUISAR" />
-            <button type="button">
+            <input
+              type="text"
+              placeholder="PESQUISAR"
+              autoComplete="off"
+              onKeyDown={event => event.key === 'Enter' && loadUsers()}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button type="button" onClick={() => loadUsers()}>
               <MdSearch size={28} />
             </button>
           </div>

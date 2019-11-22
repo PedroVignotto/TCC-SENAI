@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 
 import Heritage from '../models/Heritage';
 import Environment from '../models/Environment';
@@ -6,9 +7,14 @@ import Environment from '../models/Environment';
 class HeritageController {
   async index(req, res) {
     const { company_id } = req.params;
+    const { q = null } = req.query;
+
+    const where = q
+      ? { company_id, code: { [Op.like]: `%${q}%` } }
+      : { company_id };
 
     const heritage = await Heritage.findAll({
-      where: { company_id },
+      where,
       attributes: [
         'id',
         'name',
@@ -30,11 +36,16 @@ class HeritageController {
     return res.json(heritage);
   }
 
-  async list(req, res) {
+  async show(req, res) {
     const { company_id, environment_id } = req.params;
+    const { q = null } = req.query;
+
+    const where = q
+      ? { company_id, environment_id, code: { [Op.like]: `%${q}%` } }
+      : { company_id, environment_id };
 
     const heritage = await Heritage.findAll({
-      where: { company_id, environment_id },
+      where,
       attributes: [
         'id',
         'name',
@@ -57,36 +68,6 @@ class HeritageController {
     }
 
     return res.json(heritage);
-  }
-
-  async show(req, res) {
-    const { company_id, id } = req.params;
-
-    const heritage = await Heritage.findOne({
-      where: { company_id, id },
-      include: [
-        {
-          model: Environment,
-          as: 'environment',
-          attributes: ['id', 'name'],
-        },
-      ],
-    });
-
-    if (!heritage) {
-      return res.status(400).json({ error: 'Heritage does not exist' });
-    }
-
-    const { name, description, code, environment_id } = heritage;
-
-    return res.json({
-      id,
-      name,
-      description,
-      code,
-      company_id,
-      environment_id,
-    });
   }
 
   async store(req, res) {

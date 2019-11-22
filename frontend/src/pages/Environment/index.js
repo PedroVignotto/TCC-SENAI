@@ -30,6 +30,7 @@ export default function Environment() {
   const [edit, setEdit] = useState([]);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [search, setSearch] = useState('');
 
   const profile = useSelector(state => state.user.profile);
 
@@ -40,11 +41,15 @@ export default function Environment() {
 
   async function loadEnvironments() {
     if (profile.user_level === 1) {
-      const response = await api.get(`${profile.company_id}/environments`);
+      const response = await api.get(`${profile.company_id}/environments`, {
+        params: { q: search },
+      });
 
       setEnvironments(response.data);
     } else {
-      const response = await api.get('/environments');
+      const response = await api.get('/environments', {
+        params: { q: search },
+      });
 
       setEnvironments(response.data);
     }
@@ -143,8 +148,14 @@ export default function Environment() {
 
         <Search>
           <div>
-            <input type="text" placeholder="PESQUISAR" />
-            <button type="button">
+            <input
+              type="text"
+              placeholder="PESQUISAR"
+              autoComplete="off"
+              onKeyDown={event => event.key === 'Enter' && loadEnvironments()}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button type="button" onClick={() => loadEnvironments()}>
               <MdSearch size={28} />
             </button>
           </div>

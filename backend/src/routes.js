@@ -32,7 +32,6 @@ routes.put('/companies/:id', CompanyController.update);
 
 routes.get('/:company_id/environments/', EnvironmentController.index);
 routes.get('/environments', EnvironmentController.show);
-routes.get('/:company_id/environments/:name', EnvironmentController.findOne);
 routes.post('/environments', EnvironmentController.store);
 routes.put('/environments/:id', EnvironmentController.update);
 routes.delete('/environments/:id', EnvironmentController.delete);
@@ -40,9 +39,8 @@ routes.delete('/environments/:id', EnvironmentController.delete);
 routes.get('/:company_id/heritages', HeritageController.index);
 routes.get(
   '/:company_id/environments/:environment_id/heritages',
-  HeritageController.list
+  HeritageController.show
 );
-routes.get('/:company_id/heritages/:id', HeritageController.show);
 routes.post('/heritages', HeritageController.store);
 routes.put('/heritages/:id', HeritageController.update);
 routes.delete('/heritages/:id', HeritageController.delete);

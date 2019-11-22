@@ -33,6 +33,7 @@ export default function Heritage() {
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
+  const [search, setSearch] = useState('');
 
   const profile = useSelector(state => state.user.profile);
 
@@ -47,7 +48,9 @@ export default function Heritage() {
   }
 
   async function loadHeritages() {
-    const response = await api.get(`${profile.company_id}/heritages`);
+    const response = await api.get(`${profile.company_id}/heritages`, {
+      params: { q: search },
+    });
 
     setHeritages(response.data);
   }
@@ -78,7 +81,6 @@ export default function Heritage() {
     }
   }
   async function handleEdit({ id, name, description, ...rest }) {
-    console.tron.log(rest.environment.name);
     try {
       if (rest.environment.name) {
         const response = await api.get(
@@ -147,8 +149,14 @@ export default function Heritage() {
 
         <Search>
           <div>
-            <input type="text" placeholder="PESQUISAR" />
-            <button type="button">
+            <input
+              type="text"
+              placeholder="PESQUISAR"
+              autoComplete="off"
+              onKeyDown={event => event.key === 'Enter' && loadHeritages()}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button type="button" onClick={() => loadHeritages()}>
               <MdSearch size={28} />
             </button>
           </div>

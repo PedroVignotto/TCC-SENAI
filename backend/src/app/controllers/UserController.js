@@ -1,13 +1,19 @@
 import * as Yup from 'yup';
+import { Op } from 'sequelize';
 import User from '../models/User';
 import File from '../models/File';
 
 class UserController {
   async index(req, res) {
     const { company_id } = req.params;
+    const { q = null } = req.query;
+
+    const where = q
+      ? { company_id, name: { [Op.like]: `%${q}%` } }
+      : { company_id };
 
     const heritage = await User.findAll({
-      where: { company_id },
+      where,
       attributes: ['id', 'name', 'email', 'user_level', 'company_id'],
       order: ['name'],
       include: [
