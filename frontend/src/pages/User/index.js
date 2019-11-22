@@ -65,8 +65,13 @@ export default function User() {
         confirmButtonText: 'Yes, delete it!',
       }).then(result => {
         if (result.value) {
-          api.delete(`users/${id}`);
-          toast.success('User successfully deleted');
+          api.put(`users/${id}`, {
+            user_level: null,
+            company_id: null,
+          });
+
+          setUsers(users.filter(user => user.id !== id));
+          toast.success('User successfully deleted from company');
         }
       });
     } catch (err) {
@@ -91,10 +96,12 @@ export default function User() {
 
   async function handleAdd({ user_level, email }) {
     try {
-      await api.put(`company/users/${email}`, {
+      const response = await api.put(`company/users/${email}`, {
         user_level,
         company_id: profile.company_id,
       });
+
+      setUsers([...users, response.data]);
 
       toast.success('User successfully added');
       setShowAdd(false);

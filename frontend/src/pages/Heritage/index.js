@@ -68,6 +68,8 @@ export default function Heritage() {
       }).then(result => {
         if (result.value) {
           api.delete(`heritages/${id}`);
+
+          setHeritages(heritages.filter(heritage => heritage.id !== id));
           toast.success('Heritage successfully deleted');
         }
       });
@@ -107,25 +109,30 @@ export default function Heritage() {
   async function handleAdd({ environment_name, name, description, code }) {
     try {
       if (environment_name) {
-        const response = await api.get(
+        const select = await api.get(
           `${profile.company_id}/environments/${environment_name}`
         );
-        await api.post('heritages', {
+
+        const response = await api.post('heritages', {
           name,
           description,
           code,
           company_id: profile.company_id,
-          environment_id: response.data.id,
+          environment_id: select.data.id,
         });
+
+        setHeritages([...heritages, response.data]);
         toast.success('Heritage successfully added');
         setShowAdd(false);
       } else {
-        await api.post('heritages', {
+        const response = await api.post('heritages', {
           name,
           description,
           code,
           company_id: profile.company_id,
         });
+
+        setHeritages([...heritages, response.data]);
         toast.success('Heritage successfully added');
         setShowAdd(false);
       }

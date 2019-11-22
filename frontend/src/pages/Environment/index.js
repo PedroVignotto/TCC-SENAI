@@ -66,6 +66,10 @@ export default function Environment() {
       }).then(result => {
         if (result.value) {
           api.delete(`environments/${id}`);
+
+          setEnvironments(
+            environments.filter(environment => environment.id !== id)
+          );
           toast.success('Environment successfully deleted');
         }
       });
@@ -105,23 +109,25 @@ export default function Environment() {
   async function handleAdd({ name, email }) {
     try {
       if (email) {
-        const response = await api.get(
-          `${profile.company_id}/managers/${email}`
-        );
+        const select = await api.get(`${profile.company_id}/managers/${email}`);
 
-        await api.post('environments', {
+        const response = await api.post('environments', {
           name,
-          user_id: response.data.id,
+          user_id: select.data.id,
           company_id: profile.company_id,
         });
+
+        setEnvironments([...environments, response.data]);
 
         toast.success('Environment successfully added');
         setShowAdd(false);
       } else {
-        await api.post('environments', {
+        const response = await api.post('environments', {
           name,
           company_id: profile.company_id,
         });
+
+        setEnvironments([...environments, response.data]);
 
         toast.success('Environment successfully added');
         setShowAdd(false);

@@ -26,7 +26,6 @@ routes.get('/:company_id/managers/:email', UserController.show);
 routes.put('/company/users/:email', UserController.findAndUpdate);
 routes.put('/users', UserController.update);
 routes.put('/users/:id', UserController.edit);
-routes.delete('/users/:id', UserController.delete);
 
 routes.get('/companies/:company_id', CompanyController.show);
 routes.put('/companies/:id', CompanyController.update);

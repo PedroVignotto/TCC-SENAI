@@ -48,8 +48,6 @@ export default function Header() {
           ) : (
             ''
           )}
-
-          <Link to="/dashboard">COMO USAR</Link>
         </nav>
 
         <Profile>
