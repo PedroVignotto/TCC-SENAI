@@ -52,6 +52,20 @@ class EnvironmentController {
     return res.json(environment);
   }
 
+  async findOne(req, res) {
+    const { company_id, name } = req.params;
+
+    const environment = await Environment.findOne({
+      where: { company_id, name },
+    });
+
+    if (!environment) {
+      return res.status(400).json({ error: 'Environment does not exist' });
+    }
+
+    return res.json(environment);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

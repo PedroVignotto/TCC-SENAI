@@ -1,6 +1,4 @@
 import Historic from '../models/Historic';
-import Environment from '../models/Environment';
-import Heritage from '../models/Heritage';
 
 class HistoricController {
   async index(req, res) {
@@ -8,26 +6,7 @@ class HistoricController {
 
     const historic = await Historic.findAll({
       where: { company_id: id },
-      attributes: [
-        'id',
-        'type_historic',
-        'createdAt',
-        'heritage_id',
-        'company_id',
-        'environment_id',
-      ],
-      include: [
-        {
-          model: Environment,
-          as: 'environment',
-          attributes: ['id', 'name'],
-        },
-        {
-          model: Heritage,
-          as: 'heritage',
-          attributes: ['id', 'code'],
-        },
-      ],
+      attributes: ['id', 'message', 'company_id', 'createdAt'],
     });
 
     return res.json(historic);

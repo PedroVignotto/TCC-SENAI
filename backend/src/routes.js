@@ -32,6 +32,7 @@ routes.put('/companies/:id', CompanyController.update);
 
 routes.get('/:company_id/environments/', EnvironmentController.index);
 routes.get('/environments', EnvironmentController.show);
+routes.get('/:company_id/environments/:name', EnvironmentController.findOne);
 routes.post('/environments', EnvironmentController.store);
 routes.put('/environments/:id', EnvironmentController.update);
 routes.delete('/environments/:id', EnvironmentController.delete);

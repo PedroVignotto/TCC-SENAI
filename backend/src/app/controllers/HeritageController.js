@@ -3,6 +3,7 @@ import { Op } from 'sequelize';
 
 import Heritage from '../models/Heritage';
 import Environment from '../models/Environment';
+import Historic from '../models/Historic';
 
 class HeritageController {
   async index(req, res) {
@@ -116,12 +117,31 @@ class HeritageController {
     }
 
     const { id } = req.params;
-    const { name, code, description } = req.body;
+    const { name, code, description, environment_id } = req.body;
 
     const heritage = await Heritage.findByPk(id);
 
     if (code) {
       return res.status(400).json({ error: 'Code cannot be changed' });
+    }
+
+    if (environment_id) {
+      const oldEnvironment = await Environment.findByPk(
+        heritage.environment_id
+      );
+      const newEnvironment = await Environment.findByPk(environment_id);
+
+      if (!oldEnvironment) {
+        await Historic.create({
+          company_id: heritage.company_id,
+          message: `Patrimônio ${heritage.code} movido para o ambiente ${newEnvironment.name}`,
+        });
+      } else {
+        await Historic.create({
+          company_id: heritage.company_id,
+          message: `Patrimônio ${heritage.code} movido do ambiente ${oldEnvironment.name} para ${newEnvironment.name}`,
+        });
+      }
     }
 
     await heritage.update(req.body);

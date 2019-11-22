@@ -155,6 +155,7 @@ export default function Heritage() {
       toast.error(err.response.data.error);
     }
   }
+
   return (
     <>
       <Container>
