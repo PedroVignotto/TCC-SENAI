@@ -11,6 +11,7 @@ import {
   MdSearch,
   MdAddCircleOutline,
   MdInfo,
+  MdBusinessCenter,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -32,6 +33,7 @@ export default function Heritage({ match }) {
   const [edit, setEdit] = useState([]);
   const [showInfo, setShowInfo] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [showMaintenance, setShowMaintenance] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState('');
 
@@ -47,6 +49,11 @@ export default function Heritage({ match }) {
   function handleShowInfo(heritage) {
     setEdit(heritage);
     setShowInfo(true);
+  }
+
+  function handleShowMaintenance(heritage) {
+    setEdit(heritage);
+    setShowMaintenance(true);
   }
 
   async function loadHeritages() {
@@ -111,6 +118,11 @@ export default function Heritage({ match }) {
     } catch (err) {
       toast.error(err.response.data.error);
     }
+  }
+
+  function handleMaintenance() {
+    toast.success('Call information has been sent to your email');
+    setShowMaintenance(false);
   }
 
   async function handleAdd({ environment_name, name, description, code }) {
@@ -194,28 +206,42 @@ export default function Heritage({ match }) {
                       type="button"
                       onClick={() => handleShowInfo(heritage)}
                     >
-                      <MdInfo size={22} />
+                      <MdInfo size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleShowMaintenance(heritage)}
+                    >
+                      <MdBusinessCenter size={20} color="#444" />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleShowEdit(heritage)}
                     >
-                      <MdCached size={22} />
+                      <MdCached size={20} />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(heritage.id)}
                     >
-                      <MdDeleteForever size={22} />
+                      <MdDeleteForever size={20} />
                     </button>
                   </>
                 ) : (
-                  <button
-                    type="button"
-                    onClick={() => handleShowInfo(heritage)}
-                  >
-                    <MdInfo size={22} color="#2a7ae4" />
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => handleShowInfo(heritage)}
+                    >
+                      <MdInfo size={22} color="#2a7ae4" />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleShowMaintenance(heritage)}
+                    >
+                      <MdBusinessCenter size={22} color="#444" />
+                    </button>
+                  </>
                 )}
               </div>
             </li>
@@ -237,6 +263,33 @@ export default function Heritage({ match }) {
             <Input label="Nome" name="name" readOnly />
             <Input label="Descrição" name="description" readOnly />
             <Input label="Ambiente" name="environment.name" readOnly />
+          </Form>
+        </Modals.Body>
+      </Modals>
+
+      <Modals
+        show={showMaintenance}
+        onHide={() => setShowMaintenance(false)}
+        animation
+      >
+        <Modals.Header>
+          <h4>Abrir chamado de manutenção</h4>
+          <button type="button" onClick={() => setShowInfo(false)}>
+            x
+          </button>
+        </Modals.Header>
+        <Modals.Body>
+          <Form initialData={edit} onSubmit={handleMaintenance}>
+            <Input name="id" type="hidden" />
+            <Input label="Código" name="code" readOnly />
+            <Input label="Nome" name="name" readOnly />
+            <Input label="Descrição" name="description" readOnly />
+            <Input label="Ambiente" name="environment.name" readOnly />
+            <Input label="Descrição do problema" name="problem" />
+            <button type="submit">
+              <MdSave size={22} />
+              Salvar
+            </button>
           </Form>
         </Modals.Body>
       </Modals>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { MdReorder, MdClear } from 'react-icons/md';
+import { MdMenu, MdClear } from 'react-icons/md';
 
 import logo from '~/assets/logo.svg';
 
@@ -22,7 +22,7 @@ export default function Header() {
         <img src={logo} alt="Heritage" />
 
         <button type="button" onClick={handleTogleVisible}>
-          {visible ? <MdClear size={36} /> : <MdReorder size={36} />}
+          {visible ? <MdClear size={36} /> : <MdMenu size={36} />}
         </button>
 
         <nav className="header">
