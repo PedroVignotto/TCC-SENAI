@@ -38,7 +38,7 @@ export default function Header() {
           <Link to="/users" onClick={handleTogleVisible}>
             USUÁRIOS
           </Link>
-          <Link to="/dashboard" onClick={handleTogleVisible}>
+          <Link to="/historical" onClick={handleTogleVisible}>
             HISTÓRICO
           </Link>
           {profile.user_level === 1 ? (

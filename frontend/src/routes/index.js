@@ -12,6 +12,7 @@ import Profile from '~/pages/Profile';
 import User from '~/pages/User';
 import Company from '~/pages/Company';
 import Heritage from '~/pages/Heritage';
+import Historic from '~/pages/Historic';
 
 export default function Routes() {
   return (
@@ -29,6 +30,7 @@ export default function Routes() {
         component={EnvironmentHeritage}
         isPrivate
       />
+      <Route path="/historical" component={Historic} isPrivate />
       <Route path="/profile" component={Profile} isPrivate />
     </Switch>
   );
