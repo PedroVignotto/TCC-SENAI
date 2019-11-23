@@ -22,7 +22,7 @@ export const Content = styled.div`
   button {
     border: 0;
     background: 0;
-    z-index: 2;
+    z-index: 100;
     color: ${colors.primary};
   }
 
@@ -46,6 +46,7 @@ export const Content = styled.div`
       top: 0;
       left: 0;
       background: rgba(255, 255, 255, 0.9);
+      z-index: 90;
 
       a {
         font-size: 18px;
