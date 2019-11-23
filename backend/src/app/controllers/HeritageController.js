@@ -71,6 +71,28 @@ class HeritageController {
     return res.json(heritage);
   }
 
+  async create(req, res) {
+    const schema = Yup.object().shape({
+      id: Yup.number().required(),
+      code: Yup.string().required(),
+      problem: Yup.string().required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { company_id } = req.params;
+    const { code, problem, id } = req.body;
+
+    await Historic.create({
+      company_id,
+      message: `Pedido de manutenção solicitado para o patrimônio ${code}`,
+    });
+
+    return res.json({ id, code, problem });
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       name: Yup.string().required(),

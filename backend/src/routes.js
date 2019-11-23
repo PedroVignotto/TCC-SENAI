@@ -42,6 +42,7 @@ routes.get(
   '/:company_id/environments/:environment_id/heritages',
   HeritageController.show
 );
+routes.post('/maintenance/:company_id', HeritageController.create);
 routes.post('/heritages', HeritageController.store);
 routes.put('/heritages/:id', HeritageController.update);
 routes.delete('/heritages/:id', HeritageController.delete);

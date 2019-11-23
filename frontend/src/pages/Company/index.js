@@ -26,8 +26,6 @@ export default function Profile() {
     loadCompany();
   }, []); //eslint-disable-line
 
-  console.tron.log(company);
-
   async function handleSubmit(data) {
     const { name, cnpj, email, cep, address, district, city, state } = data;
 

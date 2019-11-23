@@ -88,9 +88,19 @@ export default function Heritage() {
     }
   }
 
-  function handleMaintenance() {
-    toast.success('Call information has been sent to your email');
-    setShowMaintenance(false);
+  async function handleMaintenance({ id, code, problem }) {
+    try {
+      await api.post(`maintenance/${profile.company_id}`, {
+        id,
+        code,
+        problem,
+      });
+
+      toast.success('Call information has been sent to your email');
+      setShowMaintenance(false);
+    } catch (err) {
+      toast.error(err.response.data.error);
+    }
   }
 
   async function handleEdit({ id, name, description, ...rest }) {
