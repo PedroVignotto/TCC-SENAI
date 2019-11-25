@@ -10,8 +10,8 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
-  MdBusinessCenter,
 } from 'react-icons/md';
+import { FaTools } from 'react-icons/fa';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
@@ -209,7 +209,7 @@ export default function Heritage() {
                       type="button"
                       onClick={() => handleShowMaintenance(heritage)}
                     >
-                      <MdBusinessCenter size={20} color={colors.secondary} />
+                      <FaTools size={18} color={colors.secondary} />
                     </button>
                     <button
                       type="button"
@@ -230,7 +230,7 @@ export default function Heritage() {
                       type="button"
                       onClick={() => handleShowMaintenance(heritage)}
                     >
-                      <MdBusinessCenter size={20} color={colors.secondary} />
+                      <FaTools size={20} color={colors.secondary} />
                     </button>
                   </>
                 )}
