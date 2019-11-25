@@ -82,6 +82,7 @@ export default function Environment() {
       toast.error(err.response.data.error);
     }
   }
+
   async function handleEdit({ id, name, ...rest }) {
     const { email } = rest.user;
 
@@ -189,13 +190,13 @@ export default function Environment() {
                       type="button"
                       onClick={() => handleShowEdit(environment)}
                     >
-                      <MdCached size={22} />
+                      <MdCached size={22} color={colors.primary} />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(environment.id)}
                     >
-                      <MdDeleteForever size={22} />
+                      <MdDeleteForever size={22} color={colors.red} />
                     </button>
                   </>
                 ) : (

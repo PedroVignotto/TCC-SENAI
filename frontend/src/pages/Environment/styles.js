@@ -62,11 +62,6 @@ export const Container = styled.div`
         button {
           border: 0;
           background: 0;
-          color: ${colors.primary};
-
-          + button {
-            color: ${colors.red};
-          }
         }
       }
     }

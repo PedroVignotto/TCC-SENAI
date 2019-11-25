@@ -59,7 +59,7 @@ export default function Environment() {
         </Search>
 
         {historics.map(historic => (
-          <aside>
+          <aside key={historic.id}>
             <span>{historic.createdAt}:</span>
             <span>{historic.message}</span>
           </aside>

@@ -10,7 +10,6 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
-  MdInfo,
   MdBusinessCenter,
 } from 'react-icons/md';
 
@@ -192,54 +191,42 @@ export default function Heritage({ match }) {
         <ul>
           {heritages.map(heritage => (
             <li key={heritage.id}>
-              <div>
+              <button type="button" onClick={() => handleShowInfo(heritage)}>
                 <strong>{heritage.code}</strong>
                 <span>
                   {(heritage.environment && heritage.environment.name) || ''}
                 </span>
-              </div>
+              </button>
 
               <div>
                 {profile.user_level === 1 ? (
                   <>
                     <button
                       type="button"
-                      onClick={() => handleShowInfo(heritage)}
-                    >
-                      <MdInfo size={20} />
-                    </button>
-                    <button
-                      type="button"
                       onClick={() => handleShowMaintenance(heritage)}
                     >
-                      <MdBusinessCenter size={20} color="#444" />
+                      <MdBusinessCenter size={20} color={colors.secondary} />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleShowEdit(heritage)}
                     >
-                      <MdCached size={20} />
+                      <MdCached size={20} color={colors.primary} />
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(heritage.id)}
                     >
-                      <MdDeleteForever size={20} />
+                      <MdDeleteForever size={20} color={colors.red} />
                     </button>
                   </>
                 ) : (
                   <>
                     <button
                       type="button"
-                      onClick={() => handleShowInfo(heritage)}
-                    >
-                      <MdInfo size={22} color="#2a7ae4" />
-                    </button>
-                    <button
-                      type="button"
                       onClick={() => handleShowMaintenance(heritage)}
                     >
-                      <MdBusinessCenter size={22} color="#444" />
+                      <MdBusinessCenter size={22} color={colors.secondary} />
                     </button>
                   </>
                 )}

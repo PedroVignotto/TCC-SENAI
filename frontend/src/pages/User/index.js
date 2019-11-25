@@ -9,7 +9,6 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
-  MdInfo,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -152,31 +151,26 @@ export default function User() {
                   }
                   alt={user.name}
                 />
-                <div>
+                <button type="button" onClick={() => handleShowInfo(user)}>
                   <strong>{user.name}</strong>
                   <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
                   <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
                   <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
-                </div>
+                </button>
               </section>
 
               <div>
                 {profile.user_level === 1 ? (
                   <>
-                    <button type="button" onClick={() => handleShowInfo(user)}>
-                      <MdInfo size={22} />
-                    </button>
                     <button type="button" onClick={() => handleShowEdit(user)}>
-                      <MdCached size={22} />
+                      <MdCached size={22} color={colors.primary} />
                     </button>
                     <button type="button" onClick={() => handleDelete(user.id)}>
-                      <MdDeleteForever size={22} />
+                      <MdDeleteForever size={22} color={colors.red} />
                     </button>
                   </>
                 ) : (
-                  <button type="button" onClick={() => handleShowInfo(user)}>
-                    <MdInfo size={22} color="#2a7ae4" />
-                  </button>
+                  ''
                 )}
               </div>
             </li>

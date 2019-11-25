@@ -39,10 +39,13 @@ export const Container = styled.div`
           border-radius: 50%;
         }
 
-        div {
+        button {
           display: flex;
           flex-direction: column;
           justify-content: flex-start;
+          padding-left: 16px;
+          border: 0;
+          background: 0;
 
           strong {
             font-weight: 500;
@@ -68,15 +71,6 @@ export const Container = styled.div`
         button {
           border: 0;
           background: 0;
-          color: ${colors.secondary};
-
-          + button {
-            color: ${colors.primary};
-          }
-
-          :last-of-type {
-            color: ${colors.red};
-          }
         }
       }
     }
