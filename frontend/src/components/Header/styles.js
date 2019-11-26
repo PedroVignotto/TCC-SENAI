@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 import colors from '~/styles/colors';
 
@@ -97,6 +98,10 @@ export const Content = styled.div`
     }
   }
 `;
+
+export const Link = styled(NavLink).attrs({
+  activeStyle: { color: colors.primary },
+})``;
 
 export const Profile = styled.div`
   display: flex;

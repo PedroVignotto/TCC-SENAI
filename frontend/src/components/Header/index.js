@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { MdMenu, MdClear } from 'react-icons/md';
 
 import logo from '~/assets/logo.svg';
 
-import { Container, Content, Profile } from './styles';
+import { Container, Content, Profile, Link } from './styles';
 
 export default function Header() {
   const [visible, setVisible] = useState(false);
