@@ -97,6 +97,8 @@ class HeritageController {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       description: Yup.string(),
+      code: Yup.string().required(),
+      environment_id: Yup.number(),
     });
 
     if (!(await schema.isValid(req.body))) {

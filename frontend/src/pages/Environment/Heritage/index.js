@@ -248,7 +248,7 @@ export default function Heritage({ match }) {
             <Input name="id" type="hidden" />
             <Input label="Código" name="code" readOnly />
             <Input label="Nome" name="name" readOnly />
-            <Input label="Descrição" name="description" readOnly />
+            <Input label="Descrição" name="description" readOnly multiline />
             <Input label="Ambiente" name="environment.name" readOnly />
           </Form>
         </Modals.Body>
@@ -270,9 +270,9 @@ export default function Heritage({ match }) {
             <Input name="id" type="hidden" />
             <Input label="Código" name="code" readOnly />
             <Input label="Nome" name="name" readOnly />
-            <Input label="Descrição" name="description" readOnly />
+            <Input label="Descrição" name="description" readOnly multiline />
             <Input label="Ambiente" name="environment.name" readOnly />
-            <Input label="Descrição do problema" name="problem" />
+            <Input label="Descrição do problema *" name="problem" multiline />
             <button type="submit">
               <MdSave size={22} />
               Salvar
@@ -293,7 +293,7 @@ export default function Heritage({ match }) {
             <Input name="id" type="hidden" />
             <Input label="Código" name="code" readOnly />
             <Input label="Nome" name="name" />
-            <Input label="Descrição" name="description" />
+            <Input label="Descrição" name="description" multiline />
             <Input label="Ambiente" name="environment.name" />
             <button type="submit">
               <MdSave size={22} />
@@ -312,8 +312,8 @@ export default function Heritage({ match }) {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd} schema={schema}>
-            <Input label="Nome" name="name" />
-            <Input label="Descrição" name="description" />
+            <Input label="Nome *" name="name" />
+            <Input label="Descrição *" name="description" multiline />
             <Input label="Código" name="code" />
             <Input label="Ambiente" name="environment_name" />
             <button type="submit">

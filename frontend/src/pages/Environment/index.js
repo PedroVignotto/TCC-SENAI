@@ -241,7 +241,7 @@ export default function Environment() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd} schema={schema}>
-            <Input label="Nome do ambiente" name="name" />
+            <Input label="Nome do ambiente *" name="name" />
             <Input label="Email do gerenciador" type="email" name="email" />
             <button type="submit">
               <MdSave size={22} />
