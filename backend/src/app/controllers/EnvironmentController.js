@@ -60,7 +60,7 @@ class EnvironmentController {
     });
 
     if (!environment) {
-      return res.status(400).json({ error: 'Environment does not exist' });
+      return res.status(400).json({ error: 'Ambiente não existe' });
     }
 
     return res.json(environment);
@@ -72,7 +72,7 @@ class EnvironmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { user_id, name } = req.body;
@@ -81,14 +81,14 @@ class EnvironmentController {
       const userExists = await User.findByPk(user_id);
 
       if (!userExists) {
-        return res.status(400).json({ error: 'User does not exist' });
+        return res.status(400).json({ error: 'Usuário não existe' });
       }
     }
 
     const nameExist = await Environment.findOne({ where: { name } });
 
     if (nameExist) {
-      return res.status(400).json({ error: 'Environment already exist' });
+      return res.status(400).json({ error: 'Ambiente já existe' });
     }
 
     const { id, company_id } = await Environment.create(req.body);
@@ -102,7 +102,7 @@ class EnvironmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;
@@ -114,7 +114,7 @@ class EnvironmentController {
       const nameExists = await Environment.findOne({ where: { name } });
 
       if (nameExists) {
-        return res.status(400).json({ error: 'Name not available' });
+        return res.status(400).json({ error: 'Esse nome já está sendo utilizado' });
       }
     }
 
@@ -129,12 +129,12 @@ class EnvironmentController {
     const environment = await Environment.findByPk(id);
 
     if (!environment) {
-      return res.status(400).json({ error: 'Environment does not exist' });
+      return res.status(400).json({ error: 'Ambiente não existe' });
     }
 
     await Environment.destroy({ where: { id } });
 
-    return res.status(200).json({ success: 'Environment has been deleted' });
+    return res.status(200).json({ success: 'Ambiente foi excluído' });
   }
 }
 

@@ -15,7 +15,7 @@ class SessionController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { email, password } = req.body;
@@ -32,15 +32,15 @@ class SessionController {
     });
 
     if (!user) {
-      return res.status(401).json({ error: 'User not found' });
+      return res.status(401).json({ error: 'Usuário não foi encontrado' });
     }
 
     if (!user.company_id) {
-      return res.status(401).json({ error: 'Join a company to login' });
+      return res.status(401).json({ error: 'Entre em uma empresa para realizar o login' });
     }
 
     if (!(await user.checkPassword(password))) {
-      return res.status(401).json({ error: 'Password does not match' });
+      return res.status(401).json({ error: 'Senhas não combinam' });
     }
 
     const { id, name, avatar, user_level, company_id } = user;

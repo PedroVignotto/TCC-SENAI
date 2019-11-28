@@ -65,7 +65,7 @@ class HeritageController {
     });
 
     if (!heritage) {
-      return res.status(400).json({ error: 'Heritage does not exist' });
+      return res.status(400).json({ error: 'Heritage não existe' });
     }
 
     return res.json(heritage);
@@ -79,7 +79,7 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { company_id } = req.params;
@@ -102,7 +102,7 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { code, company_id } = req.body;
@@ -112,7 +112,7 @@ class HeritageController {
     });
 
     if (codeExists) {
-      return res.status(400).json({ error: 'Code already exist' });
+      return res.status(400).json({ error: 'Código já existe' });
     }
 
     const { id, name, description, environment_id } = await Heritage.create(
@@ -137,7 +137,7 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;
@@ -146,7 +146,7 @@ class HeritageController {
     const heritage = await Heritage.findByPk(id);
 
     if (code) {
-      return res.status(400).json({ error: 'Code cannot be changed' });
+      return res.status(400).json({ error: 'Código não pode ser alterado' });
     }
 
     if (environment_id) {
@@ -179,12 +179,12 @@ class HeritageController {
     const heritage = await Heritage.findByPk(id);
 
     if (!heritage) {
-      return res.status(400).json({ error: 'Heritage does not exist' });
+      return res.status(400).json({ error: 'Heritage não existe' });
     }
 
     await Heritage.destroy({ where: { id } });
 
-    return res.status(200).json({ success: 'Heritage has been deleted' });
+    return res.status(200).json({ success: 'Heritage foi excluído' });
   }
 }
 

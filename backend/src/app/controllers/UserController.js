@@ -37,13 +37,13 @@ class UserController {
     });
 
     if (!user) {
-      return res.status(400).json({ error: 'Email not found' });
+      return res.status(400).json({ error: 'Email não foi encontrado' });
     }
 
     const { user_level } = user;
 
     if (user_level !== 2) {
-      return res.status(400).json({ error: 'Please enter a valid manager' });
+      return res.status(400).json({ error: 'Por favor insira um gerenciador válido' });
     }
 
     return res.json(user);
@@ -61,13 +61,13 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const userExists = await User.findOne({ where: { email: req.body.email } });
 
     if (userExists) {
-      return res.status(400).json({ error: 'User already exists' });
+      return res.status(400).json({ error: 'Usuário já existe' });
     }
 
     const { id, name, email } = await User.create(req.body);
@@ -86,7 +86,7 @@ class UserController {
     if (!user) {
       return res
         .status(400)
-        .json({ error: 'Email not found or user joins another company' });
+        .json({ error: 'Email não encontrado ou o usuário pertence a outra empresa' });
     }
 
     await user.update(req.body);
@@ -100,7 +100,7 @@ class UserController {
     const user = await User.findByPk(id);
 
     if (!user) {
-      return res.status(400).json({ error: 'User does not exist' });
+      return res.status(400).json({ error: 'Usuário não existe' });
     }
 
     const { user_level } = await user.update(req.body);
@@ -124,7 +124,7 @@ class UserController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { email, oldPassword } = req.body;
@@ -135,12 +135,12 @@ class UserController {
       const userExists = await User.findOne({ where: { email } });
 
       if (userExists) {
-        return res.status(400).json({ error: 'User already exists' });
+        return res.status(400).json({ error: 'Usuário já existe' });
       }
     }
 
     if (oldPassword && !(await user.checkPassword(oldPassword))) {
-      return res.status(401).json({ error: 'Password does not match' });
+      return res.status(401).json({ error: 'As senhas não combinam' });
     }
 
     await user.update(req.body);

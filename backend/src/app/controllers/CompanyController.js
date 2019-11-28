@@ -22,7 +22,7 @@ class CompanyController {
     });
 
     if (!company) {
-      return res.status(400).json({ error: 'Company not found' });
+      return res.status(400).json({ error: 'Empresa não existe' });
     }
 
     return res.json(company);
@@ -38,7 +38,7 @@ class CompanyController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { email, cnpj } = req.body;
@@ -57,7 +57,7 @@ class CompanyController {
     });
 
     if (companyExists) {
-      return res.status(400).json({ error: 'Company already exists' });
+      return res.status(400).json({ error: 'Empresa não existe' });
     }
 
     const {
@@ -91,7 +91,7 @@ class CompanyController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Validation fails' });
+      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;
@@ -104,7 +104,7 @@ class CompanyController {
       const emailExists = await Company.findOne({ where: { email } });
 
       if (emailExists) {
-        return res.status(400).json({ error: 'Email not available' });
+        return res.status(400).json({ error: 'Esse email já está sendo utilizado' });
       }
     }
 
@@ -112,7 +112,7 @@ class CompanyController {
       const cnpjExists = await Company.findOne({ where: { cnpj } });
 
       if (cnpjExists) {
-        return res.status(400).json({ error: 'CNPJ not available' });
+        return res.status(400).json({ error: 'Esse CNPJ já está sendo utilizado' });
       }
     }
 
