@@ -1717,11 +1717,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CTTarde\\Documents\\HeritageV02MVVM\\HeritageV02MVVM\\HeritageV02MVVM.csproj",
+      "projectUniqueName": "C:\\Users\\CTTarde\\Desktop\\TCC-SENAI\\mobile\\HeritageV02MVVM\\HeritageV02MVVM.csproj",
       "projectName": "HeritageV02MVVM",
-      "projectPath": "C:\\Users\\CTTarde\\Documents\\HeritageV02MVVM\\HeritageV02MVVM\\HeritageV02MVVM.csproj",
+      "projectPath": "C:\\Users\\CTTarde\\Desktop\\TCC-SENAI\\mobile\\HeritageV02MVVM\\HeritageV02MVVM.csproj",
       "packagesPath": "C:\\Users\\CTTarde\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CTTarde\\Documents\\HeritageV02MVVM\\HeritageV02MVVM\\obj\\",
+      "outputPath": "C:\\Users\\CTTarde\\Desktop\\TCC-SENAI\\mobile\\HeritageV02MVVM\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

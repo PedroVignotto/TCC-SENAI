@@ -202,6 +202,8 @@ namespace HeritageV02MVVM.Services
         public async Task<Usuario> Refresh(Usuario usuario)
         {
 
+            HttpResponseMessage response = null;
+
             try
             {
 
@@ -223,7 +225,7 @@ namespace HeritageV02MVVM.Services
                           Uri uri = new Uri(ApiBaseUrl + "refresh");
                           var data = JsonConvert.SerializeObject(usuario);
                           var content = new StringContent(data, Encoding.UTF8, "application/json");
-                          HttpResponseMessage response = await HttpClient.PostAsync(uri, content);
+                          response = await HttpClient.PostAsync(uri, content);
 
                           if (response.IsSuccessStatusCode)
                           {
@@ -236,12 +238,45 @@ namespace HeritageV02MVVM.Services
                               };
 
                               usuario.Token = desc_token.Token;
-
-                              usuario = await Me(usuario);
                           }
+                          else
+                              usuario = null;
                       });
 
+                await Policy
+                           .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                           .WaitAndRetryAsync
+                           (
+                                retryCount: 3,
+                                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                                onRetry: (ex, time) =>
+                                {
+                                    Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                                }
+                           )
+                           .ExecuteAsync(async () =>
+                           {
+                               HttpClient.DefaultRequestHeaders.Authorization = null;
 
+                               Desc_Token desc_Token = new Desc_Token
+                               {
+                                   Token = usuario.Token
+                               };
+
+                               string url = ApiBaseUrl + "me";
+                               var data = JsonConvert.SerializeObject(desc_Token);
+                               var content = new StringContent(data, Encoding.UTF8, "application/json");
+                               response = await HttpClient.PostAsync(url, content);
+
+                               if (response.IsSuccessStatusCode)
+                               {
+                                   var repost = await response.Content.ReadAsStringAsync();
+                                   usuario = JsonConvert.DeserializeObject<Usuario>(repost);
+                                   usuario.Token = desc_Token.Token;
+                               }
+                               else
+                                   usuario = null;
+                           });
 
             }
             catch (Exception ex)
