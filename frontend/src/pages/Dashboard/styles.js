@@ -49,6 +49,9 @@ export const Container = styled.div`
       }
 
       :hover {
+        border: 3px solid ${colors.primary};
+        border-bottom: 5px solid ${colors.primary};
+        transition: 500ms;
         -webkit-transform: scale(1.02);
         -ms-transform: scale(1.02);
         transform: scale(1.02);
