@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.PesquisarUsuarios"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:c="clr-namespace:HeritageV02MVVM.Converters;assembly=HeritageV02MVVM"
+             Title="{Binding Title}"
+             IconImageSource="{Binding Icon}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+
+            <c:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <RelativeLayout IsVisible="{Binding Body}">
+
+                <ListView ItemsSource="{Binding Usuarios}"
+                          IsRefreshing="{Binding IsBusy}"
+                          SeparatorColor="Gray">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <StackLayout Margin="10">
+
+                                    <Frame Style="{DynamicResource FrameListViewUser}"
+                                           BorderColor="Transparent">
+
+                                        <StackLayout Orientation="Vertical">
+
+                                            <Frame CornerRadius="75"
+                                                   HeightRequest="100"
+                                                   WidthRequest="100"
+                                                   Padding="0"
+                                                   Margin="10"
+                                                   IsClippedToBounds="False"
+                                                   BorderColor="Transparent">
+
+                                                <Image Source="user.png"
+                                                       BackgroundColor="Transparent"/>
+
+                                            </Frame>
+
+                                            <Label Text="{Binding Name}"
+                                                   HorizontalOptions="CenterAndExpand"
+                                                   Style="{DynamicResource LabelPrincipal}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"/>
+
+                                            <StackLayout Orientation="Horizontal"
+                                                         Margin="10">
+
+                                                <StackLayout Orientation="Vertical"
+                                                             Margin="5, 0, 0, 0">
+
+                                                    <Label Text="Nível de usuário"
+                                                           Style="{DynamicResource LabelTableView}"/>
+
+                                                    <Label Text="{Binding Nivel_usuario}"
+                                                           Style="{DynamicResource Label}"/>
+
+                                                </StackLayout>
+
+                                            </StackLayout>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                    <ListView.HeaderTemplate>
+
+                        <DataTemplate>
+
+                            <ContentView>
+
+                                <FlexLayout Direction="Row">
+
+                                    <Frame Style="{DynamicResource FrameIcon}">
+
+                                        <Image Source="avatar.png"/>
+
+                                    </Frame>
+
+                                    <Label Margin="0, 15, 10, 10"
+                                           Style="{DynamicResource LabelTitle}"
+                                           Text="Usuários" />
+
+                                </FlexLayout>
+
+                            </ContentView>
+
+                        </DataTemplate>
+
+                    </ListView.HeaderTemplate>
+
+                    <ListView.Behaviors>
+
+                        <b:EventToCommandBehavior EventName="ItemTapped" 
+                                                  Command="{Binding ExibirUsuarioCommand}"
+                                                  EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+
+                    </ListView.Behaviors>
+
+                </ListView>
+
+                <Button Command="{Binding AdicionarUsuarioCommand}"
+                        IsVisible="{Binding IsVisible}"
+                        Style="{DynamicResource FloatButton}"/>
+
+
+            </RelativeLayout>
+
+            <StackLayout IsVisible="{Binding Load}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="avatarGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <ActivityIndicator IsRunning="True"
+                                   Color="#c3c3c3"
+                                   Margin="10"/>
+
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding Null}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="avatarGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <Label Style="{DynamicResource LabelPrincipal}"
+                       TextColor="#c3c3c3"
+                       HorizontalOptions="Center"
+                       Text="Sem usuários para exbir"/>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

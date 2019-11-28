@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.AdicionarUsuario"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.Content>
+        
+        <ScrollView Orientation="Vertical">
+            
+            <StackLayout>
+                
+                <FlexLayout Direction="Row"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            JustifyContent="Center"
+                            IsVisible="{Binding IsVisibleLogin}">
+
+                    <Image Source="{Binding Icon}"
+                           Style="{DynamicResource ImgIcon}"/>
+
+                    <custom:CustomEntry Placeholder="Email"
+                                        Text="{Binding Usuario.Email}"
+                                        Keyboard="Email"
+                                        x:Name="email"/>
+
+                    <custom:CustomPicker Title="Nivel de usuário"
+                                         ItemsSource="{Binding Niveis}"
+                                         SelectedItem="{Binding Nivel}"
+                                         FlexLayout.Basis="95%"
+                                         Margin="5"/>
+
+                    <Label Text="*Adicione as informações referentes ao usuário"
+                           Style="{DynamicResource Label}"
+                           FlexLayout.Basis="95%"
+                           Margin="10"/>
+
+                    <Button Text="Cadastrar"
+                            Command="{Binding AdicionarUsuarioCommand}"
+                            Margin="10"/>
+
+                </FlexLayout>
+
+                <FlexLayout Direction="Row"
+                            JustifyContent="Center"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            IsVisible="{Binding IsVisibleLoad}">
+
+                    <Image Source="{Binding Icon}"
+                           Style="{DynamicResource ImgIcon}"
+                           Margin="0, 30, 0, 0"/>
+
+                    <Label Text="Adicionando usuário"
+                           FlexLayout.AlignSelf="Center"
+                           Margin="0, 20, 0, 0"
+                           Style="{DynamicResource LabelTitle}"/>
+
+                    <ActivityIndicator Color="{DynamicResource PrimaryColor}"
+                                       Margin="0, 20, 0, 0"
+                                       FlexLayout.Basis="95%"
+                                       IsRunning="True"/>
+
+                </FlexLayout>
+                
+            </StackLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

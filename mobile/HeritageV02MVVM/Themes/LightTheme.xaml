@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms" 
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d"
+                    x:Class="HeritageV02MVVM.Themes.LightTheme">
+
+    <!--Button-->
+    <Color x:Key="BorderColorButton">#2a7ae4</Color>
+    <Color x:Key="BackgroundButton">#2a7ae4</Color>
+    <Color x:Key="BackgroundFloatButton">#2a7ae4</Color>
+
+    <!--Page-->
+    <Color x:Key="BackgroundPage">White</Color>
+
+    <!--Text-->
+    <Color x:Key="TextColor">Black</Color>
+    <Color x:Key="TextColorWhite">White</Color>
+    <Color x:Key="TextColorBlue">#2a7ae4</Color>
+
+    <!--NavigationBar-->
+    <Color x:Key="NavigationBarColor">#2a7ae4</Color>
+    <Color x:Key="BarTextColor">White</Color>
+
+    <!--Entry-->
+    <Color x:Key="BorderColorEntry">Black</Color>
+    <Color x:Key="PlaceholderColor">#aaacad</Color>
+
+    <!--BorderColor-->
+    <Color x:Key="BorderColor">#2a7ae4</Color>
+
+    <!--TabbedPage-->
+    <Color x:Key="BackgroundTabbedPage">White</Color>
+    <Color x:Key="IconSelectedColor">#2a7ae4</Color>
+    <Color x:Key="IconUnselectedColor">#a3a3a3</Color>
+
+    <!--Cores-->
+    <Color x:Key="PrimaryColor">#2a7ae4</Color>
+    <Color x:Key="SecundaryColor">Black</Color>
+
+</ResourceDictionary>

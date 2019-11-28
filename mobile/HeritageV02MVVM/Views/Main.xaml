@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            x:Class="HeritageV02MVVM.Views.Main"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+            xmlns:b="http://prismlibrary.com"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            BarBackgroundColor="{DynamicResource BackgroundTabbedPage}"
+            SelectedTabColor="{DynamicResource IconSelectedColor}"
+            UnselectedTabColor="{DynamicResource IconUnselectedColor}"
+            BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <TabbedPage.ToolbarItems>
+        
+        <ToolbarItem IconImageSource="search.png"
+                     Command="{b:NavigateTo Name='Pesquisa'}"/>
+
+        <ToolbarItem IconImageSource="qrcodeDark.png"
+                     Command="{b:NavigateTo Name='Scanner'}"
+                     CommandParameter="{b:Parameter Value='Main'}"/>
+        
+    </TabbedPage.ToolbarItems>
+
+    <NavigationPage.TitleView>
+        
+        <StackLayout Orientation="Horizontal">
+            
+            <Image Source="logo.png"
+                   HeightRequest="40"
+                   WidthRequest="40"/>
+
+            <Label Text="Heritage"
+                   VerticalOptions="CenterAndExpand"
+                   TextColor="White"
+                   FontSize="22"
+                   FontAttributes="Bold"/>
+            
+        </StackLayout>
+        
+    </NavigationPage.TitleView>
+
+</TabbedPage>

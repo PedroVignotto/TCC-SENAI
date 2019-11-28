@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:c="clr-namespace:HeritageV02MVVM.Converters"
+             xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             xmlns:b="http://prismlibrary.com"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.Configuracoes"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.Resources>
+        
+        <ResourceDictionary>
+            
+            <c:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+            
+        </ResourceDictionary>
+        
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        
+        <FlexLayout Direction="Row"
+                    Wrap="Wrap"
+                    AlignItems="Center"
+                    JustifyContent="Center">
+
+            <ListView ItemsSource="{Binding MenuItens}"
+                      IsRefreshing="{Binding IsBusy}">
+
+                <ListView.ItemTemplate>
+                    
+                    <DataTemplate>
+                        
+                        <ViewCell>
+
+                            <StackLayout Orientation="Horizontal"
+                                         Margin="10">
+                                <Image Source="{Binding Icon}"
+                                       Style="{DynamicResource ImgIconTableView}"/>
+
+                                <StackLayout Orientation="Vertical"
+                                             Margin="5, 0, 0, 0">
+                                    
+                                    <Label Text="{Binding Nome}"
+                                           Style="{DynamicResource LabelTableView}"/>
+                                    
+
+                                    <Label Text="{Binding Descricao}"
+                                           TextColor="{DynamicResource TextColor}"/>
+                                    
+                                </StackLayout>
+
+                            </StackLayout>
+
+                        </ViewCell>
+                        
+                    </DataTemplate>
+                    
+                </ListView.ItemTemplate>
+
+                <ListView.Header>
+                    
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="10">
+                        
+                        <Image Source="{Binding IconTheme}"
+                               Style="{DynamicResource ImgIconTableView}"/>
+
+                        <StackLayout Orientation="Vertical"
+                                     Margin="5, 0, 0, 0">
+                            
+                            <Label Text="Tema escuro"
+                                   Style="{DynamicResource LabelTableView}"/>
+
+                            <Label Text="Ative o tema escuro em todo o app"
+                                   Style="{DynamicResource Label}"/>
+                            
+                        </StackLayout>
+
+                        <Switch Margin="10, 0, 0, 0"
+                                IsToggled="{Binding IsToggled}">
+                            
+                            <Switch.Behaviors>
+                                
+                                <custom:CustomSwitch Command="{Binding MudarTemaCommand}" />
+                                
+                            </Switch.Behaviors>
+                            
+                        </Switch>
+
+                    </StackLayout>
+                    
+                </ListView.Header>
+
+                <ListView.Behaviors>
+                    
+                    <b:EventToCommandBehavior EventName="ItemTapped" 
+                                              Command="{Binding MenuItensCommand}"
+                                              EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+                    
+                </ListView.Behaviors>
+
+            </ListView>
+
+        </FlexLayout>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

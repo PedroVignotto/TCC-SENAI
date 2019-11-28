@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.Home"
+             BackgroundColor="{DynamicResource BackgroundPage}"
+             IconImageSource="{Binding Icone}"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        
+        <ScrollView>
+            
+            <StackLayout HorizontalOptions="FillAndExpand">
+                
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 Orientation="Horizontal">
+
+                        <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                             CornerRadius="0, 20, 0, 20"
+                                             HasShadow="true"
+                                             Margin="0, 20, 0, 0"
+                                             HorizontalOptions="Start">
+
+                            <StackLayout HorizontalOptions="FillAndExpand">
+                                
+                                <Image Source="boxDark.png"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="StartAndExpand"
+                                       Margin="5, 10, 10, 10"/>
+                                
+                            </StackLayout>
+
+                        </pancake:PancakeView>
+
+                        <Label Text="Patrimônios"
+                               Style="{DynamicResource LabelTitle}"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="0, 20, 0, 0"/>
+                        
+                    </StackLayout>
+
+                    <TableView HasUnevenRows="True"
+                               HorizontalOptions="FillAndExpand"
+                               HeightRequest="160">
+
+                        <TableRoot>
+                            
+                            <TableSection>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de patrimônios"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroPatrimonios, StringFormat='{0} patrimônio(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Ultimos patrimônios adicionados"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="Ver ultimos patrimônios adicionados"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                        <Button Text="Ver"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding ExibirUltimosPatrimoniosCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                            </TableSection>
+                        </TableRoot>
+                    </TableView>
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 Orientation="Horizontal">
+
+                        <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                             CornerRadius="0, 20, 0, 20"
+                                             HasShadow="true"
+                                             Margin="0, 5, 0, 0"
+                                             HorizontalOptions="Start">
+                            
+                            <StackLayout HorizontalOptions="FillAndExpand">
+
+                                <Image Source="placeholderDark.png"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="StartAndExpand"
+                                       Margin="5, 10, 10, 10"/>
+                                
+                            </StackLayout>
+
+                        </pancake:PancakeView>
+
+                        <Label Text="Ambientes"
+                               Style="{DynamicResource LabelTitle}"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="0, 20, 0, 0"/>
+                        
+                    </StackLayout>
+
+                    <TableView HasUnevenRows="True"
+                               HorizontalOptions="FillAndExpand"
+                               HeightRequest="140">
+
+                        <TableRoot>
+                            
+                            <TableSection>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de ambientes"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroAmbientes, StringFormat='{0} ambiente(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Ultimos ambientes adicionados"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="Ver ultimos ambientes adicionados"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                        <Button Text="Ver"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding ExcluirCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                            </TableSection>
+                            
+                        </TableRoot>
+                        
+                    </TableView>
+                    
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    
+                    <StackLayout HorizontalOptions="FillAndExpand"
+                                 Orientation="Horizontal">
+
+                        <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                             CornerRadius="0, 20, 0, 20"
+                                             HasShadow="true"
+                                             Margin="0, 20, 0, 0"
+                                             HorizontalOptions="Start">
+                            
+                            <StackLayout HorizontalOptions="FillAndExpand">
+
+                                <Image Source="avatarDark.png"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       HorizontalOptions="StartAndExpand"
+                                       Margin="5, 10, 10, 10"/>
+                                
+                            </StackLayout>
+
+                        </pancake:PancakeView>
+
+                        <Label Text="Usuários"
+                               Style="{DynamicResource LabelTitle}"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="0, 20, 0, 0"/>
+                        
+                    </StackLayout>
+
+                    <TableView HasUnevenRows="True"
+                               HorizontalOptions="FillAndExpand"
+                               HeightRequest="350">
+
+                        <TableRoot>
+                            
+                            <TableSection>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de usuários"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroUsuarios, StringFormat='{0} usuário(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de administradores"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroAdm, StringFormat='{0} administradore(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de gerenciadores"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroGerenciadores, StringFormat='{0} gerenciadore(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Número de suportes"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding NumeroSuportes, StringFormat='{0} suporte(s)'}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal"
+                                                 Margin="10">
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Ultimos usuários adicionados"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="Ver ultimos usuários adicionados"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                        <Button Text="Ver"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding ExcluirCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                            </TableSection>
+                            
+                        </TableRoot>
+                        
+                    </TableView>
+                    
+                </StackLayout>
+
+            </StackLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+
+</ContentPage>

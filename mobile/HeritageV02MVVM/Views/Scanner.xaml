@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.Scanner"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+             NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Content>
+        
+        <Grid VerticalOptions="FillAndExpand" 
+              HorizontalOptions="FillAndExpand">
+
+            <zxing:ZXingScannerView HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand"
+                                    Options="{Binding Options}"
+                                    IsAnalyzing="{Binding IsAnalyzing}"
+                                    IsScanning="{Binding IsScanning}" 
+                                    Result="{Binding Result, Mode=TwoWay}" 
+                                    ScanResultCommand="{Binding ScanCommand}"/>
+
+            <zxing:ZXingDefaultOverlay TopText = "Escolha um QRCode para leitura"
+                                       BottomText = "O Código sera lido automaticamente"/>
+
+        </Grid>
+        
+    </ContentPage.Content>
+
+</ContentPage>

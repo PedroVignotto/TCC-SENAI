@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.Login"
+             xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             xmlns:b="http://prismlibrary.com"
+             BackgroundColor="#f8f8f8"
+             NavigationPage.HasNavigationBar="False"
+             NavigationPage.HasBackButton="False">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+            
+            <StackLayout>
+                
+                <StackLayout VerticalOptions="FillAndExpand"
+                             IsVisible="{Binding Body}">
+
+                    <Image Source="init.jpg"
+                           HorizontalOptions="FillAndExpand"
+                           Aspect="AspectFill"/>
+
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        
+                        <custom:CustomEntry Placeholder="Email"
+                                            Text="{Binding Usuario.Email}"
+                                            Keyboard="Email"
+                                            Margin="10, 15, 10, 5"
+                                            HorizontalOptions="FillAndExpand"
+                                            ReturnType="Next"
+                                            VerticalOptions="CenterAndExpand">
+                            
+                            <custom:CustomEntry.Behaviors>
+                                
+                                <custom:EntryFocusBehavior NextFocusElementName="password"/>
+                                
+                            </custom:CustomEntry.Behaviors>
+                            
+                        </custom:CustomEntry>
+
+                        <custom:CustomEntry Placeholder="Senha"
+                                            Text="{Binding Usuario.Password}"
+                                            IsPassword="True"
+                                            Margin="10, 15, 10, 5"
+                                            x:Name="password"
+                                            VerticalOptions="CenterAndExpand">
+                            
+                            <custom:CustomEntry.Behaviors>
+                                
+                                <b:EventToCommandBehavior EventName="Completed"
+                                                          Command="{Binding LoginCommand}"/>
+                                
+                            </custom:CustomEntry.Behaviors>
+                            
+                        </custom:CustomEntry>
+
+                        <StackLayout Orientation="Horizontal"  
+                                     Margin="15, 10, 10, 10"
+                                     VerticalOptions="CenterAndExpand">
+
+                            <CheckBox IsChecked="{Binding IsChecked}"/>
+                            
+                            <Label Text="Manter logado" 
+                                   FontSize="15" 
+                                   TextColor="Black"
+                                   Margin="5, 0, 0, 0"
+                                   VerticalOptions="CenterAndExpand"/>
+                            
+                        </StackLayout>
+
+                        <Button Text="Entrar"
+                                Command="{Binding LoginCommand}"
+                                HorizontalOptions="CenterAndExpand"
+                                WidthRequest="150"
+                                VerticalOptions="CenterAndExpand"
+                                Margin="0, 0, 0, 5"/>
+                        
+                    </StackLayout>
+
+                </StackLayout>
+
+                <FlexLayout Direction="Row"
+                            JustifyContent="Center"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            IsVisible="{Binding Load}">
+
+                    <Image Source="init.jpg"
+                           HorizontalOptions="FillAndExpand"/>
+
+                    <ActivityIndicator Color="#2a7ae4"
+                                       Margin="0, 50, 0, 0"
+                                       IsRunning="True"/>
+
+
+                </FlexLayout>
+                
+            </StackLayout>
+            
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

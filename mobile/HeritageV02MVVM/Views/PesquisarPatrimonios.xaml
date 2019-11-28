@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.PesquisarPatrimonios"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:c="clr-namespace:HeritageV02MVVM.Converters;assembly=HeritageV02MVVM"
+             IconImageSource="{Binding Icon}"
+             BackgroundColor="{DynamicResource BackgroundPage}"
+             Title="{Binding Title}">
+
+    <ContentPage.Resources>
+
+        <ResourceDictionary>
+
+            <c:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter"/>
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <StackLayout>
+
+            <RelativeLayout IsVisible="{Binding Body}">
+
+                <ListView IsRefreshing="{Binding IsBusy}"
+                          ItemsSource="{Binding Patrimonios}"
+                          SeparatorColor="Gray">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <ViewCell>
+
+                                <StackLayout Margin="10">
+
+                                    <Frame Style="{DynamicResource FrameListView}"
+                                           BorderColor="Transparent">
+
+                                        <StackLayout Orientation="Vertical" Padding="5">
+
+                                            <Label Text="{Binding Nome_patrimonio}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   Style="{DynamicResource LabelPrincipal}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"/>
+
+                                            <Label Style="{DynamicResource Label}"
+                                                   Margin="10, 0, 0, 0"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation">
+
+                                                <Label.FormattedText>
+
+                                                    <FormattedString>
+
+                                                        <Span Text="Ambiente: " 
+                                                              FontAttributes="Bold" 
+                                                              FontSize="17"/>
+
+                                                        <Span Text="{Binding Nome_ambiente}"/>
+
+                                                    </FormattedString>
+
+                                                </Label.FormattedText>
+
+                                            </Label>
+
+                                            <Label Style="{DynamicResource Label}"
+                                                   Margin="10, 0, 0, 0"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation">
+
+                                                <Label.FormattedText>
+
+                                                    <FormattedString>
+
+                                                        <Span Text="Código: " 
+                                                              FontAttributes="Bold" 
+                                                              FontSize="17"/>
+
+                                                        <Span Text="{Binding Codigo_patrimonio}"/>
+
+                                                    </FormattedString>
+
+                                                </Label.FormattedText>
+
+                                            </Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                    <ListView.HeaderTemplate>
+
+                        <DataTemplate>
+
+                            <ContentView>
+
+                                <FlexLayout Direction="Row">
+
+                                    <Frame Style="{DynamicResource FrameIcon}">
+
+                                        <Image Source="box.png"/>
+
+                                    </Frame>
+
+                                    <Label Margin="0, 15, 10, 10"
+                                           Style="{DynamicResource LabelTitle}"
+                                           Text="Patrimônios" />
+                                    
+                                </FlexLayout>
+
+                            </ContentView>
+
+                        </DataTemplate>
+
+                    </ListView.HeaderTemplate>
+
+                    <ListView.Behaviors>
+
+                        <b:EventToCommandBehavior EventName="ItemTapped" 
+                                                  Command="{Binding ExibirPatrimonioCommand}"
+                                                  EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}"/>
+
+                    </ListView.Behaviors>
+
+                </ListView>
+
+                <Button Command="{Binding AdicionarPatrimonioCommand}"
+                        IsVisible="{Binding IsVisible}"
+                        Style="{DynamicResource FloatButton}"/>
+
+            </RelativeLayout>
+
+            <StackLayout IsVisible="{Binding Load}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="boxGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <ActivityIndicator IsRunning="True"
+                                   Color="#c3c3c3"
+                                   Margin="10"/>
+
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding Null}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="boxGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <Label Style="{DynamicResource LabelPrincipal}"
+                       TextColor="#c3c3c3"
+                       HorizontalOptions="Center"
+                       Text="Sem patrimônios para exbir"/>
+
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

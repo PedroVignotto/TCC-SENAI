@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.Perfil"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.ToolbarItems>
+        
+        <ToolbarItem Command="{Binding SalvarCommand}" IconImageSource="save.png"/>
+        
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        
+        <ScrollView>
+            
+            <FlexLayout Direction="Row"
+                        Wrap="Wrap"
+                        JustifyContent="Center"
+                        AlignItems="Center"
+                        AlignContent="Center"
+                        IsClippedToBounds="False">
+
+                <ImageButton Source="{Binding IconCamera}"
+                             WidthRequest="30"
+                             HeightRequest="30"
+                             FlexLayout.AlignSelf="End"
+                             BackgroundColor="Transparent"
+                             Command="{Binding TirarFotoCommand}"
+                             Margin="0, 0, -20, 0"/>
+
+                <Frame CornerRadius="75"
+                       HeightRequest="150"
+                       WidthRequest="150"
+                       Padding="0"
+                       IsClippedToBounds="True"
+                       Margin="10">
+                    
+                    <Image Source="{Binding Usuario.Imagem}"
+                           BackgroundColor="Transparent"
+                           Aspect="AspectFill" />
+                    
+                </Frame>
+
+                <ImageButton Source="{Binding IconFoto}"
+                             WidthRequest="30"
+                             HeightRequest="30"
+                             FlexLayout.AlignSelf="End"
+                             BackgroundColor="Transparent"
+                             Command="{Binding PegarFotoCommand}"
+                             Margin="-20, 0, 0, 0"/>
+
+                <Label Text="{Binding Usuario.Name}"
+                       Style="{DynamicResource LabelTitle}"
+                       FlexLayout.Basis="95%"
+                       HorizontalTextAlignment="Center"
+                       Margin="10"/>
+
+                <TableView HasUnevenRows="True"
+                           FlexLayout.Basis="100%"
+                           HeightRequest="440">
+                    
+                    <TableRoot>
+                        
+                        <TableSection>
+
+                            <ViewCell Tapped="Exibir_Nome_Tapped">
+
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="10">
+
+                                    <Image Source="{Binding IconNome}"
+                                           Style="{DynamicResource ImgIconTableView}"/>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="5, 0, 0, 0"
+                                                 x:Name="stkNome">
+
+                                        <Label Text="Nome"
+                                               Style="{DynamicResource LabelTableView}"/>
+
+                                        <Label Text="{Binding Usuario.Name}"
+                                               Style="{DynamicResource Label}"/>
+
+                                    </StackLayout>
+
+                                    <FlexLayout IsVisible="False"
+                                                Direction="Row"
+                                                JustifyContent="Center"
+                                                Wrap="Wrap"
+                                                HorizontalOptions="FillAndExpand"
+                                                AlignItems="Center"
+                                                x:Name="flexNome">
+
+                                        <Label Text="Nome"
+                                               Style="{DynamicResource LabelTableView}"
+                                               FlexLayout.AlignSelf="Start"/>
+
+                                        <custom:CustomEntry Placeholder="Nome"
+                                                            Text="{Binding Usuario.Name}"/>
+
+                                    </FlexLayout>
+
+                                </StackLayout>
+
+                            </ViewCell>
+                            
+                            <ViewCell Tapped="Exibir_Email_Tapped">
+
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="10">
+
+                                    <Image Source="{Binding IconEmail}"
+                                           Style="{DynamicResource ImgIconTableView}"/>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="5, 0, 0, 0"
+                                                 x:Name="stkEmail">
+                                        
+                                        <Label Text="Email"
+                                               Style="{DynamicResource LabelTableView}"/>
+
+                                        <Label Text="{Binding Usuario.Email}"
+                                               Style="{DynamicResource Label}"/>
+                                        
+                                    </StackLayout>
+
+                                    <FlexLayout IsVisible="False"
+                                                Direction="Row"
+                                                JustifyContent="Center"
+                                                Wrap="Wrap"
+                                                HorizontalOptions="FillAndExpand"
+                                                AlignItems="Center"
+                                                x:Name="flexEmail">
+
+                                        <Label Text="Email"
+                                               Style="{DynamicResource LabelTableView}"
+                                               FlexLayout.AlignSelf="Start"/>
+
+                                        <custom:CustomEntry Placeholder="Email"
+                                                            Text="{Binding Usuario.Email}"
+                                                            Keyboard="Email"/>
+
+                                    </FlexLayout>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                            <ViewCell>
+
+                                <StackLayout Orientation="Horizontal"
+                                             Margin="10">
+
+                                    <Image Source="{Binding IconNivel}"
+                                           Style="{DynamicResource ImgIconTableView}"/>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="5, 0, 0, 0">
+                                        
+                                        <Label Text="Nível de usuário"
+                                               Style="{DynamicResource LabelTableView}"/>
+
+                                        <Label Text="{Binding Usuario.Nivel_usuario}"
+                                               Style="{DynamicResource Label}"/>
+                                        
+                                    </StackLayout>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                            <ViewCell>
+
+                                <StackLayout Orientation="Horizontal" 
+                                             Margin="10">
+
+                                    <Image Source="{Binding IconExcluir}"
+                                           Style="{DynamicResource ImgIconTableView}"/>
+
+                                    <StackLayout Orientation="Vertical"
+                                                 Margin="5, 0, 0, 0">
+                                        
+                                        <Label Text="Excluir perfil"
+                                               Style="{DynamicResource LabelTableView}"/>
+
+                                        <Label Text="Excluira todas as suas informações do aplicativo."
+                                               Style="{DynamicResource Label}"/>
+                                        
+                                    </StackLayout>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </TableSection>
+                        
+                    </TableRoot>
+                    
+                </TableView>
+
+            </FlexLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+    
+</ContentPage>

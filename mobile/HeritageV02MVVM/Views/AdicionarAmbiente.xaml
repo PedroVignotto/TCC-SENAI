@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             mc:Ignorable="d"
+             x:Class="HeritageV02MVVM.Views.AdicionarAmbiente"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.Content>
+        
+        <ScrollView>
+            
+            <StackLayout>
+                
+                <FlexLayout Direction="Row"
+                            JustifyContent="Center"
+                            AlignContent="Center"
+                            VerticalOptions="CenterAndExpand"
+                            Wrap="Wrap"
+                            IsVisible="{Binding IsVisibleLogin}">
+
+                    <Image Source="{Binding Icon}"
+                           Style="{DynamicResource ImgIcon}"
+                           FlexLayout.AlignSelf="Center"/>
+
+                    <custom:CustomEntry Placeholder="Nome do ambiente"
+                                        Text="{Binding Ambiente.Nome_ambiente}"
+                                        FlexLayout.AlignSelf="Center"/>
+
+                    <custom:CustomPicker Title="Gerenciador de ambiente"
+                                         ItemsSource="{Binding Usuarios}"
+                                         SelectedItem="{Binding Usuario}"
+                                         ItemDisplayBinding="{Binding Name}"
+                                         FlexLayout.AlignSelf="Center"
+                                         FlexLayout.Basis="95%"
+                                         Margin="5"/>
+
+                    <Label Text="*Adicione as informações referentes ao ambiente"
+                           Style="{DynamicResource Label}"
+                           FlexLayout.AlignSelf="Center"
+                           Margin="10"/>
+
+                    <Button Text="Adicionar"
+                            FlexLayout.AlignSelf="Center"
+                            Command="{Binding AdicionarAmbienteCommand}"
+                            Margin="10"/>
+
+                </FlexLayout>
+
+                <StackLayout VerticalOptions="CenterAndExpand"
+                             IsVisible="{Binding IsVisibleLoad}">
+
+                    <Image Source="{Binding Icon}"
+                           Style="{DynamicResource ImgIcon}"
+                           Margin="0, 30, 0, 0"/>
+
+                    <Label Text="Adicionando ambiente"
+                           Margin="0, 20, 0, 0"
+                           HorizontalOptions="Center"
+                           Style="{DynamicResource LabelTitle}"/>
+
+                    <ActivityIndicator Color="{DynamicResource PrimaryColor}"
+                                       Margin="0, 20, 0, 0"
+                                       HorizontalOptions="Center"
+                                       IsRunning="True"/>
+
+                </StackLayout>
+                
+            </StackLayout>
+            
+        </ScrollView>
+        
+    </ContentPage.Content>
+    
+</ContentPage>
