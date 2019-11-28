@@ -15,6 +15,8 @@ import api from '~/services/api';
 import Top from '~/components/Top';
 import Input from '~/components/Input';
 
+import avatarProfile from '~/assets/profile.png';
+
 import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
 
@@ -145,10 +147,7 @@ export default function User() {
             <li key={user.id}>
               <section>
                 <img
-                  src={
-                    (user.avatar && user.avatar.url) ||
-                    `https://api.adorable.io/avatar/50/${user.name}.pnc`
-                  }
+                  src={(user.avatar && user.avatar.url) || avatarProfile}
                   alt={user.name}
                 />
                 <button type="button" onClick={() => handleShowInfo(user)}>
@@ -188,10 +187,7 @@ export default function User() {
         <Modals.Body>
           <Form initialData={edit} onSubmit={handleEdit}>
             <img
-              src={
-                (edit.avatar && edit.avatar.url) ||
-                `https://api.adorable.io/avatar/50/${edit.name}.pnc`
-              }
+              src={(edit.avatar && edit.avatar.url) || avatarProfile}
               alt={edit.name}
             />
 
