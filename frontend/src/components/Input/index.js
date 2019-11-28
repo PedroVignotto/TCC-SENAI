@@ -13,7 +13,7 @@ export default function UnInput({
   size,
   iconStyle,
   children,
-  multiline,
+  multiline = false,
   ...rest
 }) {
   const ref = useRef(null);
@@ -36,26 +36,16 @@ export default function UnInput({
     <Label htmlFor={fieldName} icon={icon}>
       {error && <span>{error}</span>}
 
-      {multiline && multiline ? (
-        <Input
-          name={fieldName}
-          ref={ref}
-          id={fieldName}
-          aria-label={fieldName}
-          defaultValue={defaultValue}
-          multiline
-          {...rest}
-        />
-      ) : (
-        <input
-          name={fieldName}
-          ref={ref}
-          id={fieldName}
-          aria-label={fieldName}
-          defaultValue={defaultValue}
-          {...rest}
-        />
-      )}
+      <Input
+        name={fieldName}
+        ref={ref}
+        id={fieldName}
+        aria-label={fieldName}
+        defaultValue={defaultValue}
+        multiline={multiline}
+        {...rest}
+      />
+
       {label && <span>{renderLabel}</span>}
       {icon && <Icon size={size} style={iconStyle} />}
       {children}

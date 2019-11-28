@@ -34,7 +34,8 @@ export const Label = styled.label`
     }
   }
 
-  > input {
+  > input,
+  textarea {
     border: 1px solid ${colors.secondary};
     border-radius: 4px;
     height: 40px;
@@ -59,21 +60,6 @@ export const Label = styled.label`
     resize: none;
     width: 100%;
     height: 80px;
-    border: 1px solid ${colors.secondary};
-    border-radius: 4px;
-    color: ${colors.secondary};
-    background: none;
     padding: 8px 16px;
-
-    :focus {
-      box-shadow: none;
-    }
-
-    + span {
-      color: ${colors.secondary};
-      font-weight: 500;
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
   }
 `;
