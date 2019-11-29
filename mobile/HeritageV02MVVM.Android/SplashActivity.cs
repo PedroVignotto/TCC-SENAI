@@ -6,7 +6,7 @@ using Android.Util;
 
 namespace HeritageV02MVVM.Droid
 {
-    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = false, NoHistory = true)]
+    [Activity(Theme = "@style/MyTheme.Splash", MainLauncher = true, NoHistory = true)]
     public class SplashActivity : Activity
     {
         static readonly string TAG = "X:" + typeof(SplashActivity).Name;

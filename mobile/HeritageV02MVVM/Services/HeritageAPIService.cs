@@ -73,6 +73,7 @@ namespace HeritageV02MVVM.Services
 
         public async Task<Usuario> Login(Usuario usuario)
         {
+            RequestToken requestToken = new RequestToken();
             Usuario usuarioLogin = usuario;
             HttpResponseMessage response = null;
 
@@ -101,13 +102,10 @@ namespace HeritageV02MVVM.Services
                            {
                                var repost = await response.Content.ReadAsStringAsync();
                                Token token = JsonConvert.DeserializeObject<Token>(repost);
+                               token.Hora_Registro = token.Hora_Registro.AddHours(1);
+                               requestToken.SetToken(token);
 
                                usuarioLogin.Token = token.Token_acesso;
-
-                               Desc_Token desc_token = new Desc_Token()
-                               {
-                                   Token = token.Token_acesso,
-                               };
                            }
                            else
                            {
@@ -201,7 +199,7 @@ namespace HeritageV02MVVM.Services
 
         public async Task<Usuario> Refresh(Usuario usuario)
         {
-
+            RequestToken requestToken = null;
             HttpResponseMessage response = null;
 
             try
@@ -231,13 +229,10 @@ namespace HeritageV02MVVM.Services
                           {
                               var repost = await response.Content.ReadAsStringAsync();
                               Token token = JsonConvert.DeserializeObject<Token>(repost);
+                              token.Hora_Registro = token.Hora_Registro.AddHours(1);
+                              requestToken.SetToken(token);
 
-                              Desc_Token desc_token = new Desc_Token()
-                              {
-                                  Token = token.Token_acesso,
-                              };
-
-                              usuario.Token = desc_token.Token;
+                              usuario.Token = token.Token_acesso;
                           }
                           else
                               usuario = null;

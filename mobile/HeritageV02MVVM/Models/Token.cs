@@ -1,10 +1,16 @@
 ﻿using Prism.Mvvm;
 using Newtonsoft.Json;
+using System;
 
 namespace HeritageV02MVVM.Models
 {
     public class Token : BindableBase
     {
+
+        public Token()
+        {
+            Hora_Registro = DateTime.Now;
+        }
 
         private string _token_acesso;
 
@@ -14,6 +20,24 @@ namespace HeritageV02MVVM.Models
             get => _token_acesso; 
             set => SetProperty(ref _token_acesso, value);
         }
+
+        private int _expira_em;
+
+        [JsonProperty("expires_in")]
+        public int Expira_em
+        {
+            get => _expira_em; 
+            set => SetProperty(ref _expira_em, value);
+        }
+
+        private DateTime _hora_registro;
+
+        public DateTime Hora_Registro
+        {
+            get => _hora_registro;
+            set => SetProperty(ref _hora_registro, value);
+        }
+
 
     }
 

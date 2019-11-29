@@ -1,26 +1,49 @@
 ﻿using HeritageV02MVVM.Models;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace HeritageV02MVVM.Utilities
 {
     public class RequestToken
     {
-        public Token Token;
-
-        public RequestToken()
+        public Token GetToken()
         {
+            Token token;
+
             if (Application.Current.Properties.ContainsKey("Token"))
-                Token = new Token() { Token_acesso = Application.Current.Properties["Token"] as string, };
+            {
+                string data = Application.Current.Properties["Token"] as string;
+                token = JsonConvert.DeserializeObject<Token>(data);
+            }
             else
-                Token = null;
+                token = null;
+
+            return token;
         }
 
-        public void SetToken(string token)
+        public bool SetToken(Token token)
         {
-            if (Application.Current.Properties.ContainsKey("Token"))
-                Application.Current.Properties["Token"] = token;
-            else
-                Application.Current.Properties.Add("Token", token);
+            bool set = true;
+
+            try
+            {
+
+                string data = JsonConvert.SerializeObject(token);
+                if (Application.Current.Properties.ContainsKey("Token"))
+                    Application.Current.Properties["Token"] = data;
+                else
+                    Application.Current.Properties.Add("Token", data);
+
+            }
+            catch (System.Exception)
+            {
+                set = false;
+            }
+
+            return set;
+
         }
+
+
     }
 }

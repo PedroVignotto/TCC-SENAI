@@ -62,6 +62,11 @@ namespace HeritageV02MVVM.ViewModels
 
             UsuarioAtual = JsonUsuario.GetUsuarioJson();
 
+            if (UsuarioAtual.Id_nivel_usuario == 1)
+                IsAuthorized = true;
+            else
+                IsAuthorized = false;
+
             await LoadAsync();
         }
 
@@ -102,7 +107,7 @@ namespace HeritageV02MVVM.ViewModels
                 }
 
                 if (Usuarios.Count == 0)
-                    Null = false;
+                    Null = true;
                 else
                     Body = true;
 
@@ -136,7 +141,12 @@ namespace HeritageV02MVVM.ViewModels
 
         public override void Destroy()
         {
-            
+
+            UsuarioAtual = null;
+            Usuarios = null;
+            Icon = null;
+            JsonUsuario = null;
+
         }
 
         #endregion

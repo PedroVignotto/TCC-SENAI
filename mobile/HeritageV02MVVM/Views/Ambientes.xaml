@@ -184,7 +184,13 @@
                        TextColor="#c3c3c3"
                        HorizontalOptions="Center"
                        Text="Sem ambientes para exibir"/>
-                
+
+                <Button Command="{b:NavigateTo Name='AdicionarAmbiente'}"
+                        Style="{DynamicResource FloatButton}"
+                        Margin="0, 20, 0, 0"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding IsVisible}"/>
+
             </StackLayout>
             
         </StackLayout>

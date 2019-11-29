@@ -1,4 +1,5 @@
 ﻿using System;
+using HeritageV02MVVM.Models;
 using HeritageV02MVVM.Services;
 using HeritageV02MVVM.Services.Abstraction;
 using HeritageV02MVVM.ViewModels;
@@ -8,6 +9,7 @@ using Prism.DryIoc;
 using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HeritageV02MVVM
@@ -36,16 +38,15 @@ namespace HeritageV02MVVM
 
             bool manterLogado = false;
 
-            if (Application.Current.Properties.ContainsKey("ManterLogado"))
-            {
-                manterLogado = Convert.ToBoolean(Application.Current.Properties["ManterLogado"]);
-            }
+            if (Application.Current.Properties.ContainsKey("Login"))
+                manterLogado = Convert.ToBoolean(Application.Current.Properties["Login"]);
 
             if (Application.Current.Properties.ContainsKey("Token"))
             {
-                string token = Convert.ToString(Application.Current.Properties["Token"]);
+                string tokenString = Convert.ToString(Application.Current.Properties["Token"]);
+                Token token = JsonConvert.DeserializeObject<Token>(tokenString);
 
-                if (token != null)
+                if (token.Token_acesso != null)
                 {
                     if (manterLogado)
                         await NavigationService.NavigateAsync(new Uri("https://www.Heritge/Menu/NavigationPage/Main", UriKind.Absolute));
@@ -70,6 +71,7 @@ namespace HeritageV02MVVM
             containerRegistry.RegisterForNavigation<Patrimonios, PatrimoniosViewModel>();
             containerRegistry.RegisterForNavigation<Ambientes, AmbientesViewModel>();
             containerRegistry.RegisterForNavigation<Usuarios, UsuariosViewModel>();
+            containerRegistry.RegisterForNavigation<Perfil, PerfilViewModel>();
 
             containerRegistry.RegisterSingleton<IHeritageAPIService, HeritageAPIService>();
         }

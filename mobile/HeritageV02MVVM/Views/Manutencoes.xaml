@@ -170,7 +170,12 @@
                        TextColor="#c3c3c3"
                        HorizontalOptions="Center"
                        Text="Sem manutenções para exbir"/>
-                
+
+                <Button Command="{b:NavigateTo Name='AdicionarManutencao'}"
+                        HorizontalOptions="Center"
+                        Margin="0, 20, 0, 0"
+                        Style="{DynamicResource FloatButton}"/>
+
             </StackLayout>
             
         </StackLayout>

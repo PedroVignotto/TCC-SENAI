@@ -77,15 +77,19 @@ namespace HeritageV02MVVM.ViewModels
         private async Task LoadAsync()
         {
             RequestToken requestToken = new RequestToken();
-            UsuarioAtual.Token = requestToken.Token.Token_acesso;
+            Token token = requestToken.GetToken();
 
-            UsuarioAtual = await HeritageAPIService.Refresh(UsuarioAtual);
+            DateTime dateTime = DateTime.Now;
 
-            if (UsuarioAtual == null)
-                await NavigationService.NavigateAsync(new Uri("https://www.Heritage.com/Login", UriKind.Absolute));
-            else
-                JsonUsuario.SetUsuarioJson(UsuarioAtual);
+            if (dateTime > token.Hora_Registro)
+            {
+                UsuarioAtual = await HeritageAPIService.Refresh(UsuarioAtual);
 
+                if (UsuarioAtual == null)
+                    await NavigationService.NavigateAsync(new Uri("https://www.Heritage.com/Login", UriKind.Absolute));
+                else
+                    JsonUsuario.SetUsuarioJson(UsuarioAtual);
+            }
         }
 
         public override void Destroy()

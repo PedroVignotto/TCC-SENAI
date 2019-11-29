@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="HeritageV02MVVM.Views.Usuarios"
-             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             xmlns:b="http://prismlibrary.com"
              xmlns:c="clr-namespace:HeritageV02MVVM.Converters;assembly=HeritageV02MVVM"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="{Binding Title}"
@@ -173,7 +173,13 @@
                        TextColor="#c3c3c3"
                        HorizontalOptions="Center"
                        Text="Sem usuários para exbir"/>
-                
+
+                <Button Command="{b:NavigateTo Name='AdicionarUsuario'}"
+                        IsVisible="{Binding IsAuthorized}"
+                        HorizontalOptions="Center"
+                        Margin="0, 20, 0, 0"
+                        Style="{DynamicResource FloatButton}"/>
+
             </StackLayout>
             
         </StackLayout>

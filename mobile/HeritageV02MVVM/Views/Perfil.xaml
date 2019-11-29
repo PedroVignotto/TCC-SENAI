@@ -11,28 +11,21 @@
 
     <ContentPage.ToolbarItems>
         
-        <ToolbarItem Command="{Binding SalvarCommand}" IconImageSource="save.png"/>
+        <ToolbarItem Command="{Binding SalvarCommand}" 
+                     IconImageSource="save.png"/>
         
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
         
         <ScrollView>
-            
+
             <FlexLayout Direction="Row"
                         Wrap="Wrap"
                         JustifyContent="Center"
                         AlignItems="Center"
                         AlignContent="Center"
                         IsClippedToBounds="False">
-
-                <ImageButton Source="{Binding IconCamera}"
-                             WidthRequest="30"
-                             HeightRequest="30"
-                             FlexLayout.AlignSelf="End"
-                             BackgroundColor="Transparent"
-                             Command="{Binding TirarFotoCommand}"
-                             Margin="0, 0, -20, 0"/>
 
                 <Frame CornerRadius="75"
                        HeightRequest="150"
@@ -41,7 +34,7 @@
                        IsClippedToBounds="True"
                        Margin="10">
                     
-                    <Image Source="{Binding Usuario.Imagem}"
+                    <Image Source="{Binding UsuarioAtual.Imagem}"
                            BackgroundColor="Transparent"
                            Aspect="AspectFill" />
                     
@@ -55,7 +48,7 @@
                              Command="{Binding PegarFotoCommand}"
                              Margin="-20, 0, 0, 0"/>
 
-                <Label Text="{Binding Usuario.Name}"
+                <Label Text="{Binding UsuarioAtual.Name}"
                        Style="{DynamicResource LabelTitle}"
                        FlexLayout.Basis="95%"
                        HorizontalTextAlignment="Center"
@@ -63,7 +56,7 @@
 
                 <TableView HasUnevenRows="True"
                            FlexLayout.Basis="100%"
-                           HeightRequest="440">
+                           HeightRequest="340">
                     
                     <TableRoot>
                         
@@ -84,7 +77,7 @@
                                         <Label Text="Nome"
                                                Style="{DynamicResource LabelTableView}"/>
 
-                                        <Label Text="{Binding Usuario.Name}"
+                                        <Label Text="{Binding UsuarioAtual.Name}"
                                                Style="{DynamicResource Label}"/>
 
                                     </StackLayout>
@@ -102,7 +95,7 @@
                                                FlexLayout.AlignSelf="Start"/>
 
                                         <custom:CustomEntry Placeholder="Nome"
-                                                            Text="{Binding Usuario.Name}"/>
+                                                            Text="{Binding UsuarioAtual.Name}"/>
 
                                     </FlexLayout>
 
@@ -125,7 +118,7 @@
                                         <Label Text="Email"
                                                Style="{DynamicResource LabelTableView}"/>
 
-                                        <Label Text="{Binding Usuario.Email}"
+                                        <Label Text="{Binding UsuarioAtual.Email}"
                                                Style="{DynamicResource Label}"/>
                                         
                                     </StackLayout>
@@ -143,7 +136,7 @@
                                                FlexLayout.AlignSelf="Start"/>
 
                                         <custom:CustomEntry Placeholder="Email"
-                                                            Text="{Binding Usuario.Email}"
+                                                            Text="{Binding UsuarioAtual.Email}"
                                                             Keyboard="Email"/>
 
                                     </FlexLayout>
@@ -166,7 +159,7 @@
                                         <Label Text="Nível de usuário"
                                                Style="{DynamicResource LabelTableView}"/>
 
-                                        <Label Text="{Binding Usuario.Nivel_usuario}"
+                                        <Label Text="{Binding UsuarioAtual.Nivel_usuario}"
                                                Style="{DynamicResource Label}"/>
                                         
                                     </StackLayout>

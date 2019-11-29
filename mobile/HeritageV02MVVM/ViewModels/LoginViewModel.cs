@@ -96,7 +96,6 @@ namespace HeritageV02MVVM.ViewModels
                         else
                             Application.Current.Properties.Add("Login", IsChecked);
 
-                        Token.SetToken(Usuario.Token);
                         JsonUsuario.SetUsuarioJson(Usuario);
 
                         await NavigationService.NavigateAsync(new Uri("https://www.Heritage/Menu/NavigationPage/Main", UriKind.Absolute));

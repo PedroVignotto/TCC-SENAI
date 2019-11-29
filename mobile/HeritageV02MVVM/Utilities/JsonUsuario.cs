@@ -49,9 +49,9 @@ namespace HeritageV02MVVM.Utilities
                     usuario = null;
 
             }
-            catch (System.Exception ex)
+            catch (System.Exception)
             {
-                throw ex;
+                usuario = null;
             }
 
             return usuario;
