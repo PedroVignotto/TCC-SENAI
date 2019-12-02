@@ -14,7 +14,9 @@ namespace HeritageV02MVVM.ViewModels
     public class UsuariosViewModel : ViewModelBase
     {
 
-        #region Command
+        #region Commands
+
+        public DelegateCommand RefreshCommand { get; private set; }
 
         private DelegateCommand<Usuario> _ExibirUsuarioCommand;
         public DelegateCommand<Usuario> ExibirUsuarioCommand => _ExibirUsuarioCommand ?? (_ExibirUsuarioCommand = new DelegateCommand<Usuario>(async (itemSelect) => await ExecuteExibirUsuarioCommand(itemSelect).ConfigureAwait(false), (itemSelect) => !IsBusy));
@@ -47,6 +49,8 @@ namespace HeritageV02MVVM.ViewModels
             Title = "Usuários";
             Icone = "avatarIcon.png";
 
+            RefreshCommand = new DelegateCommand(ExecuteRefreshCommand);
+
         }
 
         #region Métodos
@@ -58,8 +62,6 @@ namespace HeritageV02MVVM.ViewModels
             JsonUsuario = new JsonUsuario();
             Usuarios = new ObservableCollection<Usuario>();
 
-            Load = true;
-
             UsuarioAtual = JsonUsuario.GetUsuarioJson();
 
             if (UsuarioAtual.Id_nivel_usuario == 1)
@@ -67,6 +69,11 @@ namespace HeritageV02MVVM.ViewModels
             else
                 IsAuthorized = false;
 
+            await LoadAsync();
+        }
+
+        private async void ExecuteRefreshCommand()
+        {
             await LoadAsync();
         }
 
@@ -96,6 +103,10 @@ namespace HeritageV02MVVM.ViewModels
         {
             try
             {
+                Body = false;
+                Load = true;
+                Null = false;
+
                 ObservableCollection<Usuario> usuarios = await HeritageAPIService.GetAsyncUsuarios(UsuarioAtual.Id_empresa);
 
                 Usuarios.Clear();

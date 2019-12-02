@@ -200,6 +200,7 @@ namespace HeritageV02MVVM.Services
         public async Task<Usuario> Refresh(Usuario usuario)
         {
             RequestToken requestToken = null;
+            Usuario usuarioReturn = null;
             HttpResponseMessage response = null;
 
             try
@@ -219,9 +220,10 @@ namespace HeritageV02MVVM.Services
                       .ExecuteAsync(async () =>
                       {
                           HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", usuario.Token);
+                          HttpClient.DefaultRequestHeaders.ConnectionClose = true;
 
                           Uri uri = new Uri(ApiBaseUrl + "refresh");
-                          var data = JsonConvert.SerializeObject(usuario);
+                          var data = JsonConvert.SerializeObject(usuarioReturn);
                           var content = new StringContent(data, Encoding.UTF8, "application/json");
                           response = await HttpClient.PostAsync(uri, content);
 
@@ -232,46 +234,49 @@ namespace HeritageV02MVVM.Services
                               token.Hora_Registro = token.Hora_Registro.AddHours(1);
                               requestToken.SetToken(token);
 
-                              usuario.Token = token.Token_acesso;
+                              usuarioReturn.Token = token.Token_acesso;
                           }
                           else
-                              usuario = null;
+                              usuarioReturn = null;
                       });
 
-                await Policy
-                           .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
-                           .WaitAndRetryAsync
-                           (
-                                retryCount: 3,
-                                sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
-                                onRetry: (ex, time) =>
-                                {
-                                    Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
-                                }
-                           )
-                           .ExecuteAsync(async () =>
-                           {
-                               HttpClient.DefaultRequestHeaders.Authorization = null;
+                if (response.IsSuccessStatusCode)
+                {
+                    await Policy
+                                       .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                                       .WaitAndRetryAsync
+                                       (
+                                            retryCount: 3,
+                                            sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                                            onRetry: (ex, time) =>
+                                            {
+                                                Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                                            }
+                                       )
+                                       .ExecuteAsync(async () =>
+                                       {
+                                           HttpClient.DefaultRequestHeaders.Authorization = null;
 
-                               Desc_Token desc_Token = new Desc_Token
-                               {
-                                   Token = usuario.Token
-                               };
+                                           Desc_Token desc_Token = new Desc_Token
+                                           {
+                                               Token = usuarioReturn.Token
+                                           };
 
-                               string url = ApiBaseUrl + "me";
-                               var data = JsonConvert.SerializeObject(desc_Token);
-                               var content = new StringContent(data, Encoding.UTF8, "application/json");
-                               response = await HttpClient.PostAsync(url, content);
+                                           string url = ApiBaseUrl + "me";
+                                           var data = JsonConvert.SerializeObject(desc_Token);
+                                           var content = new StringContent(data, Encoding.UTF8, "application/json");
+                                           response = await HttpClient.PostAsync(url, content);
 
-                               if (response.IsSuccessStatusCode)
-                               {
-                                   var repost = await response.Content.ReadAsStringAsync();
-                                   usuario = JsonConvert.DeserializeObject<Usuario>(repost);
-                                   usuario.Token = desc_Token.Token;
-                               }
-                               else
-                                   usuario = null;
-                           });
+                                           if (response.IsSuccessStatusCode)
+                                           {
+                                               var repost = await response.Content.ReadAsStringAsync();
+                                               usuarioReturn = JsonConvert.DeserializeObject<Usuario>(repost);
+                                               usuarioReturn.Token = desc_Token.Token;
+                                           }
+                                           else
+                                               usuarioReturn = null;
+                                       }); 
+                }
 
             }
             catch (Exception ex)
@@ -279,7 +284,7 @@ namespace HeritageV02MVVM.Services
                 throw ex;
             }
 
-            return usuario;
+            return usuarioReturn;
 
         }
 
@@ -404,7 +409,7 @@ namespace HeritageV02MVVM.Services
                       )
                       .ExecuteAsync(async () =>
                       {
-                          Uri uri = new Uri(ApiBaseUrl.ToString() + "/usuarios");
+                          Uri uri = new Uri(ApiBaseUrl.ToString() + "usuarios");
                           var response = await HttpClient.GetStringAsync(uri);
                           usuarios = JsonConvert.DeserializeObject<ObservableCollection<Usuario>>(response);
                       });
@@ -776,7 +781,7 @@ namespace HeritageV02MVVM.Services
                       )
                       .ExecuteAsync(async () =>
                       {
-                          Uri uri = new Uri(ApiBaseUrl.ToString()  + "/usuarios");
+                          Uri uri = new Uri(ApiBaseUrl.ToString()  + "usuarios");
                           var response = await HttpClient.GetStringAsync(uri);
                           usuarios = JsonConvert.DeserializeObject<ObservableCollection<Usuario>>(response);
 
@@ -1354,6 +1359,7 @@ namespace HeritageV02MVVM.Services
 
             ObservableCollection<Historico> historicos = new ObservableCollection<Historico>();
             ObservableCollection<Patrimonio> patrimonios = new ObservableCollection<Patrimonio>();
+            ObservableCollection<Ambiente> ambientes = new ObservableCollection<Ambiente>();
             ObservableCollection<Historico.Movimentacao> movimentacoes = new ObservableCollection<Historico.Movimentacao>();
 
             try
@@ -1391,6 +1397,25 @@ namespace HeritageV02MVVM.Services
                     )
                     .ExecuteAsync(async () =>
                     {
+                        Uri uri = new Uri(ApiBaseUrl.ToString() + Id_empresa + "/ambientes");
+                        string response = await HttpClient.GetStringAsync(uri);
+                        ambientes = JsonConvert.DeserializeObject<ObservableCollection<Ambiente>>(response);
+
+                    });
+
+                await Policy
+                    .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                    .WaitAndRetryAsync
+                    (
+                        retryCount: 3,
+                        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                        onRetry: (ex, time) =>
+                        {
+                            Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                        }
+                    )
+                    .ExecuteAsync(async () =>
+                    {
                         Uri uri_patrimonio = new Uri(ApiBaseUrl.ToString() + Id_empresa + "/patrimonios/");
                         string response_patrimonio = await HttpClient.GetStringAsync(uri_patrimonio);
                         patrimonios = JsonConvert.DeserializeObject<ObservableCollection<Patrimonio>>(response_patrimonio);
@@ -1403,7 +1428,13 @@ namespace HeritageV02MVVM.Services
                                 {
                                     if (historico.Id_patrimonio == patrimonio.Id)
                                     {
-                                        movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino });
+                                        foreach (Ambiente ambiente in ambientes)
+                                        {
+                                            if (ambiente.Id == historico.Id_ambiente)
+                                            {
+                                                movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino, Codigo_patrimonio = patrimonio.Codigo_patrimonio, Nome_ambiente = ambiente.Nome_ambiente, Local_destino = historico.Local_destino });  
+                                            }
+                                        }
                                     }
                                 }
 
@@ -1712,7 +1743,7 @@ namespace HeritageV02MVVM.Services
                                         {
                                             if (ambiente.Id == historico.Id_ambiente)
                                             {
-                                                movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino });
+                                                movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino, Codigo_patrimonio = patrimonio.Codigo_patrimonio, Nome_ambiente = ambiente.Nome_ambiente, Local_destino = historico.Local_destino });
                                             }
                                         }
 
@@ -1812,7 +1843,7 @@ namespace HeritageV02MVVM.Services
                                             {
                                                 if (ambiente.Id == historico.Id_ambiente)
                                                 {
-                                                    movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino });
+                                                    movimentacoes.Add(new Historico.Movimentacao() { Id = historico.Id, Criacao = historico.Criacao, Id_ambiente = historico.Id_ambiente, Id_empresa = historico.Id_empresa, Id_patrimonio = historico.Id_patrimonio, Nome = patrimonio.Nome_patrimonio + " para " + historico.Local_destino, Codigo_patrimonio = patrimonio.Codigo_patrimonio, Nome_ambiente = ambiente.Nome_ambiente, Local_destino = historico.Local_destino });
                                                 }
                                             }
 

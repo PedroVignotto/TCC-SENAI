@@ -7,7 +7,8 @@
              x:Class="HeritageV02MVVM.Views.PesquisarPatrimonios"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:c="clr-namespace:HeritageV02MVVM.Converters;assembly=HeritageV02MVVM"
-             IconImageSource="{Binding Icon}"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             IconImageSource="{Binding Icone}"
              BackgroundColor="{DynamicResource BackgroundPage}"
              Title="{Binding Title}">
 
@@ -110,19 +111,33 @@
 
                             <ContentView>
 
-                                <FlexLayout Direction="Row">
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                             Orientation="Horizontal">
 
-                                    <Frame Style="{DynamicResource FrameIcon}">
+                                    <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                                         CornerRadius="0, 20, 0, 20"
+                                                         HasShadow="true"
+                                                         Margin="0, 20, 0, 0"
+                                                         HorizontalOptions="Start">
 
-                                        <Image Source="box.png"/>
+                                        <StackLayout HorizontalOptions="FillAndExpand">
 
-                                    </Frame>
+                                            <Image Source="boxDark.png"
+                                                   WidthRequest="40"
+                                                   HeightRequest="40"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   Margin="5, 10, 10, 10"/>
 
-                                    <Label Margin="0, 15, 10, 10"
+                                        </StackLayout>
+
+                                    </pancake:PancakeView>
+
+                                    <Label Text="Patrimônios"
                                            Style="{DynamicResource LabelTitle}"
-                                           Text="Patrimônios" />
-                                    
-                                </FlexLayout>
+                                           VerticalOptions="CenterAndExpand"
+                                           Margin="0, 20, 0, 0"/>
+
+                                </StackLayout>
 
                             </ContentView>
 
@@ -140,38 +155,7 @@
 
                 </ListView>
 
-                <Button Command="{Binding AdicionarPatrimonioCommand}"
-                        IsVisible="{Binding IsVisible}"
-                        Style="{DynamicResource FloatButton}"/>
-
             </RelativeLayout>
-
-            <StackLayout IsVisible="{Binding Load}"
-                         VerticalOptions="CenterAndExpand">
-
-                <Image Source="boxGray.png"
-                       WidthRequest="200"
-                       HeightRequest="200"/>
-
-                <ActivityIndicator IsRunning="True"
-                                   Color="#c3c3c3"
-                                   Margin="10"/>
-
-            </StackLayout>
-
-            <StackLayout IsVisible="{Binding Null}"
-                         VerticalOptions="CenterAndExpand">
-
-                <Image Source="boxGray.png"
-                       WidthRequest="200"
-                       HeightRequest="200"/>
-
-                <Label Style="{DynamicResource LabelPrincipal}"
-                       TextColor="#c3c3c3"
-                       HorizontalOptions="Center"
-                       Text="Sem patrimônios para exbir"/>
-
-            </StackLayout>
 
         </StackLayout>
 

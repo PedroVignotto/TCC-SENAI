@@ -16,7 +16,7 @@
     <TabbedPage.ToolbarItems>
         
         <ToolbarItem IconImageSource="search.png"
-                     Command="{b:NavigateTo Name='Pesquisa'}"/>
+                     Command="{b:NavigateTo Name='Pesquisar'}"/>
 
         <ToolbarItem IconImageSource="qrcodeDark.png"
                      Command="{b:NavigateTo Name='Scanner'}"

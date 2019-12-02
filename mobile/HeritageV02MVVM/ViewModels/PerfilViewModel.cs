@@ -26,15 +26,45 @@ namespace HeritageV02MVVM.ViewModels
 
         #region Variáveis
 
-        public string IconTelefone { get; set; }
-        public string IconCpf { get; set; }
-        public string IconEmail { get; set; }
-        public string IconNivel { get; set; }
-        public string IconEmpresa { get; set; }
-        public string IconNome { get; set; }
-        public string IconExcluir { get; set; }
-        public string IconCamera { get; set; }
-        public string IconFoto { get; set; }
+        private string _iconEmail;
+
+        public string IconEmail
+        {
+            get => _iconEmail;
+            set => SetProperty(ref _iconEmail, value);
+        }
+
+        private string _iconNivel;
+
+        public string IconNivel
+        {
+            get => _iconNivel;
+            set => SetProperty(ref _iconNivel, value);
+        }
+
+        private string _iconNome;
+
+        public string IconNome
+        {
+            get => _iconNome;
+            set => SetProperty(ref _iconNome, value);
+        }
+        
+        private string _iconExcluir;
+
+        public string IconExcluir
+        {
+            get => _iconExcluir;
+            set => SetProperty(ref _iconExcluir, value);
+        }
+        
+        private string _iconFoto;
+
+        public string IconFoto
+        {
+            get => _iconFoto;
+            set => SetProperty(ref _iconFoto, value);
+        }
 
         #endregion
 
@@ -74,13 +104,9 @@ namespace HeritageV02MVVM.ViewModels
                     break;
             }
 
-            IconCamera = Icon.IconName("camera");
             IconFoto = Icon.IconName("picture");
-            IconTelefone = Icon.IconName("smartphone");
-            IconCpf = Icon.IconName("avatar");
             IconEmail = Icon.IconName("email");
             IconNivel = Icon.IconName("controls");
-            IconEmpresa = Icon.IconName("visitor");
             IconExcluir = Icon.IconName("cancel");
             IconNome = Icon.IconName("name");
         }
@@ -176,13 +202,9 @@ namespace HeritageV02MVVM.ViewModels
             UsuarioAtual = null;
             JsonUsuario = null;
 
-            IconCamera = null;
             IconFoto = null;
-            IconTelefone = null;
-            IconCpf = null;
             IconEmail = null;
             IconNivel = null;
-            IconEmpresa = null;
             IconExcluir = null;
             IconNome = null;
 

@@ -15,7 +15,7 @@ namespace HeritageV02MVVM.Models
 
         private string _icon;
 
-        public string Icon
+        public string Icone
         {
             get => _icon;
             set => SetProperty(ref _icon, value);

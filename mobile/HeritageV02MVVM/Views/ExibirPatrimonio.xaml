@@ -14,7 +14,7 @@
     <ContentPage.ToolbarItems>
         
         <ToolbarItem IconImageSource="save.png"
-                     Command="{Binding SalvarPatrimonioCommand}"/>
+                     Command="{Binding SalvarCommand}"/>
         
     </ContentPage.ToolbarItems>
 
@@ -29,9 +29,9 @@
                             JustifyContent="Center"
                             AlignItems="Center"
                             AlignContent="Center"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            BackgroundColor="Transparent"
                            HeightRequest="150"
                            WidthRequest="150"
@@ -45,9 +45,9 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="430"
-                               x:Name="tbvPatr"
-                               Margin="0, 10, 0, 0">
+                               HeightRequest="385"
+                               Margin="0, 10, 0, 0"
+                               x:Name="tbvPatr">
                         
                         <TableRoot>
                             
@@ -284,8 +284,8 @@
                                                      HorizontalOptions="Start">
                                     
                                     <StackLayout HorizontalOptions="FillAndExpand">
-                                        
-                                        <Image Source="acceleration.png"
+
+                                        <Image Source="accelerationDark.png"
                                                WidthRequest="40"
                                                HeightRequest="40"
                                                HorizontalOptions="StartAndExpand"
@@ -446,7 +446,7 @@
                                     
                                     <StackLayout HorizontalOptions="FillAndExpand">
                                         
-                                        <Image Source="tools.png"
+                                        <Image Source="toolsDark.png"
                                                WidthRequest="40"
                                                HeightRequest="40"
                                                HorizontalOptions="StartAndExpand"
@@ -593,14 +593,14 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"
                            FlexLayout.AlignSelf="Center"/>
 
-                    <Label Text="{Binding Load}"
+                    <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
                            Style="{DynamicResource LabelTitle}"/>

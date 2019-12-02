@@ -14,6 +14,15 @@ namespace HeritageV02MVVM.ViewModels
     public class PatrimoniosViewModel : ViewModelBase
     {
 
+        #region Commands
+
+        public DelegateCommand RefreshCommand { get; private set; }
+
+        private DelegateCommand<Patrimonio> _ExibirPatrimonioCommand;
+        public DelegateCommand<Patrimonio> ExibirPatrimonioCommand => _ExibirPatrimonioCommand ?? (_ExibirPatrimonioCommand = new DelegateCommand<Patrimonio>(async (itemSelect) => await ExecuteExibirPatrimonioCommand(itemSelect), (itemSelect) => !IsBusy));
+
+        #endregion
+
         #region Variáveis
 
         private ObservableCollection<Patrimonio> patrimonios;
@@ -21,7 +30,7 @@ namespace HeritageV02MVVM.ViewModels
         public ObservableCollection<Patrimonio> Patrimonios
         {
             get => patrimonios;
-            set => SetProperty(ref patrimonios, value); 
+            set => SetProperty(ref patrimonios, value);
         }
 
         private bool _isAuthorized;
@@ -29,15 +38,8 @@ namespace HeritageV02MVVM.ViewModels
         public bool IsAuthorized
         {
             get => _isAuthorized;
-            set => SetProperty(ref _isAuthorized, value); 
+            set => SetProperty(ref _isAuthorized, value);
         }
-
-        #endregion
-
-        #region Command
-
-        private DelegateCommand<Patrimonio> _ExibirPatrimonioCommand;
-        public DelegateCommand<Patrimonio> ExibirPatrimonioCommand => _ExibirPatrimonioCommand ?? (_ExibirPatrimonioCommand = new DelegateCommand<Patrimonio>(async (itemSelect) => await ExecuteExibirPatrimonioCommand(itemSelect), (itemSelect) => !IsBusy));
 
         #endregion
 
@@ -45,6 +47,8 @@ namespace HeritageV02MVVM.ViewModels
         {
             Title = "Patrimônios";
             Icone = "boxIcon.png";
+
+            RefreshCommand = new DelegateCommand(ExecuteRefreshCommand);
         }
 
         #region Métodos
@@ -81,10 +85,16 @@ namespace HeritageV02MVVM.ViewModels
             await NavigationService.NavigateAsync("ExibirPatrimonio", navigationParams);
         }
 
+        private async void ExecuteRefreshCommand()
+        {
+            await LoadAsync();
+        }
+
         private async Task LoadAsync()
         {
-
+            Body = false;
             Load = true;
+            Null = false;
 
             try
             {

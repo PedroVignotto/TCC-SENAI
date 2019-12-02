@@ -19,9 +19,9 @@
                             JustifyContent="Center"
                             Wrap="Wrap"
                             AlignItems="Center"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"/>
 
                     <custom:CustomEntry Placeholder="Nome"
@@ -63,7 +63,7 @@
                            Margin="10"/>
 
                     <Button Text="Adicionar"
-                            Command="{Binding AdicionaPatrimonioCommand}"
+                            Command="{Binding AdicionarPatrimonioCommand}"
                             Margin="10"/>
 
                 </FlexLayout>
@@ -73,9 +73,9 @@
                             Wrap="Wrap"
                             VerticalOptions="CenterAndExpand"
                             AlignItems="Center"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"/>
 

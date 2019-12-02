@@ -58,6 +58,14 @@ namespace HeritageV02MVVM.ViewModels
             Icone = "settingsLight.png";
 
             MudarTemaCommand = new DelegateCommand(ExecuteMudarTemaCommand);
+
+            if (Application.Current.Properties.ContainsKey("TemaActived"))
+                IsToggled = Convert.ToBoolean(Application.Current.Properties["TemaActived"]);
+            else
+            {
+                Application.Current.Properties["TemaActived"] = "false";
+                IsToggled = false;
+            }
         }
 
         #region Métodos
@@ -69,37 +77,35 @@ namespace HeritageV02MVVM.ViewModels
             JsonUsuario = new JsonUsuario();
             menuItemLists = new ObservableCollection<MenuItemList>();
 
-            if (Application.Current.Properties.ContainsKey("TemaActived"))
-                IsToggled = Convert.ToBoolean(Application.Current.Properties["TemaActived"]);
-            else
-            { 
-                Application.Current.Properties["TemaActived"] = "false";
-                IsToggled = false;
-            }
-
             UsuarioAtual = JsonUsuario.GetUsuarioJson();
 
             MenuItemLists = new ObservableCollection<MenuItemList>
             {
-                new MenuItemList { Nome = "Perfil", Icon = Icon.IconName("avatar"), Pagina = "Perfil", Descricao = "Ver e alterar seu perfil" },
-                new MenuItemList { Nome = "Versão do Heritage", Icon = Icon.IconName("smartphone"), Descricao = "Versão: 0.0.2"},
-                new MenuItemList { Nome = "Sobre nós", Icon = Icon.IconName("question"), Descricao = "Sobre os desenvolvedores do aplicativo"},
-                new MenuItemList { Nome = "Funcionamento", Icon = Icon.IconName("exclamation"), Descricao = "Como o aplicativo funciona"},
-                new MenuItemList { Nome = "Sair", Icon = Icon.IconName("logout"), Pagina = "Inicio", Descricao = "Sair e deslogar do aplicativo"},
+                new MenuItemList { Nome = "Perfil", Icone = Icon.IconName("avatar"), Pagina = "Perfil", Descricao = "Ver e alterar seu perfil" },
+                new MenuItemList { Nome = "Versão do Heritage", Icone = Icon.IconName("smartphone"), Descricao = "Versão: 0.0.2"},
+                new MenuItemList { Nome = "Sobre nós", Icone = Icon.IconName("question"), Descricao = "Sobre os desenvolvedores do aplicativo"},
+                new MenuItemList { Nome = "Funcionamento", Icone = Icon.IconName("exclamation"), Descricao = "Como o aplicativo funciona"},
+                new MenuItemList { Nome = "Sair", Icone = Icon.IconName("logout"), Pagina = "Inicio", Descricao = "Sair e deslogar do aplicativo"},
             };
+
+            IconTheme = Icon.IconName("theme");
 
         }
 
         private async Task ExecuteMenuItensCommand(MenuItemList menuItem)
         {
-            await NavigationService.NavigateAsync(menuItem.Pagina).ConfigureAwait(false);
+            await NavigationService.NavigateAsync(menuItem.Pagina);
         }
 
         private void ExecuteMudarTemaCommand()
         {
+            string tema;
+
             if (IsToggled == true)
-                
-                
+                tema = "Dark";
+            else
+                tema = "Light";
+
             if (Application.Current.Properties.ContainsKey("Theme"))
                 Application.Current.Properties["Theme"] = tema;
             else
@@ -110,12 +116,12 @@ namespace HeritageV02MVVM.ViewModels
 
             Icon = new Icon();
 
-            MenuItemLists[0].Icon = Icon.IconName("avatar");
-            MenuItemLists[1].Icon = Icon.IconName("smartphone");
-            MenuItemLists[2].Icon = Icon.IconName("question");
-            MenuItemLists[3].Icon = Icon.IconName("exclamation");
-            MenuItemLists[4].Icon = Icon.IconName("logout");
-
+            MenuItemLists[0].Icone = Icon.IconName("avatar");
+            MenuItemLists[1].Icone = Icon.IconName("smartphone");
+            MenuItemLists[2].Icone = Icon.IconName("question");
+            MenuItemLists[3].Icone = Icon.IconName("exclamation");
+            MenuItemLists[4].Icone = Icon.IconName("logout");
+            IconTheme = Icon.IconName("theme");
         }
 
         #endregion

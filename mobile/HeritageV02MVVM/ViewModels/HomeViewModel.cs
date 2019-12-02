@@ -101,9 +101,7 @@ namespace HeritageV02MVVM.ViewModels
                     NumeroPatrimonios++;
 
                     if (NumeroPatrimonios >= patrimonios.Count - 3)
-                    {
                         patrimonios_publish.Add(patrimonio);
-                    }
                 }
 
                 ObservableCollection<Ambiente> ambientes = await HeritageAPIService.GetAsyncAmbientes(UsuarioAtual.Id_empresa);
@@ -111,9 +109,7 @@ namespace HeritageV02MVVM.ViewModels
                 NumeroAmbientes = 0;
 
                 foreach (Ambiente ambiente in ambientes)
-                {
                     NumeroAmbientes++;
-                }
 
                 ObservableCollection<Usuario> usuarios = await HeritageAPIService.GetAsyncUsuarios(UsuarioAtual.Id_empresa);
 
@@ -127,17 +123,11 @@ namespace HeritageV02MVVM.ViewModels
                     NumeroUsuarios++;
 
                     if (usuario.Id_nivel_usuario == 2)
-                    {
                         NumeroGerenciadores++;
-                    }
                     else if (usuario.Id_nivel_usuario == 3)
-                    {
                         NumeroSuportes++;
-                    }
                     else if (usuario.Id_nivel_usuario == 1)
-                    {
                         NumeroAdm++;
-                    }
                 }
 
                 IsBusy = true;
@@ -146,7 +136,7 @@ namespace HeritageV02MVVM.ViewModels
             {
                 var param = new DialogParameters
                 {
-                    { "Message", "Erro ao carregar ultimos patrimônios adicionados" },
+                    { "Message", "Erro ao carregar algumas informções" },
                     { "Title", "Erro" },
                     { "Icon", Icon.IconName("bug") }
                 };

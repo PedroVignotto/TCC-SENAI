@@ -76,7 +76,7 @@
                                         
                                         <StackLayout Orientation="Horizontal">
 
-                                            <Image Source="{Binding Icon}"
+                                            <Image Source="{Binding Icone}"
                                                    x:Name="icon"
                                                    Style="{DynamicResource ImgIconTableView}"/>
 

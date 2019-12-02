@@ -19,15 +19,14 @@
                             Wrap="Wrap"
                             AlignItems="Center"
                             JustifyContent="Center"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"/>
 
                     <custom:CustomEntry Placeholder="Email"
                                         Text="{Binding Usuario.Email}"
-                                        Keyboard="Email"
-                                        x:Name="email"/>
+                                        Keyboard="Email"/>
 
                     <custom:CustomPicker Title="Nivel de usuário"
                                          ItemsSource="{Binding Niveis}"
@@ -41,7 +40,7 @@
                            Margin="10"/>
 
                     <Button Text="Cadastrar"
-                            Command="{Binding AdicionarUsuarioCommand}"
+                            Command="{Binding AdiconarUsuarioCommand}"
                             Margin="10"/>
 
                 </FlexLayout>
@@ -50,7 +49,7 @@
                             JustifyContent="Center"
                             Wrap="Wrap"
                             AlignItems="Center"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            IsVisible="{Binding Load}">
 
                     <Image Source="{Binding Icon}"
                            Style="{DynamicResource ImgIcon}"

@@ -42,9 +42,9 @@
                             AlignItems="Center"
                             AlignContent="Center"
                             IsClippedToBounds="False"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            BackgroundColor="Transparent"
                            HeightRequest="150"
                            WidthRequest="150"
@@ -225,8 +225,8 @@
                                                      HorizontalOptions="Start">
                                     
                                     <StackLayout HorizontalOptions="FillAndExpand">
-                                        
-                                        <Image Source="box.png"
+
+                                        <Image Source="boxDark.png"
                                                WidthRequest="40"
                                                HeightRequest="40"
                                                HorizontalOptions="StartAndExpand"
@@ -252,7 +252,7 @@
                                 <StackLayout>
                                     
                                     <ListView ItemsSource="{Binding Patrimonios}"
-                                              HeightRequest="{Binding Height_listView}"
+                                              HeightRequest="{Binding HeightListViewPatrimonios}"
                                               FlexLayout.Basis="100%"
                                               IsVisible="{Binding BodyPatrimonios}"
                                               SeparatorColor="Gray">
@@ -392,7 +392,7 @@
                                     
                                     <StackLayout HorizontalOptions="FillAndExpand">
                                         
-                                        <Image Source="acceleration.png"
+                                        <Image Source="accelerationDark.png"
                                                WidthRequest="40"
                                                HeightRequest="40"
                                                HorizontalOptions="StartAndExpand"
@@ -418,7 +418,7 @@
                                 <StackLayout>
                                     
                                     <ListView ItemsSource="{Binding Movimentacoes}"
-                                              HeightRequest="{Binding Height_listView_movimentacoes}"
+                                              HeightRequest="{Binding HeightListViewMovimentacoes}"
                                               SeparatorColor="Gray"
                                               FlexLayout.Basis="100%"
                                               IsVisible="{Binding BodyMovimentacoes}">
@@ -551,8 +551,8 @@
                                                      HorizontalOptions="Start">
                                     
                                     <StackLayout HorizontalOptions="FillAndExpand">
-                                        
-                                        <Image Source="tools.png"
+
+                                        <Image Source="toolsDark.png"
                                                WidthRequest="40"
                                                HeightRequest="40"
                                                HorizontalOptions="StartAndExpand"
@@ -579,7 +579,7 @@
                                     
                                     <ListView ItemsSource="{Binding Manutencoes}"
                                               IsRefreshing="{Binding IsBusy}"
-                                              HeightRequest="{Binding Height_listview_manutencoes}"
+                                              HeightRequest="{Binding HeightListviewManutencoes}"
                                               IsVisible="{Binding BodyManutencoes}"
                                               SeparatorColor="Gray">
 
@@ -658,7 +658,7 @@
 
                                     </ListView>
 
-                                    <StackLayout IsVisible="{Binding LoadMovimentacoes}"
+                                    <StackLayout IsVisible="{Binding LoadManutencoes}"
                                                  VerticalOptions="CenterAndExpand">
                                         
                                         <Image Source="toolsGray.png"
@@ -671,7 +671,7 @@
                                         
                                     </StackLayout>
 
-                                    <StackLayout IsVisible="{Binding NullMovimentacoes}"
+                                    <StackLayout IsVisible="{Binding NullManutencoes}"
                                                  VerticalOptions="CenterAndExpand">
                                         
                                         <Image Source="toolsGray.png"
@@ -699,9 +699,10 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            VerticalOptions="CenterAndExpand"
+                            IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"
                            FlexLayout.AlignSelf="Center"/>

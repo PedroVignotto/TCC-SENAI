@@ -122,6 +122,17 @@
                 <Setter Property="Text" Value="+"/>
             </Style>
 
+            <Style x:Key="FloatImageButton" TargetType="ImageButton">
+                <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundFloatButton}" />
+                <Setter Property="CornerRadius" Value="100" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="BorderColor" Value="{DynamicResource BorderColorButton}" />
+                <Setter Property="Margin" Value="-15"/>
+                <Setter Property="WidthRequest" Value="60"/>
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"/>
+                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"/>
+            </Style>
+
             <Style TargetType="custom:CustomEditor">
                 <Setter Property="PlaceholderColor" Value="{DynamicResource PlaceholderColor}" />
                 <Setter Property="TextColor" Value="{DynamicResource TextColor}" />

@@ -90,7 +90,8 @@
                             IsVisible="{Binding Load}">
 
                     <Image Source="init.jpg"
-                           HorizontalOptions="FillAndExpand"/>
+                           HorizontalOptions="FillAndExpand"
+                           FlexLayout.Basis="100%"/>
 
                     <ActivityIndicator Color="#2a7ae4"
                                        Margin="0, 50, 0, 0"

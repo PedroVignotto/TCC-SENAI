@@ -30,6 +30,8 @@
                 
                 <ListView ItemsSource="{Binding Usuarios}"
                           IsRefreshing="{Binding IsBusy}"
+                          IsPullToRefreshEnabled="True"
+                          RefreshCommand="{Binding RefreshCommand}"
                           SeparatorColor="Gray">
 
                     <ListView.ItemTemplate>
@@ -58,7 +60,7 @@
                                                 
                                             </Frame>
 
-                                            <Label Text="{Binding name}"
+                                            <Label Text="{Binding Name}"
                                                    HorizontalOptions="CenterAndExpand"
                                                    Style="{DynamicResource LabelPrincipal}"
                                                    MaxLines="1"
@@ -73,7 +75,7 @@
                                                     <Label Text="Nível de usuário"
                                                            Style="{DynamicResource LabelTableView}"/>
 
-                                                    <Label Text="{Binding nivel_usuario}"
+                                                    <Label Text="{Binding Nivel_usuario}"
                                                            Style="{DynamicResource Label}"/>
                                                     
                                                 </StackLayout>
@@ -142,7 +144,7 @@
 
                 </ListView>
 
-                <Button Command="{Binding AdicionarUsuarioCommand}"
+                <Button Command="{b:NavigateTo Name='AdicionarUsuario'}"
                         IsVisible="{Binding IsAuthorized}"
                         Style="{DynamicResource FloatButton}"/>
 
@@ -174,11 +176,21 @@
                        HorizontalOptions="Center"
                        Text="Sem usuários para exbir"/>
 
-                <Button Command="{b:NavigateTo Name='AdicionarUsuario'}"
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand">
+                    <Button Command="{b:NavigateTo Name='AdicionarUsuario'}"
                         IsVisible="{Binding IsAuthorized}"
                         HorizontalOptions="Center"
                         Margin="0, 20, 0, 0"
                         Style="{DynamicResource FloatButton}"/>
+
+                    <ImageButton Command="{Binding RefreshCommand}"
+                             HorizontalOptions="Center"
+                             Margin="0, 20, 0, 0"
+                             Padding="10"
+                             Style="{DynamicResource FloatImageButton}"
+                             Source="refreshDark.png"/>
+                </StackLayout>
 
             </StackLayout>
             

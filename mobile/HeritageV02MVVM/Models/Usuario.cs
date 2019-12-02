@@ -52,7 +52,7 @@ namespace HeritageV02MVVM.Models
         
         private string _token;
 
-        [JsonIgnore]
+        [JsonProperty("token")]
         public string Token
         {
             get => _token;

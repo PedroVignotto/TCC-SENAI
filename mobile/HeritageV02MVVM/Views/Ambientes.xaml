@@ -30,7 +30,9 @@
                 
                 <ListView ItemsSource="{Binding Ambientes}"
                           SeparatorColor="Gray"
-                          IsRefreshing="{Binding IsBusy}">
+                          IsRefreshing="{Binding IsBusy}"
+                          IsPullToRefreshEnabled="True"
+                          RefreshCommand="{Binding RefreshCommand}">
 
                     <ListView.ItemTemplate>
                         
@@ -112,7 +114,8 @@
                             <ContentView>
 
                                 <StackLayout HorizontalOptions="FillAndExpand"
-                                 Orientation="Horizontal">
+                                             Orientation="Horizontal"
+                                             Margin="0, 15, 0, 0">
 
                                     <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
                                                          CornerRadius="0, 20, 0, 20"
@@ -138,6 +141,7 @@
                                            Margin="0, 20, 0, 0"/>
 
                                 </StackLayout>
+                                
                             </ContentView>
                             
                         </DataTemplate>
@@ -185,11 +189,21 @@
                        HorizontalOptions="Center"
                        Text="Sem ambientes para exibir"/>
 
-                <Button Command="{b:NavigateTo Name='AdicionarAmbiente'}"
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand">
+                    <Button Command="{b:NavigateTo Name='AdicionarAmbiente'}"
                         Style="{DynamicResource FloatButton}"
                         Margin="0, 20, 0, 0"
                         HorizontalOptions="Center"
                         IsVisible="{Binding IsVisible}"/>
+
+                    <ImageButton Command="{Binding RefreshCommand}"
+                             HorizontalOptions="Center"
+                             Padding="10"
+                             Margin="0, 20, 0, 0"
+                             Style="{DynamicResource FloatImageButton}"
+                             Source="refreshDark.png"/>
+                </StackLayout>
 
             </StackLayout>
             

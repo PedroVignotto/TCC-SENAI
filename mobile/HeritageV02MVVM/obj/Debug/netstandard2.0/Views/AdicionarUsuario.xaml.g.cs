@@ -17,12 +17,8 @@ namespace HeritageV02MVVM.Views {
     public partial class AdicionarUsuario : global::Xamarin.Forms.ContentPage {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
-        private global::HeritageV02MVVM.Extensions.CustomEntry email;
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
         private void InitializeComponent() {
             global::Xamarin.Forms.Xaml.Extensions.LoadFromXaml(this, typeof(AdicionarUsuario));
-            email = global::Xamarin.Forms.NameScopeExtensions.FindByName<global::HeritageV02MVVM.Extensions.CustomEntry>(this, "email");
         }
     }
 }

@@ -43,12 +43,12 @@ namespace HeritageV02MVVM.ViewModels
 
             MenuItemLists = new ObservableCollection<MenuItemList>
             {
-                new MenuItemList { Nome = "Início", Icon = Icon.IconName("home"), Pagina = "Menu/NavigationPage/Main"},
-                new MenuItemList { Nome = "Perfil", Icon = Icon.IconName("avatar"), Pagina = "NavigationPage/Perfil"},
-                new MenuItemList { Nome = "Manutenções", Icon = Icon.IconName("tools"), Pagina = "NavigationPage/Manutencoes"},
-                new MenuItemList { Nome = "Movimentações", Icon = Icon.IconName("acceleration"), Pagina = "NavigationPage/Movimentacoes"},
-                new MenuItemList { Nome = "Configurações", Icon = Icon.IconName("settings"), Pagina = "NavigationPage/Configuracoes"},
-                new MenuItemList { Nome = "Sair", Icon = Icon.IconName("logout"), Pagina = "Login"},
+                new MenuItemList { Nome = "Início", Icone = Icon.IconName("home"), Pagina = "Menu/NavigationPage/Main"},
+                new MenuItemList { Nome = "Perfil", Icone = Icon.IconName("avatar"), Pagina = "NavigationPage/Perfil"},
+                new MenuItemList { Nome = "Manutenções", Icone = Icon.IconName("tools"), Pagina = "NavigationPage/Manutencoes"},
+                new MenuItemList { Nome = "Movimentações", Icone = Icon.IconName("acceleration"), Pagina = "NavigationPage/Movimentacoes"},
+                new MenuItemList { Nome = "Configurações", Icone = Icon.IconName("settings"), Pagina = "NavigationPage/Configuracoes"},
+                new MenuItemList { Nome = "Sair", Icone = Icon.IconName("logout"), Pagina = "Login"},
             };
 
         }
@@ -76,20 +76,7 @@ namespace HeritageV02MVVM.ViewModels
 
         private async Task LoadAsync()
         {
-            RequestToken requestToken = new RequestToken();
-            Token token = requestToken.GetToken();
-
-            DateTime dateTime = DateTime.Now;
-
-            if (dateTime > token.Hora_Registro)
-            {
-                UsuarioAtual = await HeritageAPIService.Refresh(UsuarioAtual);
-
-                if (UsuarioAtual == null)
-                    await NavigationService.NavigateAsync(new Uri("https://www.Heritage.com/Login", UriKind.Absolute));
-                else
-                    JsonUsuario.SetUsuarioJson(UsuarioAtual);
-            }
+            
         }
 
         public override void Destroy()

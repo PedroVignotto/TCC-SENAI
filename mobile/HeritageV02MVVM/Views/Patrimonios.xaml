@@ -30,7 +30,9 @@
                 
                 <ListView IsRefreshing="{Binding IsBusy}"
                           ItemsSource="{Binding Patrimonios}"
-                          SeparatorColor="Gray">
+                          RefreshCommand="{Binding RefreshCommand}"
+                          SeparatorColor="Gray"
+                          IsPullToRefreshEnabled="True">
 
                     <ListView.ItemTemplate>
                         
@@ -113,7 +115,7 @@
                             <ContentView>
 
                                 <StackLayout HorizontalOptions="FillAndExpand"
-                                 Orientation="Horizontal">
+                                             Orientation="Horizontal">
 
                                     <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
                                                          CornerRadius="0, 20, 0, 20"
@@ -186,7 +188,23 @@
                        TextColor="#c3c3c3"
                        HorizontalOptions="Center"
                        Text="Sem patrimônios para exbir"/>
-                
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand">
+                    <Button Command="{b:NavigateTo Name='AdicionarPatrimonio'}"
+                        IsVisible="{Binding IsAuthorized}"
+                        HorizontalOptions="Center"
+                        Margin="0, 20, 0, 0"
+                        Style="{DynamicResource FloatButton}"/>
+
+                    <ImageButton Command="{Binding RefreshCommand}"
+                             HorizontalOptions="Center"
+                             Margin="0, 20, 0, 0"
+                             Padding="15"
+                             Style="{DynamicResource FloatImageButton}"
+                             Source="refreshDark.png"/>
+                </StackLayout>
+
             </StackLayout>
             
         </StackLayout>

@@ -28,8 +28,8 @@
                     AlignItems="Center"
                     JustifyContent="Center">
 
-            <ListView ItemsSource="{Binding MenuItens}"
-                      IsRefreshing="{Binding IsBusy}">
+            <ListView IsRefreshing="{Binding IsBusy}"
+                      ItemsSource="{Binding MenuItemLists}">
 
                 <ListView.ItemTemplate>
                     
@@ -39,7 +39,7 @@
 
                             <StackLayout Orientation="Horizontal"
                                          Margin="10">
-                                <Image Source="{Binding Icon}"
+                                <Image Source="{Binding Icone}"
                                        Style="{DynamicResource ImgIconTableView}"/>
 
                                 <StackLayout Orientation="Vertical"

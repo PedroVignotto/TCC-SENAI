@@ -14,7 +14,9 @@ namespace HeritageV02MVVM.ViewModels
     public class AmbientesViewModel : ViewModelBase
     {
 
-        #region Command
+        #region Commands
+
+        public DelegateCommand RefreshCommand { get; set; }
 
         private DelegateCommand<Ambiente> _ExibirAmbienteCommand;
         public DelegateCommand<Ambiente> ExibirAmbienteCommand => _ExibirAmbienteCommand ?? (_ExibirAmbienteCommand = new DelegateCommand<Ambiente>(async (itemSelect) => await ExecuteExibirAmbienteCommand(itemSelect), (itemSelect) => !IsBusy));
@@ -45,6 +47,8 @@ namespace HeritageV02MVVM.ViewModels
         {
             Title = "Ambientes";
             Icone = "placeholderIcon.png";
+
+            RefreshCommand = new DelegateCommand(ExecuteRefreshCommand);
         }
 
         #region Métodos
@@ -56,9 +60,6 @@ namespace HeritageV02MVVM.ViewModels
             UsuarioAtual = new Usuario();
             Icon = new Icon();
 
-            Body = false;
-            Load = true;
-
             UsuarioAtual = JsonUsuario.GetUsuarioJson();
 
             if (UsuarioAtual.Id_nivel_usuario == 1)
@@ -68,6 +69,11 @@ namespace HeritageV02MVVM.ViewModels
 
             await LoadAsync();
 
+        }
+
+        private async void ExecuteRefreshCommand()
+        {
+            await LoadAsync();
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -89,6 +95,10 @@ namespace HeritageV02MVVM.ViewModels
         {
             try
             {
+                Body = false;
+                Load = true;
+                Null = false;
+
                 ObservableCollection<Ambiente> ambientes = await HeritageAPIService.GetAsyncAmbientes(UsuarioAtual.Id_empresa);
                 ObservableCollection<Patrimonio> patrimonios = await HeritageAPIService.GetAsyncPatrimonios(UsuarioAtual.Id_empresa);
 

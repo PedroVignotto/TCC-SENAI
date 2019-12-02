@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AndroidDesignerPreferredDevice>Nexus 4</AndroidDesignerPreferredDevice>
     <SelectedDevice>Motorola Moto G Play</SelectedDevice>
-    <DefaultDevice>nexus_9_pie_9_0_api_28</DefaultDevice>
+    <DefaultDevice>pixel_2_pie_9_0_api_28</DefaultDevice>
     <AndroidDesignerPreferredTheme>Theme.AppCompat.Light.NoActionBar</AndroidDesignerPreferredTheme>
   </PropertyGroup>
 </Project>

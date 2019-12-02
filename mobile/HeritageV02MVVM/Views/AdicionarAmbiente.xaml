@@ -20,9 +20,9 @@
                             AlignContent="Center"
                             VerticalOptions="CenterAndExpand"
                             Wrap="Wrap"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            FlexLayout.AlignSelf="Center"/>
 
@@ -51,9 +51,9 @@
                 </FlexLayout>
 
                 <StackLayout VerticalOptions="CenterAndExpand"
-                             IsVisible="{Binding IsVisibleLoad}">
+                             IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"/>
 
