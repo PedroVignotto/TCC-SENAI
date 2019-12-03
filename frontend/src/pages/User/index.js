@@ -9,6 +9,7 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
+  MdSupervisorAccount,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -143,39 +144,52 @@ export default function User() {
           )}
         </Search>
 
-        <ul>
-          {users.map(user => (
-            <li key={user.id}>
-              <section>
-                <img
-                  src={(user.avatar && user.avatar.url) || avatarProfile}
-                  alt={user.name}
-                />
-                <button type="button" onClick={() => handleShowInfo(user)}>
-                  <strong>{user.name}</strong>
-                  <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
-                  <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
-                  <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
-                </button>
-              </section>
+        {users.length ? (
+          <ul>
+            {users.map(user => (
+              <li key={user.id}>
+                <section>
+                  <img
+                    src={(user.avatar && user.avatar.url) || avatarProfile}
+                    alt={user.name}
+                  />
+                  <button type="button" onClick={() => handleShowInfo(user)}>
+                    <strong>{user.name}</strong>
+                    <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
+                    <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
+                    <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
+                  </button>
+                </section>
 
-              <div>
-                {profile.user_level === 1 ? (
-                  <>
-                    <button type="button" onClick={() => handleShowEdit(user)}>
-                      <MdCached size={22} color={colors.primary} />
-                    </button>
-                    <button type="button" onClick={() => handleDelete(user.id)}>
-                      <MdDeleteForever size={22} color={colors.red} />
-                    </button>
-                  </>
-                ) : (
-                  ''
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div>
+                  {profile.user_level === 1 ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleShowEdit(user)}
+                      >
+                        <MdCached size={22} color={colors.primary} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        <MdDeleteForever size={22} color={colors.red} />
+                      </button>
+                    </>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <aside>
+            <MdSupervisorAccount size={100} color={colors.primary} />
+            <h6>Nenhum usuário cadastrado</h6>
+          </aside>
+        )}
       </Container>
 
       <Modals show={showInfo} onHide={() => setShowInfo(false)} animation>
