@@ -67,6 +67,7 @@ export const Container = styled.div`
             font-size: 18px;
             color: ${colors.primary};
             margin-bottom: 10px;
+            text-align: start;
           }
 
           span {

@@ -69,7 +69,7 @@ export default function Environment() {
         ) : (
           <div>
             <MdHistory size={100} color={colors.primary} />
-            <h6>Nenhum histórico para exibir</h6>
+            <h6>Nenhum histórico foi encontrado</h6>
           </div>
         )}
       </Container>

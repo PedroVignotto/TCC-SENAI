@@ -248,7 +248,7 @@ export default function Heritage({ match }) {
         ) : (
           <aside>
             <FaBoxOpen size={100} color={colors.primary} />
-            <h6>Nenhum patrimônio cadastrado</h6>
+            <h6>Nenhum patrimônio foi encontrado</h6>
           </aside>
         )}
       </Container>

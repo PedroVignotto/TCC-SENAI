@@ -52,7 +52,7 @@ export default function Header() {
 
         <Profile>
           <Link to="/profile">
-            <strong>{profile.name}</strong>
+            <strong>{profile.name.split(' ', 1)}</strong>
             <img
               src={(profile.avatar && profile.avatar.url) || avatar}
               alt="Avatar"

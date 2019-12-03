@@ -211,7 +211,7 @@ export default function Environment() {
         ) : (
           <aside>
             <MdRoom size={100} color={colors.primary} />
-            <h6>Nenhum ambiente cadastrado</h6>
+            <h6>Nenhum ambiente foi encontrado</h6>
           </aside>
         )}
       </Container>

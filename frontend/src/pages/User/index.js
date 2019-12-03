@@ -154,7 +154,7 @@ export default function User() {
                     alt={user.name}
                   />
                   <button type="button" onClick={() => handleShowInfo(user)}>
-                    <strong>{user.name}</strong>
+                    <strong>{user.name.split(' ', 1)}</strong>
                     <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
                     <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
                     <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
@@ -187,7 +187,7 @@ export default function User() {
         ) : (
           <aside>
             <MdSupervisorAccount size={100} color={colors.primary} />
-            <h6>Nenhum usuário cadastrado</h6>
+            <h6>Nenhum usuário foi encontrado</h6>
           </aside>
         )}
       </Container>
