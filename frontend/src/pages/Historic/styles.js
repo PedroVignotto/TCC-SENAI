@@ -8,6 +8,21 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 0 30px;
 
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 100px auto;
+
+    h6 {
+      font-size: 28px;
+      font-weight: 500;
+      color: ${colors.secondary};
+      margin-top: 16px;
+    }
+  }
+
   aside {
     display: flex;
     flex-direction: row;

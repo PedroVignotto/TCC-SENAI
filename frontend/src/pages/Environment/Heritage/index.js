@@ -11,7 +11,7 @@ import {
   MdSearch,
   MdAddCircleOutline,
 } from 'react-icons/md';
-import { FaTools } from 'react-icons/fa';
+import { FaTools, FaBoxOpen } from 'react-icons/fa';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
@@ -21,10 +21,19 @@ import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
+  name: Yup.string().required('Nome é obrigatório'),
   description: Yup.string(),
-  code: Yup.string().required('Code is required'),
+  code: Yup.string().required('Código é obrigatório'),
   environment_name: Yup.string(),
+});
+
+const schemaProblem = Yup.object().shape({
+  id: Yup.string().required(),
+  name: Yup.string().required('Nome é obrigatório'),
+  description: Yup.string(),
+  code: Yup.string().required('Código é obrigatório'),
+  environment_name: Yup.string(),
+  problem: Yup.string().required('Descrição do problema é obrigatório'),
 });
 
 export default function Heritage({ match }) {
@@ -73,18 +82,19 @@ export default function Heritage({ match }) {
   function handleDelete(id) {
     try {
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Você tem certeza?',
+        text: 'Você não poderá desfazer isso!',
         showCancelButton: true,
         confirmButtonColor: `${colors.green}`,
         cancelButtonColor: `${colors.red}`,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar',
       }).then(result => {
         if (result.value) {
           api.delete(`heritages/${id}`);
 
           setHeritages(heritages.filter(heritage => heritage.id !== id));
-          toast.success('Heritage successfully deleted');
+          toast.success('Heritage excluído com sucesso');
         }
       });
     } catch (err) {
@@ -103,7 +113,7 @@ export default function Heritage({ match }) {
           environment_id: response.data.id,
         });
 
-        toast.success('Heritage updated successfully');
+        toast.success('Heritage atualizado com sucesso');
         setShowEdit(false);
       } else {
         await api.put(`heritages/${id}`, {
@@ -111,7 +121,7 @@ export default function Heritage({ match }) {
           description,
         });
 
-        toast.success('Heritage updated successfully');
+        toast.success('Heritage atualizado com sucesso');
         setShowEdit(false);
       }
     } catch (err) {
@@ -120,7 +130,7 @@ export default function Heritage({ match }) {
   }
 
   function handleMaintenance() {
-    toast.success('Call information has been sent to your email');
+    toast.success('A informação do chamado foi enviado para seu email');
     setShowMaintenance(false);
   }
 
@@ -140,7 +150,7 @@ export default function Heritage({ match }) {
         });
 
         setHeritages([...heritages, response.data]);
-        toast.success('Heritage successfully added');
+        toast.success('Heritage adicionado com sucesso');
         setShowAdd(false);
       } else {
         const response = await api.post('heritages', {
@@ -151,7 +161,7 @@ export default function Heritage({ match }) {
         });
 
         setHeritages([...heritages, response.data]);
-        toast.success('Heritage successfully added');
+        toast.success('Heritage adicionado com sucesso');
         setShowAdd(false);
       }
     } catch (err) {
@@ -188,52 +198,59 @@ export default function Heritage({ match }) {
           )}
         </Search>
 
-        <ul>
-          {heritages.map(heritage => (
-            <li key={heritage.id}>
-              <button type="button" onClick={() => handleShowInfo(heritage)}>
-                <strong>{heritage.code}</strong>
-                <span>
-                  {(heritage.environment && heritage.environment.name) || ''}
-                </span>
-              </button>
+        {heritages.length ? (
+          <ul>
+            {heritages.map(heritage => (
+              <li key={heritage.id}>
+                <button type="button" onClick={() => handleShowInfo(heritage)}>
+                  <strong>{heritage.code}</strong>
+                  <span>
+                    {(heritage.environment && heritage.environment.name) || ''}
+                  </span>
+                </button>
 
-              <div>
-                {profile.user_level === 1 ? (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => handleShowMaintenance(heritage)}
-                    >
-                      <FaTools size={18} color={colors.secondary} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleShowEdit(heritage)}
-                    >
-                      <MdCached size={20} color={colors.primary} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(heritage.id)}
-                    >
-                      <MdDeleteForever size={20} color={colors.red} />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <button
-                      type="button"
-                      onClick={() => handleShowMaintenance(heritage)}
-                    >
-                      <FaTools size={20} color={colors.secondary} />
-                    </button>
-                  </>
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div>
+                  {profile.user_level === 1 ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleShowMaintenance(heritage)}
+                      >
+                        <FaTools size={18} color={colors.secondary} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleShowEdit(heritage)}
+                      >
+                        <MdCached size={20} color={colors.primary} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(heritage.id)}
+                      >
+                        <MdDeleteForever size={20} color={colors.red} />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => handleShowMaintenance(heritage)}
+                      >
+                        <FaTools size={20} color={colors.secondary} />
+                      </button>
+                    </>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <aside>
+            <FaBoxOpen size={100} color={colors.primary} />
+            <h6>Nenhum patrimônio cadastrado</h6>
+          </aside>
+        )}
       </Container>
 
       <Modals show={showInfo} onHide={() => setShowInfo(false)} animation>
@@ -266,7 +283,11 @@ export default function Heritage({ match }) {
           </button>
         </Modals.Header>
         <Modals.Body>
-          <Form initialData={edit} onSubmit={handleMaintenance}>
+          <Form
+            initialData={edit}
+            onSubmit={handleMaintenance}
+            schema={schemaProblem}
+          >
             <Input name="id" type="hidden" />
             <Input label="Código" name="code" readOnly />
             <Input label="Nome" name="name" readOnly />

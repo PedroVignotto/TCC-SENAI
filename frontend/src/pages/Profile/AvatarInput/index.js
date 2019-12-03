@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 import api from '~/services/api';
 
+import avatarProfile from '~/assets/profile.png';
 import { Container } from './styles';
 
 export default function AvatarInput() {
@@ -38,12 +39,7 @@ export default function AvatarInput() {
   return (
     <Container>
       <label htmlFor="avatar">
-        <img
-          src={
-            preview || 'https://api.adorable.io/avatars/120/abott@adorable.png'
-          }
-          alt=""
-        />
+        <img src={preview || avatarProfile} alt="Avatar" />
 
         <input
           type="file"

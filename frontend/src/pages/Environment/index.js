@@ -10,6 +10,7 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
+  MdRoom,
 } from 'react-icons/md';
 
 import api from '~/services/api';
@@ -21,8 +22,8 @@ import colors from '~/styles/colors';
 import { Container, Modals, Search } from './styles';
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('Invalid e-mail address'),
-  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Endereço de email inválido'),
+  name: Yup.string().required('Nome é obrigatório'),
 });
 
 export default function Environment() {
@@ -62,12 +63,13 @@ export default function Environment() {
   function handleDelete(id) {
     try {
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Você tem certeza?',
+        text: 'Você não poderá desfazer isso!',
         showCancelButton: true,
         confirmButtonColor: `${colors.green}`,
         cancelButtonColor: `${colors.red}`,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar',
       }).then(result => {
         if (result.value) {
           api.delete(`environments/${id}`);
@@ -75,7 +77,7 @@ export default function Environment() {
           setEnvironments(
             environments.filter(environment => environment.id !== id)
           );
-          toast.success('Environment successfully deleted');
+          toast.success('Ambiente excluído com sucesso');
         }
       });
     } catch (err) {
@@ -97,14 +99,14 @@ export default function Environment() {
           user_id: response.data.id,
         });
 
-        toast.success('Environment updated successfully');
+        toast.success('Ambiente atualizado com sucesso');
         setShowEdit(false);
       } else {
         await api.put(`environments/${id}`, {
           name,
         });
 
-        toast.success('Environment updated successfully');
+        toast.success('Ambiente atualizado com sucesso');
         setShowEdit(false);
       }
     } catch (err) {
@@ -125,7 +127,7 @@ export default function Environment() {
 
         setEnvironments([...environments, response.data]);
 
-        toast.success('Environment successfully added');
+        toast.success('Ambiente adicionado com sucesso');
         setShowAdd(false);
       } else {
         const response = await api.post('environments', {
@@ -135,7 +137,7 @@ export default function Environment() {
 
         setEnvironments([...environments, response.data]);
 
-        toast.success('Environment successfully added');
+        toast.success('Ambiente adicionado com sucesso');
         setShowAdd(false);
       }
     } catch (err) {
@@ -168,44 +170,50 @@ export default function Environment() {
             ''
           )}
         </Search>
+        {environments.length ? (
+          <ul>
+            {environments.map(environment => (
+              <li key={environment.id}>
+                <button
+                  type="button"
+                  onClick={() => history.push(`/${environment.id}/heritages`)}
+                >
+                  <strong>{environment.name}</strong>
+                  <span>
+                    {(environment.user && environment.user.email) || ''}
+                  </span>
+                </button>
 
-        <ul>
-          {environments.map(environment => (
-            <li key={environment.id}>
-              <button
-                type="button"
-                onClick={() => history.push(`/${environment.id}/heritages`)}
-              >
-                <strong>{environment.name}</strong>
-                <span>
-                  {(environment.user && environment.user.email) || ''}
-                </span>
-              </button>
-
-              <div>
-                {profile.user_level === 1 ? (
-                  <>
-                    {' '}
-                    <button
-                      type="button"
-                      onClick={() => handleShowEdit(environment)}
-                    >
-                      <MdCached size={22} color={colors.primary} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(environment.id)}
-                    >
-                      <MdDeleteForever size={22} color={colors.red} />
-                    </button>
-                  </>
-                ) : (
-                  ''
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
+                <div>
+                  {profile.user_level === 1 ? (
+                    <>
+                      {' '}
+                      <button
+                        type="button"
+                        onClick={() => handleShowEdit(environment)}
+                      >
+                        <MdCached size={22} color={colors.primary} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDelete(environment.id)}
+                      >
+                        <MdDeleteForever size={22} color={colors.red} />
+                      </button>
+                    </>
+                  ) : (
+                    ''
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <aside>
+            <MdRoom size={100} color={colors.primary} />
+            <h6>Nenhum ambiente cadastrado</h6>
+          </aside>
+        )}
       </Container>
 
       <Modals show={showEdit} onHide={() => setShowEdit(false)} animation>

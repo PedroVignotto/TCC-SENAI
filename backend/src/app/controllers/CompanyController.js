@@ -38,7 +38,9 @@ class CompanyController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { email, cnpj } = req.body;
@@ -91,7 +93,9 @@ class CompanyController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;
@@ -104,7 +108,9 @@ class CompanyController {
       const emailExists = await Company.findOne({ where: { email } });
 
       if (emailExists) {
-        return res.status(400).json({ error: 'Esse email já está sendo utilizado' });
+        return res
+          .status(400)
+          .json({ error: 'Esse email já está sendo utilizado' });
       }
     }
 
@@ -112,7 +118,9 @@ class CompanyController {
       const cnpjExists = await Company.findOne({ where: { cnpj } });
 
       if (cnpjExists) {
-        return res.status(400).json({ error: 'Esse CNPJ já está sendo utilizado' });
+        return res
+          .status(400)
+          .json({ error: 'Esse CNPJ já está sendo utilizado' });
       }
     }
 

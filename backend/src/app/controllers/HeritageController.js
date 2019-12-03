@@ -79,7 +79,9 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { company_id } = req.params;
@@ -102,7 +104,9 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { code, company_id } = req.body;
@@ -137,7 +141,9 @@ class HeritageController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;

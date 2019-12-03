@@ -29,7 +29,8 @@ export const Label = styled.label`
       }
     }
 
-    + input {
+    + input,
+    + textarea {
       border-color: ${colors.red};
     }
   }

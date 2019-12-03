@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { useSelector } from 'react-redux';
-import { MdSearch } from 'react-icons/md';
+import { MdSearch, MdHistory } from 'react-icons/md';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
 
+import colors from '~/styles/colors';
 import { Container, Search } from './styles';
 
 export default function Environment() {
@@ -58,12 +59,19 @@ export default function Environment() {
           </div>
         </Search>
 
-        {historics.map(historic => (
-          <aside key={historic.id}>
-            <span>{historic.createdAt}:</span>
-            <span>{historic.message}</span>
-          </aside>
-        ))}
+        {historics.length ? (
+          historics.map(historic => (
+            <aside key={historic.id}>
+              <span>{historic.createdAt}:</span>
+              <span>{historic.message}</span>
+            </aside>
+          ))
+        ) : (
+          <div>
+            <MdHistory size={100} color={colors.primary} />
+            <h6>Nenhum histórico para exibir</h6>
+          </div>
+        )}
       </Container>
     </>
   );

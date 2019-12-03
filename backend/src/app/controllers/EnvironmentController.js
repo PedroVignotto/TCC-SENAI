@@ -72,7 +72,9 @@ class EnvironmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { user_id, name } = req.body;
@@ -102,7 +104,9 @@ class EnvironmentController {
     });
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({ error: 'Algo deu errado, tente novamente' });
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
     }
 
     const { id } = req.params;
@@ -114,7 +118,9 @@ class EnvironmentController {
       const nameExists = await Environment.findOne({ where: { name } });
 
       if (nameExists) {
-        return res.status(400).json({ error: 'Esse nome já está sendo utilizado' });
+        return res
+          .status(400)
+          .json({ error: 'Esse nome já está sendo utilizado' });
       }
     }
 

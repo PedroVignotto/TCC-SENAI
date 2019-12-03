@@ -13,20 +13,6 @@ export const Container = styled.div`
     flex-direction: column;
     margin-top: 30px;
 
-    input {
-      background: none;
-      border: 1px solid ${colors.secondary};
-      border-radius: 4px;
-      height: 44px;
-      padding: 0 15px;
-      color: ${colors.secondary};
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: ${colors.secondary};
-      }
-    }
-
     hr {
       border: 0;
       height: 1px;

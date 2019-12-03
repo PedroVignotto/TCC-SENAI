@@ -1,12 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { useField, Input } from '@rocketseat/unform';
+import { useField } from '@rocketseat/unform';
 import * as MaterialDesign from 'react-icons/md';
 
 import { Label } from './styles';
 
-export default function UnInput({
+export default function Input({
   label,
   name,
   icon,
@@ -36,15 +36,25 @@ export default function UnInput({
     <Label htmlFor={fieldName} icon={icon}>
       {error && <span>{error}</span>}
 
-      <Input
-        name={fieldName}
-        ref={ref}
-        id={fieldName}
-        aria-label={fieldName}
-        defaultValue={defaultValue}
-        multiline={multiline}
-        {...rest}
-      />
+      {multiline && multiline ? (
+        <textarea
+          name={fieldName}
+          ref={ref}
+          id={fieldName}
+          aria-label={fieldName}
+          defaultValue={defaultValue}
+          {...rest}
+        />
+      ) : (
+        <input
+          name={fieldName}
+          ref={ref}
+          id={fieldName}
+          aria-label={fieldName}
+          defaultValue={defaultValue}
+          {...rest}
+        />
+      )}
 
       {label && <span>{renderLabel}</span>}
       {icon && <Icon size={size} style={iconStyle} />}

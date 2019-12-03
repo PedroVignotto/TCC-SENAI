@@ -61,12 +61,13 @@ export default function User() {
   function handleDelete(id) {
     try {
       Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
+        title: 'Você tem certeza?',
+        text: 'Você não poderá desfazer isso!',
         showCancelButton: true,
         confirmButtonColor: `${colors.green}`,
         cancelButtonColor: `${colors.red}`,
-        confirmButtonText: 'Yes, delete it!',
+        confirmButtonText: 'Sim, excluir!',
+        cancelButtonText: 'Cancelar',
       }).then(result => {
         if (result.value) {
           api.put(`users/${id}`, {
@@ -75,7 +76,7 @@ export default function User() {
           });
 
           setUsers(users.filter(user => user.id !== id));
-          toast.success('User successfully deleted from company');
+          toast.success('Usuário excluído da empresa com sucesso');
         }
       });
     } catch (err) {
@@ -89,7 +90,7 @@ export default function User() {
         user_level,
       });
 
-      toast.success('User level updated successfully');
+      toast.success('Nível de usuário atualizado com sucesso');
       setShowEdit(false);
     } catch (err) {
       toast.error(err.response.data.error);
@@ -105,7 +106,7 @@ export default function User() {
 
       setUsers([...users, response.data]);
 
-      toast.success('User successfully added');
+      toast.success('Usuário adicionado com sucesso');
       setShowAdd(false);
     } catch (err) {
       toast.error(err.response.data.error);
@@ -117,7 +118,7 @@ export default function User() {
       <Container>
         <Top
           title="Usuários"
-          subtitle="Veja as informações dos usuários e mude seu nivel de permissão"
+          subtitle="Veja as informações dos usuários e mude seu nível de permissão"
         />
 
         <Search>

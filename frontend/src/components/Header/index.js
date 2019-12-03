@@ -41,7 +41,7 @@ export default function Header() {
           <Link to="/historical" onClick={handleTogleVisible}>
             HISTÓRICO
           </Link>
-          {profile.user_level === 1 ? (
+          {profile && profile.user_level === 1 ? (
             <Link to="/company" onClick={handleTogleVisible}>
               EMPRESA
             </Link>
