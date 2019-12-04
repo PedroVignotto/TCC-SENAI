@@ -192,17 +192,17 @@
                 <StackLayout Orientation="Horizontal"
                              HorizontalOptions="CenterAndExpand">
                     <Button Command="{b:NavigateTo Name='AdicionarAmbiente'}"
-                        Style="{DynamicResource FloatButton}"
-                        Margin="0, 20, 0, 0"
-                        HorizontalOptions="Center"
-                        IsVisible="{Binding IsVisible}"/>
+                            Style="{DynamicResource FloatButton}"
+                            Margin="0, 20, 0, 0"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding IsVisible}"/>
 
                     <ImageButton Command="{Binding RefreshCommand}"
-                             HorizontalOptions="Center"
-                             Padding="10"
-                             Margin="0, 20, 0, 0"
-                             Style="{DynamicResource FloatImageButton}"
-                             Source="refreshDark.png"/>
+                                 HorizontalOptions="Center"
+                                 Padding="10"
+                                 Margin="0, 20, 0, 0"
+                                 Style="{DynamicResource FloatImageButton}"
+                                 Source="refreshDark.png"/>
                 </StackLayout>
 
             </StackLayout>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HeritageV02MVVM.Models;
+using HeritageV02MVVM.Utilities;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,36 +9,48 @@ namespace HeritageV02MVVM.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExibirAmbiente : ContentPage
     {
+        Usuario Usuario { get; set; }
+
         public ExibirAmbiente()
         {
             InitializeComponent();
+
+            JsonUsuario jsonUsuario = new JsonUsuario();
+            Usuario = jsonUsuario.GetUsuarioJson();
+
         }
 
         private void Exibir_Nome_Tapped(object sender, EventArgs e)
         {
-            if (flexNome.IsVisible == false)
+            if (Usuario.Id_nivel_usuario == 1)
             {
-                stkNome.IsVisible = false;
-                flexNome.IsVisible = true;
-            }
-            else if (flexNome.IsVisible == true)
-            {
-                stkNome.IsVisible = true;
-                flexNome.IsVisible = false;
+                if (flexNome.IsVisible == false)
+                {
+                    stkNome.IsVisible = false;
+                    flexNome.IsVisible = true;
+                }
+                else if (flexNome.IsVisible == true)
+                {
+                    stkNome.IsVisible = true;
+                    flexNome.IsVisible = false;
+                } 
             }
         }
 
         private void Exibir_Adm_Tapped(object sender, EventArgs e)
         {
-            if (flexAdm.IsVisible == false)
+            if (Usuario.Id_nivel_usuario == 1)
             {
-                sktAdm.IsVisible = false;
-                flexAdm.IsVisible = true;
-            }
-            else if (flexAdm.IsVisible == true)
-            {
-                sktAdm.IsVisible = true;
-                flexAdm.IsVisible = false;
+                if (flexAdm.IsVisible == false)
+                {
+                    sktAdm.IsVisible = false;
+                    flexAdm.IsVisible = true;
+                }
+                else if (flexAdm.IsVisible == true)
+                {
+                    sktAdm.IsVisible = true;
+                    flexAdm.IsVisible = false;
+                } 
             }
         }
     }

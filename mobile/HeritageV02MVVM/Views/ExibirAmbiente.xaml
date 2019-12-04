@@ -58,7 +58,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="300">
+                               HeightRequest="390">
                         
                         <TableRoot>
                             
@@ -167,6 +167,37 @@
                                                                  FlexLayout.Basis="95%"/>
 
                                         </FlexLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Margin="10">
+
+                                        <Image Source="{Binding IconVerificar}"
+                                               Style="{DynamicResource ImgIconTableView}"/>
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+
+                                            <Label Text="Verificação"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+
+                                            <Label Text="Fazer a verificação dos patrimônios do ambiente"
+                                                   Style="{DynamicResource Label}"/>
+
+                                        </StackLayout>
+
+                                        <Button Text="Verificar"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding VerificacaoCommand}"/>
 
                                     </StackLayout>
 
@@ -707,7 +738,7 @@
                            Margin="0, 30, 0, 0"
                            FlexLayout.AlignSelf="Center"/>
 
-                    <Label Text="{Binding Load}"
+                    <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
                            Style="{DynamicResource LabelTitle}"/>

@@ -24,7 +24,14 @@
                    FontSize="Medium"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
-            
+
+            <ImageButton Command="{Binding RefreshCommand}"
+                         HorizontalOptions="Center"
+                         Padding="10"
+                         Margin="0, 20, 0, 0"
+                         Style="{DynamicResource FloatImageButton}"
+                         Source="refreshDark.png"/>
+
         </StackLayout>
         
     </ContentPage.Content>

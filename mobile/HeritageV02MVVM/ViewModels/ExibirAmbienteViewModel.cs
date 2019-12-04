@@ -17,11 +17,11 @@ namespace HeritageV02MVVM.ViewModels
 
         #region Commands
 
-        public DelegateCommand SalvarCommand { get; private set; }
+        public DelegateCommand SalvarCommand => new DelegateCommand(ExecuteSalvarCommand);
 
-        public DelegateCommand VerificacaoCommand { get; private set; }
+        public DelegateCommand VerificacaoCommand => new DelegateCommand(ExecuteVerificacaoCommand);
 
-        public DelegateCommand ExcluirCommand { get; private set; }
+        public DelegateCommand ExcluirCommand => new DelegateCommand(ExecuteExcluirCommand);
 
         private DelegateCommand<Patrimonio> _ExibirPatrimonioCommand;
         public DelegateCommand<Patrimonio> ExibirPatrimonioCommand => _ExibirPatrimonioCommand ?? (_ExibirPatrimonioCommand = new DelegateCommand<Patrimonio>(async (itemSelect) => await ExecuteExibirPatrimonioCommand(itemSelect), (itemSelect) => !IsBusy));
@@ -182,6 +182,13 @@ namespace HeritageV02MVVM.ViewModels
             set { SetProperty(ref _iconUsuario, value); }
         }
 
+        private string _iconVerificacao;
+        public string IconVerificacao
+        {
+            get { return _iconVerificacao; }
+            set { SetProperty(ref _iconVerificacao, value); }
+        }
+
         private int _heightListViewMovimentacoes;
 
         public int HeightListViewMovimentacoes
@@ -213,6 +220,8 @@ namespace HeritageV02MVVM.ViewModels
             Title = "Exibir ambiente";
         }
 
+        #region Métodos
+
         public override async void Initialize(INavigationParameters parameters)
         {
 
@@ -233,6 +242,7 @@ namespace HeritageV02MVVM.ViewModels
             IconPatrimonio = Icon.IconName("box");
             IconExcluir = Icon.IconName("cancel");
             IconNome = Icon.IconName("name");
+            IconVerificacao = Icon.IconName("verified");
 
             Body = true;
 
@@ -249,6 +259,86 @@ namespace HeritageV02MVVM.ViewModels
             };
 
             await NavigationService.NavigateAsync("ExibirPatrimonio", navigationParams);
+        }
+
+        private async void ExecuteSalvarCommand()
+        {
+            try
+            {
+                if (UsuarioAtual.Id_nivel_usuario == 1)
+                {
+                    if (await PageDialogService.DisplayAlertAsync("Aviso", "Tem certeza que deseja salvar as alterações?", "Sim", "Não"))
+                    {
+                        Load = true;
+                        Body = false;
+
+                        LoadMessage = "Atualizando ambientes";
+                        Ambiente.Id_usuario = Usuario.Id;
+
+                        bool up = await HeritageAPIService.PutAsync(Ambiente);
+
+                        if (up)
+                            Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Ambiente atualizado com sucesso");
+                        else
+                            await PageDialogService.DisplayAlertAsync("Erro", "Erro ao alterar ambiente", "Ok");
+                    }
+                }
+                else
+                    Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Seu nível de usuário não permite a alteração");
+            }
+            catch (Exception)
+            {
+                Load = false;
+                Body = true;
+                await PageDialogService.DisplayAlertAsync("Erro", "Erro ao alterar ambiente", "Ok");
+            }
+        }
+
+        private async void ExecuteExcluirCommand()
+        {
+            try
+            {
+                if (UsuarioAtual.Id_nivel_usuario == 1)
+                {
+                    if (await PageDialogService.DisplayAlertAsync("Aviso", "Tem certeza que deseja excluir o ambiente?", "Sim", "Não"))
+                    {
+                        Load = true;
+                        Body = false;
+                        LoadMessage = "Deletando ambientes";
+
+                        bool delete = await HeritageAPIService.DeleteAsync(Ambiente);
+
+                        if (delete)
+                        {
+                            Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Ambiente excluido com sucesso");
+                            await NavigationService.GoBackAsync();
+                        }
+                        else
+                            await PageDialogService.DisplayAlertAsync("Erro", "Erro ao excluir ambiente", "Ok");
+                    }
+                }
+                else
+                    Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Seu nível de usuário não permite a exclusão");
+            }
+            catch (Exception)
+            {
+                await PageDialogService.DisplayAlertAsync("Erro", "Erro ao excluir ambiente", "Ok");
+            }
+            finally
+            {
+                Load = false;
+                Body = true;
+            }
+        }
+
+        private async void ExecuteVerificacaoCommand()
+        {
+            var navigationParams = new NavigationParameters
+            {
+                {"patrimonios", Patrimonios}
+            };
+
+            await NavigationService.NavigateAsync("PatrimoniosSelect", navigationParams);
         }
 
         private async Task LoadAsync()
@@ -414,7 +504,7 @@ namespace HeritageV02MVVM.ViewModels
             }
             catch (Exception ex)
             {
-                var param = new DialogParameters
+                DialogParameters param = new DialogParameters
                 {
                     { "Message", "Erro ao carregar gerenciador" },
                     { "Title", "Erro" },
@@ -429,7 +519,9 @@ namespace HeritageV02MVVM.ViewModels
         void CloseDialogCallback(IDialogResult dialogResult)
         {
 
-        }
+        } 
+
+        #endregion
 
     }
 }

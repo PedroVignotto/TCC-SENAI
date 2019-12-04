@@ -142,6 +142,7 @@ namespace HeritageV02MVVM.ViewModels
                 {
                     Patrimonio.Id_ambiente = Ambiente.Id;
                     Patrimonio.Id_empresa = UsuarioAtual.Id_empresa;
+                    Patrimonio.Estado_patrimonio = true;
 
                     string validation = await HeritageAPIService.ValidationAsyncPatrimonio(Patrimonio, UsuarioAtual.Id_empresa);
 

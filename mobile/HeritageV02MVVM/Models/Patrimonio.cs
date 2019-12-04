@@ -41,6 +41,15 @@ namespace HeritageV02MVVM.Models
             set => SetProperty(ref _codigo_patrimonio, value);
         }
 
+        private bool? _estado_patrimonio;
+
+        [JsonProperty("estado_patrimonio")]
+        public bool? Estado_patrimonio
+        {
+            get { return _estado_patrimonio; }
+            set { SetProperty(ref _estado_patrimonio, value); }
+        }
+
         private string _nome_ambiente;
 
         [JsonIgnore]

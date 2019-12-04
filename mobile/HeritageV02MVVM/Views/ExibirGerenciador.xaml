@@ -8,6 +8,8 @@
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              xmlns:c="clr-namespace:HeritageV02MVVM.Converters;assembly=HeritageV02MVVM"
              xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             xmlns:expandable="clr-namespace:Expandable;assembly=ExpandableView"
+             xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              Title="{Binding Title}"
              BackgroundColor="{DynamicResource BackgroundPage}">
 
@@ -40,7 +42,7 @@
                             AlignItems="Center"
                             AlignContent="Center"
                             IsClippedToBounds="False"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
                     <Image Source="user.png"
                            BackgroundColor="Transparent"
@@ -56,7 +58,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="379">
+                               HeightRequest="329">
 
                         <TableRoot>
 
@@ -71,8 +73,7 @@
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0"
-                                                     x:Name="stkNome">
+                                                     Margin="5, 0, 0, 0">
 
                                             <Label Text="Nome"
                                                    Style="{DynamicResource LabelTableView}"/>
@@ -189,134 +190,187 @@
 
                     </TableView>
 
-                    <ListView ItemsSource="{Binding Ambientes}"
-                              SeparatorColor="Gray"
-                              HeightRequest="{Binding HeightListView}"
-                              IsRefreshing="{Binding IsBusy}">
+                    <expandable:ExpandableView HorizontalOptions="FillAndExpand"
+                                               FlexLayout.Basis="100%"
+                                               Margin="0, 0, 0, 10">
 
-                        <ListView.ItemTemplate>
+                        <expandable:ExpandableView.PrimaryView >
 
-                            <DataTemplate>
+                            <StackLayout HorizontalOptions="FillAndExpand"
+                                         FlexLayout.Basis="100%"
+                                         Orientation="Horizontal">
 
-                                <ViewCell>
+                                <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                                     CornerRadius="0, 20, 0, 20"
+                                                     HasShadow="true"
+                                                     Margin="0, 20, 0, 0"
+                                                     HorizontalOptions="Start">
 
-                                    <StackLayout Margin="10">
+                                    <StackLayout HorizontalOptions="FillAndExpand">
 
-                                        <Frame Style="{DynamicResource FrameListView}"
-                                               BorderColor="Transparent">
-
-                                            <StackLayout Orientation="Vertical" Padding="5">
-
-                                                <Label Text="{Binding Nome_ambiente}"
-                                                       HorizontalOptions="StartAndExpand"
-                                                       Style="{DynamicResource LabelPrincipal}"
-                                                       MaxLines="1"
-                                                       LineBreakMode="TailTruncation"/>
-
-                                                <Label Style="{DynamicResource Label}"
-                                                       MaxLines="1"
-                                                       LineBreakMode="TailTruncation"
-                                                       Margin="10, 0, 0, 0">
-
-                                                    <Label.FormattedText>
-
-                                                        <FormattedString>
-
-                                                            <Span Text="Gerenciador: " 
-                                                                  FontAttributes="Bold" 
-                                                                  FontSize="17"/>
-
-                                                            <Span Text="{Binding Nome_usuario}"/>
-
-                                                        </FormattedString>
-
-                                                    </Label.FormattedText>
-
-                                                </Label>
-
-                                                <Label Style="{DynamicResource Label}"
-                                                       MaxLines="1"
-                                                       LineBreakMode="TailTruncation"
-                                                       Margin="10, 0, 0, 0">
-
-                                                    <Label.FormattedText>
-
-                                                        <FormattedString>
-
-                                                            <Span Text="Quantidade de patrimônios: " 
-                                                                  FontAttributes="Bold" 
-                                                                  FontSize="17"/>   
-
-                                                            <Span Text="{Binding Quantidade_patrimonio}"/>
-
-                                                        </FormattedString>
-
-                                                    </Label.FormattedText>
-
-                                                </Label>
-
-                                            </StackLayout>
-
-                                        </Frame>
+                                        <Image Source="placeholderDark.png"
+                                               WidthRequest="40"
+                                               HeightRequest="40"
+                                               HorizontalOptions="StartAndExpand"
+                                               Margin="5, 10, 10, 10"/>
 
                                     </StackLayout>
 
-                                </ViewCell>
+                                </pancake:PancakeView>
 
-                            </DataTemplate>
+                                <Label Text="Ambientes"
+                                       Style="{DynamicResource LabelTitle}"
+                                       VerticalOptions="CenterAndExpand"
+                                       Margin="0, 20, 0, 0"/>
 
-                        </ListView.ItemTemplate>
+                            </StackLayout>
 
-                        <ListView.HeaderTemplate>
+                        </expandable:ExpandableView.PrimaryView>
+
+                        <expandable:ExpandableView.SecondaryViewTemplate>
 
                             <DataTemplate>
 
-                                <ContentView>
+                                <StackLayout>
 
-                                    <FlexLayout Direction="Row">
+                                    <ListView ItemsSource="{Binding Ambientes}"
+                                              SeparatorColor="Gray"
+                                              IsRefreshing="{Binding IsBusy}"
+                                              IsPullToRefreshEnabled="True"
+                                              HeightRequest="{Binding HeightListViewAmbientes}"
+                                              IsVisible="{Binding BodyAmbientes}">
 
-                                        <Frame Style="{DynamicResource FrameIcon}">
+                                        <ListView.ItemTemplate>
 
-                                            <Image Source="placeholder.png"/>
+                                            <DataTemplate>
 
-                                        </Frame>
+                                                <ViewCell>
 
-                                        <Label Margin="0, 15, 10, 10"
-                                               Style="{DynamicResource LabelTitle}"
-                                               Text="Ambientes" />
+                                                    <StackLayout Margin="10">
 
-                                    </FlexLayout>
+                                                        <Frame Style="{DynamicResource FrameListView}"
+                                                               BorderColor="Transparent">
 
-                                </ContentView>
+                                                            <StackLayout Orientation="Vertical" Padding="5">
+
+                                                                <Label Text="{Binding Nome_ambiente}"
+                                                                       HorizontalOptions="StartAndExpand"
+                                                                       Style="{DynamicResource LabelPrincipal}"
+                                                                       MaxLines="1"
+                                                                       LineBreakMode="TailTruncation"/>
+
+                                                                <Label Style="{DynamicResource Label}"
+                                                                       MaxLines="1"
+                                                                       LineBreakMode="TailTruncation"
+                                                                       Margin="10, 0, 0, 0">
+
+                                                                    <Label.FormattedText>
+
+                                                                        <FormattedString>
+
+                                                                            <Span Text="Gerenciador: " 
+                                                                                  FontAttributes="Bold" 
+                                                                                  FontSize="17"/>
+
+                                                                            <Span Text="{Binding Nome_usuario}"/>
+
+                                                                        </FormattedString>
+
+                                                                    </Label.FormattedText>
+
+                                                                </Label>
+
+                                                                <Label Style="{DynamicResource Label}"
+                                                                       MaxLines="1"
+                                                                       LineBreakMode="TailTruncation"
+                                                                       Margin="10, 0, 0, 0">
+
+                                                                    <Label.FormattedText>
+
+                                                                        <FormattedString>
+
+                                                                            <Span Text="Quantidade de patrimônios: " 
+                                                                                  FontAttributes="Bold" 
+                                                                                  FontSize="17"/>
+
+                                                                            <Span Text="{Binding Quantidade_patrimonio}"/>
+
+                                                                        </FormattedString>
+
+                                                                    </Label.FormattedText>
+
+                                                                </Label>
+
+                                                            </StackLayout>
+
+                                                        </Frame>
+
+                                                    </StackLayout>
+
+                                                </ViewCell>
+
+                                            </DataTemplate>
+
+                                        </ListView.ItemTemplate>
+
+                                        <ListView.Behaviors>
+
+                                            <b:EventToCommandBehavior EventName="ItemTapped" 
+                                                                      Command="{Binding ExibirAmbienteCommand}"
+                                                                      EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+
+                                        </ListView.Behaviors>
+
+                                    </ListView>
+
+                                    <StackLayout IsVisible="{Binding LoadAmbientes}"
+                                                 VerticalOptions="CenterAndExpand">
+
+                                        <Image Source="placeholderGray.png"
+                                               WidthRequest="200"
+                                               HeightRequest="200"/>
+
+                                        <ActivityIndicator IsRunning="True"
+                                                           Color="#c3c3c3"
+                                                           Margin="10"/>
+
+                                    </StackLayout>
+
+                                    <StackLayout IsVisible="{Binding NullAmbientes}"
+                                                 VerticalOptions="CenterAndExpand">
+
+                                        <Image Source="placeholderGray.png"
+                                               WidthRequest="200"
+                                               HeightRequest="200"/>
+
+                                        <Label Style="{DynamicResource LabelPrincipal}"
+                                               TextColor="#c3c3c3"
+                                               HorizontalOptions="Center"
+                                               Text="Sem ambientes para exibir"/>
+
+                                    </StackLayout>
+
+                                </StackLayout>
 
                             </DataTemplate>
 
-                        </ListView.HeaderTemplate>
+                        </expandable:ExpandableView.SecondaryViewTemplate>
 
-                        <ListView.Behaviors>
-
-                            <b:EventToCommandBehavior EventName="ItemTapped" 
-                                                      Command="{Binding ExibirAmbienteCommand}"
-                                                      EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
-
-                        </ListView.Behaviors>
-
-                    </ListView>
-
+                    </expandable:ExpandableView>
                 </FlexLayout>
 
                 <FlexLayout Direction="Row"
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            IsVisible="{Binding Load}">
 
-                    <Image Source="avatarBlack.png"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"
                            FlexLayout.AlignSelf="Center"/>
 
-                    <Label Text="{Binding Load}"
+                    <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
                            Style="{DynamicResource LabelTitle}"/>

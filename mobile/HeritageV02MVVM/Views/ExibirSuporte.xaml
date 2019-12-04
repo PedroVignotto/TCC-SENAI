@@ -28,7 +28,7 @@
                             AlignItems="Center"
                             AlignContent="Center"
                             IsClippedToBounds="False"
-                            IsVisible="{Binding IsVisibleLogin}">
+                            IsVisible="{Binding Body}">
 
                     <Image Source="user.png"
                            BackgroundColor="Transparent"
@@ -44,7 +44,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="450">
+                               HeightRequest="350">
                         
                         <TableRoot>
                             
@@ -54,66 +54,19 @@
 
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
-                                        
+
                                         <Image Source="{Binding IconNome}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0"
-                                                     x:Name="stkNome">
-                                            
+                                                     Margin="5, 0, 0, 0">
+
                                             <Label Text="Nome"
                                                    Style="{DynamicResource LabelTableView}"/>
 
                                             <Label Text="{Binding Usuario.Name}"
                                                    Style="{DynamicResource Label}"/>
-                                            
-                                        </StackLayout>
 
-                                    </StackLayout>
-
-                                </ViewCell>
-
-                                <ViewCell>
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="10">
-                                        
-                                        <Image Source="{Binding IconTelefone}"
-                                               Style="{DynamicResource ImgIconTableView}"/>
-
-                                        <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0">
-                                            
-                                            <Label Text="Telefone"
-                                                   Style="{DynamicResource LabelTableView}"/>
-
-                                            <Label Text="{Binding Usuario.Telefone}"
-                                                   Style="{DynamicResource Label}"/>
-                                            
-                                        </StackLayout>
-
-                                    </StackLayout>
-
-                                </ViewCell>
-
-                                <ViewCell>
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="10">
-                                        
-                                        <Image Source="{Binding IconCpf }"
-                                               Style="{DynamicResource ImgIconTableView}"/>
-
-                                        <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0">
-                                            
-                                            <Label Text="CPF"
-                                                   Style="{DynamicResource LabelTableView}"/>
-
-                                            <Label Text="{Binding Usuario.Cpf}"
-                                                   Style="{DynamicResource Label}"/>
-                                            
                                         </StackLayout>
 
                                     </StackLayout>
@@ -229,14 +182,14 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding IsVisibleLoad}">
+                            IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"
                            FlexLayout.AlignSelf="Center"/>
 
-                    <Label Text="{Binding Load}"
+                    <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
                            Style="{DynamicResource LabelTitle}"/>

@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:custom="clr-namespace:HeritageV02MVVM.Extensions"
+             xmlns:b="http://prismlibrary.com"
              mc:Ignorable="d"
              x:Class="HeritageV02MVVM.Views.AdicionarPatrimonio"
              Title="{Binding Title}"
@@ -42,7 +43,7 @@
                                         FlexLayout.Basis="60%"/>
 
                     <Button Text="Escanear"
-                            Command="{Binding ScannerCommand}"
+                            Command="{b:NavigateTo Name='Scanner'}"
                             HeightRequest="40"
                             Margin="10"
                             FlexLayout.Basis="35%"/>

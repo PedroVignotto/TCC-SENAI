@@ -6,6 +6,7 @@
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="HeritageV02MVVM.Views.Movimentacoes"
+             BackgroundColor="{DynamicResource BackgroundPage}"
              Title="{Binding Title}"
              IconImageSource="{Binding Icone}">
     
