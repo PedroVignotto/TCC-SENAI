@@ -262,6 +262,36 @@
 
                                 </ViewCell>
 
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Margin="10">
+
+                                        <Image Source="{Binding IconEstado}"
+                                               Style="{DynamicResource ImgIconTableView}"/>
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+                                            
+                                            <Label Text="Estado do patrimônio"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding Patrimonio.Estado_Mensagem}"
+                                                   Style="{DynamicResource Label}"/>
+                                            
+                                        </StackLayout>
+
+                                        <Button Text="Verificar"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding ScannerCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
                             </TableSection>
                             
                         </TableRoot>

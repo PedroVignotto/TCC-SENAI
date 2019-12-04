@@ -8,6 +8,7 @@
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
              x:Class="HeritageV02MVVM.Views.PatrimoniosSelect"
+             NavigationPage.HasBackButton="True"
              BackgroundColor="{DynamicResource BackgroundPage}"
              Title="{Binding Title}">
 
@@ -24,143 +25,190 @@
     <ContentPage.ToolbarItems>
         
         <ToolbarItem IconImageSource="qrcodeDark.png"
-                     Command="{b:NavigateTo Name='Scanner'}"/>
+                     Command="{Binding ScannerCommand}"/>
         
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        
-        <RelativeLayout>
+
+        <StackLayout>
             
-            <ListView IsRefreshing="{Binding IsBusy}"
-                      ItemsSource="{Binding Patrimonios}"
-                      SeparatorColor="Gray">
+            <RelativeLayout IsVisible="{Binding Body}">
 
-                <ListView.ItemTemplate>
-                    
-                    <DataTemplate>
-                        
-                        <ViewCell>
-                            
-                            <StackLayout Margin="10">
+                <ListView IsRefreshing="{Binding IsBusy}"
+                          ItemsSource="{Binding Patrimonios}"
+                          SeparatorColor="Gray">
 
-                                <Frame Style="{DynamicResource FrameListView}"
-                                       BorderColor="Transparent">
+                    <ListView.ItemTemplate>
 
-                                    <StackLayout Orientation="Vertical" Padding="5">
+                        <DataTemplate>
 
-                                        <Label Text="{Binding Nome_patrimonio}"
-                                               HorizontalOptions="StartAndExpand"
-                                               Style="{DynamicResource LabelPrincipal}"
-                                               MaxLines="1"
-                                               LineBreakMode="TailTruncation"/>
+                            <ViewCell>
 
-                                        <Label Style="{DynamicResource Label}"
-                                               Margin="10, 0, 0, 0"
-                                               MaxLines="1"
-                                               LineBreakMode="TailTruncation">
-                                            
-                                            <Label.FormattedText>
-                                                
-                                                <FormattedString>
-                                                    
-                                                    <Span Text="Ambiente: " 
-                                                          FontAttributes="Bold" 
-                                                          FontSize="17"/>
-                                                    
-                                                    <Span Text="{Binding Nome_ambiente}"/>
-                                                    
-                                                </FormattedString>
-                                                
-                                            </Label.FormattedText>
-                                            
-                                        </Label>
+                                <StackLayout Margin="10">
 
-                                        <Label Style="{DynamicResource Label}"
-                                               Margin="10, 0, 0, 0"
-                                               MaxLines="1"
-                                               LineBreakMode="TailTruncation">
-                                            
-                                            <Label.FormattedText>
-                                                
-                                                <FormattedString>
-                                                    
-                                                    <Span Text="Código: " 
-                                                          FontAttributes="Bold" 
-                                                          FontSize="17"/>
-                                                    
-                                                    <Span Text="{Binding Codigo_patrimonio}"/>
-                                                    
-                                                </FormattedString>
-                                                
-                                            </Label.FormattedText>
-                                            
-                                        </Label>
+                                    <Frame Style="{DynamicResource FrameListView}"
+                                           BorderColor="Transparent">
 
-                                    </StackLayout>
-                                    
-                                </Frame>
+                                        <StackLayout Orientation="Vertical" Padding="5">
 
-                            </StackLayout>
+                                            <Label Text="{Binding Nome_patrimonio}"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   Style="{DynamicResource LabelPrincipal}"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation"/>
 
-                        </ViewCell>
-                        
-                    </DataTemplate>
-                    
-                </ListView.ItemTemplate>
+                                            <Label Style="{DynamicResource Label}"
+                                                   Margin="10, 0, 0, 0"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation">
 
-                <ListView.HeaderTemplate>
-                    
-                    <DataTemplate>
-                        
-                        <ContentView>
+                                                <Label.FormattedText>
 
-                            <StackLayout HorizontalOptions="FillAndExpand"
-                                         Orientation="Horizontal">
+                                                    <FormattedString>
 
-                                <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
-                                                     CornerRadius="0, 20, 0, 20"
-                                                     HasShadow="true"
-                                                     Margin="0, 20, 0, 0"
-                                                     HorizontalOptions="Start">
+                                                        <Span Text="Ambiente: " 
+                                                              FontAttributes="Bold" 
+                                                              FontSize="17"/>
 
-                                    <StackLayout HorizontalOptions="FillAndExpand">
+                                                        <Span Text="{Binding Nome_ambiente}"/>
 
-                                        <Image Source="boxDark.png"
-                                               WidthRequest="40"
-                                               HeightRequest="40"
-                                               HorizontalOptions="StartAndExpand"
-                                               Margin="5, 10, 10, 10"/>
+                                                    </FormattedString>
 
-                                    </StackLayout>
+                                                </Label.FormattedText>
 
-                                </pancake:PancakeView>
+                                            </Label>
 
-                                <Label Text="Patrimônios"
-                                       Style="{DynamicResource LabelTitle}"
-                                       VerticalOptions="CenterAndExpand"
-                                       Margin="0, 20, 0, 0"/>
+                                            <Label Style="{DynamicResource Label}"
+                                                   Margin="10, 0, 0, 0"
+                                                   MaxLines="1"
+                                                   LineBreakMode="TailTruncation">
 
-                            </StackLayout>
+                                                <Label.FormattedText>
 
-                        </ContentView>
-                        
-                    </DataTemplate>
-                    
-                </ListView.HeaderTemplate>
+                                                    <FormattedString>
 
-                <ListView.Behaviors>
-                    
-                    <b:EventToCommandBehavior EventName="ItemTapped" 
-                                              Command="{Binding ExibirPatrimonioCommand}"
-                                              EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
-                    
-                </ListView.Behaviors>
+                                                        <Span Text="Código: " 
+                                                              FontAttributes="Bold" 
+                                                              FontSize="17"/>
 
-            </ListView>
+                                                        <Span Text="{Binding Codigo_patrimonio}"/>
 
-        </RelativeLayout>
-        
+                                                    </FormattedString>
+
+                                                </Label.FormattedText>
+
+                                            </Label>
+
+                                        </StackLayout>
+
+                                    </Frame>
+
+                                </StackLayout>
+
+                            </ViewCell>
+
+                        </DataTemplate>
+
+                    </ListView.ItemTemplate>
+
+                    <ListView.HeaderTemplate>
+
+                        <DataTemplate>
+
+                            <ContentView>
+
+                                <StackLayout HorizontalOptions="FillAndExpand"
+                                             Orientation="Horizontal">
+
+                                    <pancake:PancakeView BackgroundColor="{DynamicResource PrimaryColor}"
+                                                         CornerRadius="0, 20, 0, 20"
+                                                         HasShadow="true"
+                                                         Margin="0, 20, 0, 0"
+                                                         HorizontalOptions="Start">
+
+                                        <StackLayout HorizontalOptions="FillAndExpand">
+
+                                            <Image Source="boxDark.png"
+                                                   WidthRequest="40"
+                                                   HeightRequest="40"
+                                                   HorizontalOptions="StartAndExpand"
+                                                   Margin="5, 10, 10, 10"/>
+
+                                        </StackLayout>
+
+                                    </pancake:PancakeView>
+
+                                    <Label Text="Patrimônios"
+                                           Style="{DynamicResource LabelTitle}"
+                                           VerticalOptions="CenterAndExpand"
+                                           Margin="0, 20, 0, 0"/>
+
+                                </StackLayout>
+
+                            </ContentView>
+
+                        </DataTemplate>
+
+                    </ListView.HeaderTemplate>
+
+                    <ListView.Behaviors>
+
+                        <b:EventToCommandBehavior EventName="ItemTapped" 
+                                                  Command="{Binding ExibirPatrimonioCommand}"
+                                                  EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+
+                    </ListView.Behaviors>
+
+                </ListView>
+
+            </RelativeLayout>
+
+            <StackLayout IsVisible="{Binding Load}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="boxGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <ActivityIndicator IsRunning="True"
+                                   Color="#c3c3c3"
+                                   Margin="10"/>
+
+            </StackLayout>
+
+            <StackLayout IsVisible="{Binding Null}"
+                         VerticalOptions="CenterAndExpand">
+
+                <Image Source="boxGray.png"
+                       WidthRequest="200"
+                       HeightRequest="200"/>
+
+                <Label Style="{DynamicResource LabelPrincipal}"
+                       TextColor="#c3c3c3"
+                       HorizontalOptions="Center"
+                       Text="Sem patrimônios para exbir"/>
+
+                <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="CenterAndExpand">
+                    <Button Command="{b:NavigateTo Name='AdicionarPatrimonio'}"
+                        IsVisible="{Binding IsAuthorized}"
+                        HorizontalOptions="Center"
+                        Margin="0, 20, 0, 0"
+                        Style="{DynamicResource FloatButton}"/>
+
+                    <ImageButton Command="{Binding RefreshCommand}"
+                             HorizontalOptions="Center"
+                             Margin="0, 20, 0, 0"
+                             Padding="15"
+                             Style="{DynamicResource FloatImageButton}"
+                             Source="refreshDark.png"/>
+                </StackLayout>
+
+            </StackLayout>
+
+        </StackLayout>
+
     </ContentPage.Content>
     
 </ContentPage>

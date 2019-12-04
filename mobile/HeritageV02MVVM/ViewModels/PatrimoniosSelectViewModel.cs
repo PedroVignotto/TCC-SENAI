@@ -11,11 +11,13 @@ using System.Threading.Tasks;
 
 namespace HeritageV02MVVM.ViewModels
 {
-    public class PatrimoniosSelectViewModel : ViewModelBase, IConfirmNavigation
+    public class PatrimoniosSelectViewModel : ViewModelBase, IConfirmNavigationAsync
     {
 
 
         #region Commands
+
+        public DelegateCommand ScannerCommand => new DelegateCommand(ExecuteScannerCommand);
 
         private DelegateCommand<Patrimonio> _ExibirPatrimonioCommand;
         public DelegateCommand<Patrimonio> ExibirPatrimonioCommand => _ExibirPatrimonioCommand ?? (_ExibirPatrimonioCommand = new DelegateCommand<Patrimonio>(async (itemSelect) => await ExecuteExibirPatrimonioCommand(itemSelect), (itemSelect) => !IsBusy));
@@ -44,6 +46,13 @@ namespace HeritageV02MVVM.ViewModels
         {
             get { return _loadMessage; }
             set { SetProperty(ref _loadMessage, value); }
+        }
+
+        private string _pagina;
+        public string Pagina
+        {
+            get { return _pagina; }
+            set { SetProperty(ref _pagina, value); }
         }
 
         #endregion
@@ -76,6 +85,21 @@ namespace HeritageV02MVVM.ViewModels
                     
             }
 
+            if (Patrimonios.Count == 0)
+            {
+                Null = true;
+                Body = false;
+            }
+            else
+                Body = true;
+
+        }
+
+        public async void ExecuteScannerCommand()
+        {
+            Pagina = "Scanner";
+            await NavigationService.NavigateAsync("Scanner");
+            Pagina = null;
         }
 
         private async Task ExecuteExibirPatrimonioCommand(Patrimonio patrimonio)
@@ -85,7 +109,9 @@ namespace HeritageV02MVVM.ViewModels
                 {"patrimonio", patrimonio}
             };
 
+            Pagina = "ExibirPatrimonio";
             await NavigationService.NavigateAsync("ExibirPatrimonio", navigationParams);
+            Pagina = null;
         }
 
         public override async void OnNavigatedTo(INavigationParameters parameters)
@@ -164,9 +190,25 @@ namespace HeritageV02MVVM.ViewModels
             return up;
         }
 
-        public bool CanNavigate(INavigationParameters parameters)
+        public async Task<bool> CanNavigateAsync(INavigationParameters parameters)
         {
-            return true;
+
+            if (Pagina == null)
+            {
+                return await PageDialogService.DisplayAlertAsync("Aviso", "Deseja encerrar a verificação?", "Sim", "Não");
+            }
+            else if(Pagina == "ExibirPatrimonio")
+            {
+                return true;
+            }
+            else if (Pagina == "Scanner")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         #endregion

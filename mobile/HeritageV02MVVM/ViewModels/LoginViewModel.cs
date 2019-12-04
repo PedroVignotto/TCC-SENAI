@@ -43,6 +43,27 @@ namespace HeritageV02MVVM.ViewModels
         public LoginViewModel(INavigationService navigationService, IPageDialogService pageDialogService, IHeritageAPIService heritageAPIService, IDialogService dialogService) : base(navigationService, heritageAPIService, pageDialogService, dialogService)
         {
             LoginCommand = new DelegateCommand(ExecuteLoginCommand);
+
+            if (Application.Current.Properties.ContainsKey("Login"))
+                Application.Current.Properties["Login"] = null;
+            else
+                Application.Current.Properties.Add("Login", null);
+
+            if (Application.Current.Properties.ContainsKey("Token"))
+                Application.Current.Properties["Token"] = null;
+            else
+                Application.Current.Properties.Add("Token", null);
+
+            if (Application.Current.Properties.ContainsKey("Usuario"))
+                Application.Current.Properties["Usuario"] = null;
+            else
+                Application.Current.Properties.Add("Usuario", null);
+
+            if (Application.Current.Properties.ContainsKey("Theme"))
+                Application.Current.Properties["Theme"] = "Light";
+            else
+                Application.Current.Properties.Add("Theme", "Light");
+
         }
 
         #region Método

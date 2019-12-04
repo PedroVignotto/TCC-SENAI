@@ -58,5 +58,14 @@ namespace HeritageV02MVVM.Models
             get => _nome_ambiente;
             set => SetProperty(ref _nome_ambiente, value);
         }
+
+        private string _estado_mensagem;
+
+        [JsonIgnore]
+        public string Estado_mensagem
+        {
+            get => _estado_mensagem;
+            set => SetProperty(ref _estado_mensagem, value);
+        }
     }
 }

@@ -333,12 +333,55 @@ namespace HeritageV02MVVM.ViewModels
 
         private async void ExecuteVerificacaoCommand()
         {
+            Body = false;
+            Load = true;
+            LoadMessage = "Preparando tudo para a verificação";
+
+            foreach (Patrimonio patrimonio in Patrimonios)
+            {
+                patrimonio.Estado_patrimonio = false;
+                await Verficar(patrimonio);
+            }
+
             var navigationParams = new NavigationParameters
             {
                 {"patrimonios", Patrimonios}
             };
 
             await NavigationService.NavigateAsync("PatrimoniosSelect", navigationParams);
+
+            Body = true;
+            Load = false;
+        }
+
+        private async Task<bool> Verficar(Patrimonio patrimonio)
+        {
+            bool up = false;
+
+            try
+            {
+                if (UsuarioAtual.Id_nivel_usuario == 0)
+                {
+                    Load = true;
+                    Body = false;
+                    LoadMessage = "Atualizando patrimônio";
+
+                    up = await HeritageAPIService.PutAsync(patrimonio);
+
+                    if (up)
+                        Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Patrimônio verificado com sucesso");
+                    else
+                        await PageDialogService.DisplayAlertAsync("Erro", "Erro ao verificar patrimônio", "Ok");
+                }
+                else
+                    Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Seu nível de usuário não permite a verificação");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return up;
         }
 
         private async Task LoadAsync()
@@ -519,7 +562,7 @@ namespace HeritageV02MVVM.ViewModels
         void CloseDialogCallback(IDialogResult dialogResult)
         {
 
-        } 
+        }
 
         #endregion
 

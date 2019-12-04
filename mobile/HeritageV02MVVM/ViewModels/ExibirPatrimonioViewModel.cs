@@ -203,11 +203,38 @@ namespace HeritageV02MVVM.ViewModels
             IconExcluir = Icon.IconName("cancel");
             IconNome = Icon.IconName("name");
 
+            if (Patrimonio.Estado_patrimonio == true)
+                Patrimonio.Estado_mensagem = "Patrimônio verificado";
+            else
+                Patrimonio.Estado_mensagem = "Patrimônio não verificado";
+
             Body = true;
 
             UsuarioAtual = JsonUsuario.GetUsuarioJson();
 
             await LoadAsync();
+        }
+
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var navigationMode = parameters.GetNavigationMode();
+            if (navigationMode == NavigationMode.Back)
+            {
+                string codigo = null;
+
+                if (parameters.ContainsKey("codigo"))
+                    codigo = (string)parameters["codigo"];
+
+                if (Patrimonio.Codigo_patrimonio == codigo)
+                {
+                    Patrimonio.Estado_patrimonio = true;
+                    Patrimonio.Estado_mensagem = "Patrimônio verificado";
+                }
+
+                if (parameters.ContainsKey("codigo"))
+                    Patrimonio.Codigo_patrimonio = (string)parameters["codigo"];
+
+            }
         }
 
         private async Task LoadAsync()
@@ -221,17 +248,18 @@ namespace HeritageV02MVVM.ViewModels
 
             try
             {
-                //Ambiente ambiente_aux = await HeritageAPIService.GetAsyncAmbiente(Patrimonio.Id_ambiente);
-
                 ObservableCollection<Ambiente> ambientes = await HeritageAPIService.GetAsyncAmbientes(UsuarioAtual.Id_empresa);
 
                 foreach (Ambiente ambiente in ambientes)
+                {
+                    if (ambiente.Id == Patrimonio.Id_ambiente)
+                        Ambiente = ambiente;
                     Ambientes.Add(ambiente);
+                }
+                    
 
                 if (Ambientes.Count < 0)
                     Ambientes = new ObservableCollection<Ambiente>() { new Ambiente() { Nome_ambiente = "Sem ambientes para exibir" } };
-
-                //Ambiente = ambiente_aux;
             }
             catch (Exception ex)
             {

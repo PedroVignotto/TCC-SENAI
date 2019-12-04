@@ -8,6 +8,7 @@ using Prism.Services.Dialogs;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace HeritageV02MVVM.ViewModels
 {
@@ -33,7 +34,6 @@ namespace HeritageV02MVVM.ViewModels
 
         #endregion
 
-
         public MenuViewModel(INavigationService navigationService, IPageDialogService pageDialogService, IDialogService dialogService, IHeritageAPIService heritageAPIService) : base(navigationService, heritageAPIService, pageDialogService, dialogService)
         {
             Title = "Menu";
@@ -57,10 +57,19 @@ namespace HeritageV02MVVM.ViewModels
 
         private async Task ExecuteMenuItensCommand(MenuItemList menuItemList)
         {
-            if (menuItemList.Nome == "Início" || menuItemList.Nome == "Sair")
+            if (menuItemList.Nome == "Início" )
                 await NavigationService.NavigateAsync(new Uri("https://www.Heritage.com/" + menuItemList.Pagina, UriKind.Absolute));
+            else if (menuItemList.Nome == "Sair")
+            {
+                await NavigationService.NavigateAsync(new Uri("https://www.Heritage.com/" + menuItemList.Pagina, UriKind.Absolute));
+                Application.Current.Properties["Token"] = null;
+                Application.Current.Properties["Theme"] = null;
+                Application.Current.Properties["Login"] = null;
+                Application.Current.Properties["Usuario"] = null;
+            }
             else
                 await NavigationService.NavigateAsync(new Uri(menuItemList.Pagina, UriKind.Relative));
+
         }
 
         public override async void Initialize(INavigationParameters parameters)
