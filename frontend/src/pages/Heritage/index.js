@@ -89,7 +89,7 @@ export default function Heritage() {
           api.delete(`heritages/${id}`);
 
           setHeritages(heritages.filter(heritage => heritage.id !== id));
-          toast.success('Heritage excluído com sucesso');
+          toast.success('Patrimônio excluído com sucesso');
         }
       });
     } catch (err) {
@@ -124,7 +124,7 @@ export default function Heritage() {
           environment_id: response.data.id,
         });
 
-        toast.success('Heritage atualizado com sucesso');
+        toast.success('Patrimônio atualizado com sucesso');
         setShowEdit(false);
       } else {
         await api.put(`heritages/${id}`, {
@@ -132,7 +132,7 @@ export default function Heritage() {
           description,
         });
 
-        toast.success('Heritage atualizado com sucesso');
+        toast.success('Patrimônio atualizado com sucesso');
         setShowEdit(false);
       }
     } catch (err) {
@@ -156,7 +156,7 @@ export default function Heritage() {
         });
 
         setHeritages([...heritages, response.data]);
-        toast.success('Heritage adicionado com sucesso');
+        toast.success('Patrimônio adicionado com sucesso');
         setShowAdd(false);
       } else {
         const response = await api.post('heritages', {
@@ -167,7 +167,7 @@ export default function Heritage() {
         });
 
         setHeritages([...heritages, response.data]);
-        toast.success('Heritage adicionado com sucesso');
+        toast.success('Patrimônio adicionado com sucesso');
         setShowAdd(false);
       }
     } catch (err) {
@@ -282,7 +282,7 @@ export default function Heritage() {
       >
         <Modals.Header>
           <h4>Abrir chamado de manutenção</h4>
-          <button type="button" onClick={() => setShowInfo(false)}>
+          <button type="button" onClick={() => setShowMaintenance(false)}>
             x
           </button>
         </Modals.Header>
