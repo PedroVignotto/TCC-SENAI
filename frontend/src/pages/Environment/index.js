@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -65,6 +65,8 @@ export default function Environment() {
   useEffect(() => {
     loadEnvironments();
   }, []); //eslint-disable-line
+
+  const environmentSize = useMemo(() => environments.length, [environments]);
 
   function handleDelete(id) {
     try {
@@ -181,7 +183,7 @@ export default function Environment() {
           <Loading />
         ) : (
           <>
-            {environments.length ? (
+            {environmentSize ? (
               <ul>
                 {environments.map(environment => (
                   <li key={environment.id}>

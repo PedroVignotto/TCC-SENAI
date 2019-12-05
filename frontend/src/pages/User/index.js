@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -62,6 +62,8 @@ export default function User() {
   useEffect(() => {
     loadUsers();
   }, []); //eslint-disable-line
+
+  const userSize = useMemo(() => users.length, [users]);
 
   function handleDelete(id) {
     try {
@@ -152,7 +154,7 @@ export default function User() {
           <Loading />
         ) : (
           <>
-            {users.length ? (
+            {userSize ? (
               <ul>
                 {users.map(user => (
                   <li key={user.id}>

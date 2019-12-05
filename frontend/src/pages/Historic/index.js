@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { parseISO, formatDistance } from 'date-fns';
 import pt from 'date-fns/locale/pt';
 import { useSelector } from 'react-redux';
@@ -40,6 +40,8 @@ export default function Environment() {
     loadHistorics();
   }, []); //eslint-disable-line
 
+  const historicSize = useMemo(() => historics.length, [historics]);
+
   return (
     <>
       <Container>
@@ -67,7 +69,7 @@ export default function Environment() {
           <Loading />
         ) : (
           <>
-            {historics.length ? (
+            {historicSize ? (
               historics.map(historic => (
                 <aside key={historic.id}>
                   <span>{historic.createdAt}:</span>
@@ -75,7 +77,7 @@ export default function Environment() {
                 </aside>
               ))
             ) : (
-              <div style={{ marginTop: '100' }}>
+              <div>
                 <MdHistory size={100} color={colors.primary} />
                 <h6>Nenhum histórico foi encontrado</h6>
               </div>

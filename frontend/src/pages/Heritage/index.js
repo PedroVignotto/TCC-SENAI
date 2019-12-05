@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
@@ -77,6 +77,8 @@ export default function Heritage() {
   useEffect(() => {
     loadHeritages();
   }, []); //eslint-disable-line
+
+  const heritageSize = useMemo(() => heritages.length, [heritages]);
 
   function handleDelete(id) {
     try {
@@ -210,7 +212,7 @@ export default function Heritage() {
           <Loading />
         ) : (
           <>
-            {heritages.length ? (
+            {heritageSize ? (
               <ul>
                 {heritages.map(heritage => (
                   <li key={heritage.id}>
