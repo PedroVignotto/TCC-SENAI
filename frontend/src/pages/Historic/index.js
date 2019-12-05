@@ -6,6 +6,7 @@ import { MdSearch, MdHistory } from 'react-icons/md';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Loading from '~/components/Loading';
 
 import colors from '~/styles/colors';
 import { Container, Search } from './styles';
@@ -13,10 +14,12 @@ import { Container, Search } from './styles';
 export default function Environment() {
   const [historics, setHistorics] = useState([]);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const profile = useSelector(state => state.user.profile);
 
   async function loadHistorics() {
+    setLoading(true);
     const response = await api.get(`${profile.company_id}/historical`, {
       params: { q: search },
     });
@@ -30,6 +33,7 @@ export default function Environment() {
     }));
 
     setHistorics(data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -59,18 +63,24 @@ export default function Environment() {
           </div>
         </Search>
 
-        {historics.length ? (
-          historics.map(historic => (
-            <aside key={historic.id}>
-              <span>{historic.createdAt}:</span>
-              <span>{historic.message}</span>
-            </aside>
-          ))
+        {loading ? (
+          <Loading />
         ) : (
-          <div>
-            <MdHistory size={100} color={colors.primary} />
-            <h6>Nenhum histórico foi encontrado</h6>
-          </div>
+          <>
+            {historics.length ? (
+              historics.map(historic => (
+                <aside key={historic.id}>
+                  <span>{historic.createdAt}:</span>
+                  <span>{historic.message}</span>
+                </aside>
+              ))
+            ) : (
+              <div style={{ marginTop: '100' }}>
+                <MdHistory size={100} color={colors.primary} />
+                <h6>Nenhum histórico foi encontrado</h6>
+              </div>
+            )}
+          </>
         )}
       </Container>
     </>

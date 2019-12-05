@@ -13,7 +13,6 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 100px auto;
 
     h6 {
       font-size: 28px;

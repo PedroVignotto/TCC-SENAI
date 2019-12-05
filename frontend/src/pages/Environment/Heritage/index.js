@@ -15,6 +15,7 @@ import { FaTools, FaBoxOpen } from 'react-icons/fa';
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Loading from '~/components/Loading';
 import Input from '~/components/Input';
 
 import colors from '~/styles/colors';
@@ -44,6 +45,7 @@ export default function Heritage({ match }) {
   const [showMaintenance, setShowMaintenance] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { environment_id } = match.params;
 
@@ -65,6 +67,7 @@ export default function Heritage({ match }) {
   }
 
   async function loadHeritages() {
+    setLoading(true);
     const response = await api.get(
       `${profile.company_id}/environments/${environment_id}/heritages`,
       {
@@ -73,6 +76,7 @@ export default function Heritage({ match }) {
     );
 
     setHeritages(response.data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -198,58 +202,68 @@ export default function Heritage({ match }) {
           )}
         </Search>
 
-        {heritages.length ? (
-          <ul>
-            {heritages.map(heritage => (
-              <li key={heritage.id}>
-                <button type="button" onClick={() => handleShowInfo(heritage)}>
-                  <strong>{heritage.code}</strong>
-                  <span>
-                    {(heritage.environment && heritage.environment.name) || ''}
-                  </span>
-                </button>
-
-                <div>
-                  {profile.user_level === 1 ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleShowMaintenance(heritage)}
-                      >
-                        <FaTools size={18} color={colors.secondary} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleShowEdit(heritage)}
-                      >
-                        <MdCached size={20} color={colors.primary} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(heritage.id)}
-                      >
-                        <MdDeleteForever size={20} color={colors.red} />
-                      </button>
-                    </>
-                  ) : (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleShowMaintenance(heritage)}
-                      >
-                        <FaTools size={20} color={colors.secondary} />
-                      </button>
-                    </>
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+        {loading ? (
+          <Loading />
         ) : (
-          <aside>
-            <FaBoxOpen size={100} color={colors.primary} />
-            <h6>Nenhum patrimônio foi encontrado</h6>
-          </aside>
+          <>
+            {heritages.length ? (
+              <ul>
+                {heritages.map(heritage => (
+                  <li key={heritage.id}>
+                    <button
+                      type="button"
+                      onClick={() => handleShowInfo(heritage)}
+                    >
+                      <strong>{heritage.code}</strong>
+                      <span>
+                        {(heritage.environment && heritage.environment.name) ||
+                          ''}
+                      </span>
+                    </button>
+
+                    <div>
+                      {profile.user_level === 1 ? (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleShowMaintenance(heritage)}
+                          >
+                            <FaTools size={18} color={colors.secondary} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleShowEdit(heritage)}
+                          >
+                            <MdCached size={20} color={colors.primary} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(heritage.id)}
+                          >
+                            <MdDeleteForever size={20} color={colors.red} />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleShowMaintenance(heritage)}
+                          >
+                            <FaTools size={20} color={colors.secondary} />
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <aside>
+                <FaBoxOpen size={100} color={colors.primary} />
+                <h6>Nenhum patrimônio foi encontrado</h6>
+              </aside>
+            )}
+          </>
         )}
       </Container>
 

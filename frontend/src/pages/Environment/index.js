@@ -16,6 +16,7 @@ import {
 import api from '~/services/api';
 import history from '~/services/history';
 import Top from '~/components/Top';
+import Loading from '~/components/Loading';
 import Input from '~/components/Input';
 
 import colors from '~/styles/colors';
@@ -32,6 +33,7 @@ export default function Environment() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const profile = useSelector(state => state.user.profile);
 
@@ -42,17 +44,21 @@ export default function Environment() {
 
   async function loadEnvironments() {
     if (profile.user_level === 1) {
+      setLoading(true);
       const response = await api.get(`${profile.company_id}/environments`, {
         params: { q: search },
       });
 
       setEnvironments(response.data);
+      setLoading(false);
     } else {
+      setLoading(true);
       const response = await api.get('/environments', {
         params: { q: search },
       });
 
       setEnvironments(response.data);
+      setLoading(false);
     }
   }
 
@@ -170,49 +176,58 @@ export default function Environment() {
             ''
           )}
         </Search>
-        {environments.length ? (
-          <ul>
-            {environments.map(environment => (
-              <li key={environment.id}>
-                <button
-                  type="button"
-                  onClick={() => history.push(`/${environment.id}/heritages`)}
-                >
-                  <strong>{environment.name}</strong>
-                  <span>
-                    {(environment.user && environment.user.email) || ''}
-                  </span>
-                </button>
 
-                <div>
-                  {profile.user_level === 1 ? (
-                    <>
-                      {' '}
-                      <button
-                        type="button"
-                        onClick={() => handleShowEdit(environment)}
-                      >
-                        <MdCached size={22} color={colors.primary} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(environment.id)}
-                      >
-                        <MdDeleteForever size={22} color={colors.red} />
-                      </button>
-                    </>
-                  ) : (
-                    ''
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+        {loading ? (
+          <Loading />
         ) : (
-          <aside>
-            <MdRoom size={100} color={colors.primary} />
-            <h6>Nenhum ambiente foi encontrado</h6>
-          </aside>
+          <>
+            {environments.length ? (
+              <ul>
+                {environments.map(environment => (
+                  <li key={environment.id}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        history.push(`/${environment.id}/heritages`)
+                      }
+                    >
+                      <strong>{environment.name}</strong>
+                      <span>
+                        {(environment.user && environment.user.email) || ''}
+                      </span>
+                    </button>
+
+                    <div>
+                      {profile.user_level === 1 ? (
+                        <>
+                          {' '}
+                          <button
+                            type="button"
+                            onClick={() => handleShowEdit(environment)}
+                          >
+                            <MdCached size={22} color={colors.primary} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(environment.id)}
+                          >
+                            <MdDeleteForever size={22} color={colors.red} />
+                          </button>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <aside>
+                <MdRoom size={100} color={colors.primary} />
+                <h6>Nenhum ambiente foi encontrado</h6>
+              </aside>
+            )}
+          </>
         )}
       </Container>
 

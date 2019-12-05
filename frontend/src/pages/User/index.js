@@ -14,6 +14,7 @@ import {
 
 import api from '~/services/api';
 import Top from '~/components/Top';
+import Loading from '~/components/Loading';
 import Input from '~/components/Input';
 
 import avatarProfile from '~/assets/profile.png';
@@ -28,6 +29,7 @@ export default function User() {
   const [showEdit, setShowEdit] = useState(false);
   const [showAdd, setShowAdd] = useState(false);
   const [search, setSearch] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const options = [
     { id: 1, title: 'Administrador' },
@@ -48,11 +50,13 @@ export default function User() {
   }
 
   async function loadUsers() {
+    setLoading(true);
     const response = await api.get(`${profile.company_id}/users`, {
       params: { q: search },
     });
 
     setUsers(response.data);
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -144,51 +148,64 @@ export default function User() {
           )}
         </Search>
 
-        {users.length ? (
-          <ul>
-            {users.map(user => (
-              <li key={user.id}>
-                <section>
-                  <img
-                    src={(user.avatar && user.avatar.url) || avatarProfile}
-                    alt={user.name}
-                  />
-                  <button type="button" onClick={() => handleShowInfo(user)}>
-                    <strong>{user.name.split(' ', 1)}</strong>
-                    <span>{user.user_level === 1 ? 'Administrador' : ''}</span>
-                    <span>{user.user_level === 2 ? 'Gerenciador' : ''}</span>
-                    <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
-                  </button>
-                </section>
-
-                <div>
-                  {profile.user_level === 1 ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => handleShowEdit(user)}
-                      >
-                        <MdCached size={22} color={colors.primary} />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleDelete(user.id)}
-                      >
-                        <MdDeleteForever size={22} color={colors.red} />
-                      </button>
-                    </>
-                  ) : (
-                    ''
-                  )}
-                </div>
-              </li>
-            ))}
-          </ul>
+        {loading ? (
+          <Loading />
         ) : (
-          <aside>
-            <MdSupervisorAccount size={100} color={colors.primary} />
-            <h6>Nenhum usuário foi encontrado</h6>
-          </aside>
+          <>
+            {users.length ? (
+              <ul>
+                {users.map(user => (
+                  <li key={user.id}>
+                    <section>
+                      <img
+                        src={(user.avatar && user.avatar.url) || avatarProfile}
+                        alt={user.name}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => handleShowInfo(user)}
+                      >
+                        <strong>{user.name.split(' ', 1)}</strong>
+                        <span>
+                          {user.user_level === 1 ? 'Administrador' : ''}
+                        </span>
+                        <span>
+                          {user.user_level === 2 ? 'Gerenciador' : ''}
+                        </span>
+                        <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
+                      </button>
+                    </section>
+
+                    <div>
+                      {profile.user_level === 1 ? (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => handleShowEdit(user)}
+                          >
+                            <MdCached size={22} color={colors.primary} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => handleDelete(user.id)}
+                          >
+                            <MdDeleteForever size={22} color={colors.red} />
+                          </button>
+                        </>
+                      ) : (
+                        ''
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <aside>
+                <MdSupervisorAccount size={100} color={colors.primary} />
+                <h6>Nenhum usuário foi encontrado</h6>
+              </aside>
+            )}
+          </>
         )}
       </Container>
 
