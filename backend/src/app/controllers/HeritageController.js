@@ -21,6 +21,7 @@ class HeritageController {
         'name',
         'description',
         'code',
+        'state',
         'company_id',
         'environment_id',
       ],
@@ -52,6 +53,7 @@ class HeritageController {
         'name',
         'description',
         'code',
+        'state',
         'company_id',
         'environment_id',
       ],
@@ -131,6 +133,30 @@ class HeritageController {
       company_id,
       environment_id,
     });
+  }
+
+  async edit(req, res) {
+    const schema = Yup.object().shape({
+      environment_id: Yup.number(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res
+        .status(400)
+        .json({ error: 'Algo deu errado, tente novamente' });
+    }
+
+    const { environment_id } = req.params;
+
+    const environment = await Environment.findByPk(environment_id);
+
+    if (!environment) {
+      return res.status(400).json({ error: 'Ambiente não encontrado' });
+    }
+
+    await Heritage.update({ state: false }, { where: { environment_id } });
+
+    return res.json({ success: true });
   }
 
   async update(req, res) {

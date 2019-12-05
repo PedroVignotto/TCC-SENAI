@@ -44,6 +44,7 @@ routes.get(
 );
 routes.post('/maintenance/:company_id', HeritageController.create);
 routes.post('/heritages', HeritageController.store);
+routes.put('/conferences/:environment_id', HeritageController.edit);
 routes.put('/heritages/:id', HeritageController.update);
 routes.delete('/heritages/:id', HeritageController.delete);
 

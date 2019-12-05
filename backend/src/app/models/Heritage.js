@@ -6,6 +6,7 @@ class Heritage extends Model {
       {
         name: Sequelize.STRING,
         description: Sequelize.STRING,
+        state: Sequelize.BOOLEAN,
         code: Sequelize.STRING,
       },
       {
