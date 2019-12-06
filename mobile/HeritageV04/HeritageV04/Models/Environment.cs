@@ -14,15 +14,6 @@ namespace HeritageV04.Models
             set { SetProperty(ref userId, value); }
         }
 
-        private string environmentName;
-
-        [JsonIgnore]
-        public string EnvironmentName
-        {
-            get { return environmentName; }
-            set { SetProperty(ref environmentName, value); }
-        }
-
         private string userName;
 
         [JsonIgnore]

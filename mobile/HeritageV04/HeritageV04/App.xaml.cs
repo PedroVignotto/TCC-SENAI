@@ -1,4 +1,9 @@
-﻿using Prism;
+﻿using HeritageV04.Services;
+using HeritageV04.Services.Abstractions;
+using HeritageV04.ViewModels;
+using HeritageV04.Views;
+using Prism;
+using Prism.DryIoc;
 using Prism.Ioc;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -6,27 +11,38 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace HeritageV04
 {
-    public partial class App
+    [AutoRegisterForNavigation]
+    public partial class App : PrismApplication
     {
-        /* 
-         * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
-         * This imposes a limitation in which the App class must have a default constructor. 
-         * App(IPlatformInitializer initializer = null) cannot be handled by the Activator.
-         */
-        public App() : this(null) { }
+        public App() : this(null)
+        {
 
-        public App(IPlatformInitializer initializer) : base(initializer) { }
+        }
 
+        public App(IPlatformInitializer initializer) : this(initializer, true)
+        {
+
+        }
+
+        public App(IPlatformInitializer initializer, bool setFormsDependencyResolver) : base(initializer, setFormsDependencyResolver)
+        {
+
+        }
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("Login");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
+
+            containerRegistry.RegisterForNavigation<Login, LoginViewModel>();
+
+            containerRegistry.RegisterSingleton<IHeritageAPIService, HeritageAPIService>();
+
         }
     }
 }

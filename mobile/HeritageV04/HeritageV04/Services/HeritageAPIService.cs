@@ -1,6 +1,6 @@
-﻿using HeritageV02MVVM.Utilities;
-using HeritageV04.Models;
+﻿using HeritageV04.Models;
 using HeritageV04.Services.Abstractions;
+using HeritageV04.Utilities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
@@ -11,7 +11,7 @@ using Environment = HeritageV04.Models.Environment;
 
 namespace HeritageV04.Services
 {
-    public class HeritageAPIService
+    public class HeritageAPIService : IHeritageAPIService
     {
 
         public static Uri ApiBaseUrl = new Uri("http://10.0.2.2:3333");
@@ -44,7 +44,7 @@ namespace HeritageV04.Services
         {
             var data = JsonConvert.SerializeObject(user);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}/sessions", content);
+            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}sessions", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -101,20 +101,6 @@ namespace HeritageV04.Services
 
             try
             {
-                //string url = ApiBaseUrl + "login";
-                //var data = JsonConvert.SerializeObject(usuario);
-                //var content = new StringContent(data, Encoding.UTF8, "application/json");
-                //response = await HttpClient.PostAsync(url, content);
-
-                //if (response.IsSuccessStatusCode)
-                //{
-                //    var repost = await response.Content.ReadAsStringAsync();
-                //}
-                //else
-                //{
-                //    usuarioLogin = null;
-                //}
-
                 var func = new Func<Task<UserRoot>>(() => UserLoginRequest(user));
                 userRoot = await _networkService.Retry(func, 3, OnRetry);
                 token.SetToken(userRoot.Token);
@@ -301,7 +287,7 @@ namespace HeritageV04.Services
         {
             var data = JsonConvert.SerializeObject(environment);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}/Environments", content);
+            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}/environments", content);
 
             return response.IsSuccessStatusCode;
 
@@ -311,7 +297,7 @@ namespace HeritageV04.Services
         {
             var data = JsonConvert.SerializeObject(environment);
             var content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await HttpClient.PutAsync($"{ApiBaseUrl}/Environments", content);
+            HttpResponseMessage response = await HttpClient.PutAsync($"{ApiBaseUrl}/environments", content);
 
             return response.IsSuccessStatusCode;
 
@@ -319,15 +305,13 @@ namespace HeritageV04.Services
 
         async Task<bool> EnvironmentDeleteRequest(int? Id)
         {
-            HttpResponseMessage response = await HttpClient.DeleteAsync($"{ApiBaseUrl}/Environments/{Id}");
-
+            HttpResponseMessage response = await HttpClient.DeleteAsync($"{ApiBaseUrl}/environments/{Id}");
             return response.IsSuccessStatusCode;
-
         } 
 
-        async Task<ObservableCollection<Environment>> EnvironmentGetRequest(int? CompanyId)
+        async Task<ObservableCollection<Environment>> EnvironmentsGetRequest(int? CompanyId)
         {
-            HttpResponseMessage response = await HttpClient.GetAsync($"{ApiBaseUrl}/{CompanyId}/Environments");
+            HttpResponseMessage response = await HttpClient.GetAsync($"{ApiBaseUrl}/{CompanyId}/environments");
 
             if (response.IsSuccessStatusCode)
             {
@@ -338,8 +322,23 @@ namespace HeritageV04.Services
                 return null;
 
         } 
+
+        async Task<Environment> EnvironmentGetRequest(int? CompanyId, string EnvironmentName)
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync($"{ApiBaseUrl}/{CompanyId}/environments/{EnvironmentName}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var repost = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Environment>(repost);
+            }
+            else
+                return null;
+
+        }
         #endregion
 
+        #region EnvironmentMethods
         public async Task<bool> PostAsync(Environment environment)
         {
 
@@ -497,7 +496,7 @@ namespace HeritageV04.Services
                 //        ambientes = JsonConvert.DeserializeObject<ObservableCollection<Ambiente>>(response);
                 //    });
 
-                var func = new Func<Task<ObservableCollection<Environment>>>(() => EnvironmentGetRequest(CompanyId));
+                var func = new Func<Task<ObservableCollection<Environment>>>(() => EnvironmentsGetRequest(CompanyId));
                 environments = await _networkService.Retry(func, 3, OnRetry);
 
             }
@@ -509,6 +508,316 @@ namespace HeritageV04.Services
             return environments;
 
         }
+
+        public async Task<Environment> GetAsyncEnvironment(int? CompanyId, string EnvironmentName)
+        {
+
+            Environment environment = new Environment();
+
+            try
+            {
+
+                //await Policy
+                //    .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //    .WaitAndRetryAsync
+                //    (
+                //        retryCount: 3,
+                //        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //        onRetry: (ex, time) =>
+                //        {
+                //            Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //        }
+                //    )
+                //    .ExecuteAsync(async () =>
+                //    {
+                //        Uri uri = new Uri(ApiBaseUrl.ToString() + "ambientes/" + Id);
+                //        var response = await HttpClient.GetStringAsync(uri);
+                //        ambiente = JsonConvert.DeserializeObject<Ambiente>(response);
+                //    });
+
+                var func = new Func<Task<Environment>>(() => EnvironmentGetRequest(CompanyId, EnvironmentName));
+                environment = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return environment;
+
+        }
+        #endregion
+
+        #region HeritageResquests
+        async Task<bool> HeritagePostRequest(Heritage heritage)
+        {
+            var data = JsonConvert.SerializeObject(heritage);
+            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}/heritages", content);
+
+            return response.IsSuccessStatusCode;
+
+        }
+
+        async Task<bool> HeritageDeleteRequest(int? Id)
+        {
+            HttpResponseMessage response = await HttpClient.DeleteAsync($"{ApiBaseUrl}/heritages/{Id}");
+            return response.IsSuccessStatusCode;
+        }
+
+        async Task<bool> HeritagePutRequest(Heritage heritage)
+        {
+            var data = JsonConvert.SerializeObject(heritage);
+            var content = new StringContent(data, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await HttpClient.PutAsync($"{ApiBaseUrl}/heritage/{heritage.Id}", content);
+
+            return response.IsSuccessStatusCode;
+        }
+
+        async Task<ObservableCollection<Heritage>> HeritagesGetRequest(int? CompanyId)
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync($"{ApiBaseUrl}/{CompanyId}/heritages");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var repost = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ObservableCollection<Heritage>>(repost);
+            }
+            else
+                return null;
+
+        }
+
+        async Task<ObservableCollection<Heritage>> HeritagesGetRequest(int? CompanyId, int? EnvironmentId)
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync($"{ApiBaseUrl}/{CompanyId}/environments/{EnvironmentId}/heritages");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var repost = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<ObservableCollection<Heritage>>(repost);
+            }
+            else
+                return null;
+
+        } 
+        #endregion
+
+        #region HeritageMethod
+        public async Task<bool> PostAsync(Heritage heritage)
+        {
+
+            bool post = false;
+
+            try
+            {
+
+                //await Policy
+                //     .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //     .WaitAndRetryAsync
+                //     (
+                //         retryCount: 3,
+                //         sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //         onRetry: (ex, time) =>
+                //         {
+                //             Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //         }
+                //     )
+                //     .ExecuteAsync(async () =>
+                //     {
+                //         Uri uri = new Uri(ApiBaseUrl + "patrimonios");
+                //         var data = JsonConvert.SerializeObject(patrimonio);
+                //         var content = new StringContent(data, Encoding.UTF8, "application/json");
+                //         HttpResponseMessage response = await HttpClient.PostAsync(uri, content);
+
+                //         set = response.IsSuccessStatusCode;
+                //     });
+
+                var func = new Func<Task<bool>>(() => HeritagePostRequest(heritage));
+                post = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return post;
+
+        }
+
+        public async Task<bool> DeleteAsync(int? Id)
+        {
+
+            bool delete = false;
+
+            try
+            {
+
+                //await Policy
+                //     .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //     .WaitAndRetryAsync
+                //     (
+                //         retryCount: 3,
+                //         sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //         onRetry: (ex, time) =>
+                //         {
+                //             Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //         }
+                //     )
+                //     .ExecuteAsync(async () =>
+                //     {
+                //         string url = ApiBaseUrl + "patrimonio/" + patrimonio.Id;
+                //         var response = await HttpClient.GetAsync(url);
+
+                //         delete = response.IsSuccessStatusCode;
+                //     });
+
+                var func = new Func<Task<bool>>(() => HeritageDeleteRequest(Id));
+                delete = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return delete;
+
+        }
+
+        public async Task<bool> PutAsync(Heritage heritage)
+        {
+
+            bool put = false;
+
+            try
+            {
+
+                //await Policy
+                //    .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //    .WaitAndRetryAsync
+                //    (
+                //        retryCount: 3,
+                //        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //        onRetry: (ex, time) =>
+                //        {
+                //            Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //        }
+                //    )
+                //    .ExecuteAsync(async () =>
+                //    {
+                //        string url = ApiBaseUrl + "patrimonio_up/" + patrimonio.Id;
+                //        var data = JsonConvert.SerializeObject(patrimonio);
+                //        StringContent content = new StringContent(data, Encoding.UTF8, "application/json");
+                //        HttpResponseMessage response = await HttpClient.PostAsync(url, content);
+
+                //        put = response.IsSuccessStatusCode;
+                //    });
+
+
+                var func = new Func<Task<bool>>(() => HeritagePutRequest(heritage));
+                put = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return put;
+
+        }
+
+        public async Task<ObservableCollection<Heritage>> GetAsyncHeritages(int? CompanyId)
+        {
+
+            ObservableCollection<Heritage> heritages = new ObservableCollection<Heritage>();
+
+            try
+            {
+
+                //await Policy
+                //    .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //    .WaitAndRetryAsync
+                //    (
+                //        retryCount: 3,
+                //        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //        onRetry: (ex, time) =>
+                //        {
+                //            Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //        }
+                //    )
+                //    .ExecuteAsync(async () =>
+                //    {
+                //        Uri uri = new Uri(ApiBaseUrl.ToString() + Id_empresa + "/patrimonios/");
+                //        string response = await HttpClient.GetStringAsync(uri);
+                //        patrimonios = JsonConvert.DeserializeObject<ObservableCollection<Patrimonio>>(response);
+                //    });
+
+                var func = new Func<Task<ObservableCollection<Heritage>>>(() => HeritagesGetRequest(CompanyId));
+                heritages = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return null;
+
+        }
+
+        public async Task<ObservableCollection<Heritage>> GetAsyncHeritages(int? EnvironmentId, int? CompanyId)
+        {
+
+            ObservableCollection<Heritage> heritages = new ObservableCollection<Heritage>();
+
+            try
+            {
+
+                //await Policy
+                //    .Handle<HttpRequestException>(ex => !ex.Message.ToLower().Contains("404"))
+                //    .WaitAndRetryAsync
+                //    (
+                //        retryCount: 3,
+                //        sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),
+                //        onRetry: (ex, time) =>
+                //        {
+                //            Console.WriteLine($"Ocorreu um erro ao baixar os dados: {ex.Message}, tentando novamente...");
+                //        }
+                //    )
+                //    .ExecuteAsync(async () =>
+                //    {
+                //        Uri uri = new Uri(ApiBaseUrl.ToString() + Id_empresa + "/patrimonios/");
+                //        string response = await HttpClient.GetStringAsync(uri);
+                //        patrimonios = JsonConvert.DeserializeObject<ObservableCollection<Patrimonio>>(response);
+
+                //        foreach (Patrimonio patrimonio in patrimonios)
+                //        {
+                //            if (patrimonio.Id_ambiente == Id_ambiente)
+                //            {
+                //                patrimonios_ambiente.Add(patrimonio);
+                //            }
+                //        }
+
+                //    });
+
+
+                var func = new Func<Task<ObservableCollection<Heritage>>>(() => HeritagesGetRequest(CompanyId, EnvironmentId));
+                heritages = await _networkService.Retry(func, 3, OnRetry);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return heritages;
+
+        } 
+        #endregion
 
     }
 }

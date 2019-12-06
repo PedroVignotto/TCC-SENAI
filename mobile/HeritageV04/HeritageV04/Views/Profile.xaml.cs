@@ -10,5 +10,15 @@ namespace HeritageV04.Views
         {
             InitializeComponent();
         }
+
+        private void Exibir_Nome_Tapped(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void Exibir_Email_Tapped(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

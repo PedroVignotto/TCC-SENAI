@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Xamarin.Forms;
 
-namespace HeritageV02MVVM.Utilities
+namespace HeritageV04.Utilities
 {
     public class UserJson
     {

@@ -16,5 +16,15 @@ namespace HeritageV04.Views
         {
             InitializeComponent();
         }
+
+        private void Exibir_Nome_Tapped(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Exibir_Adm_Tapped(object sender, EventArgs e)
+        {
+
+        }
     }
 }

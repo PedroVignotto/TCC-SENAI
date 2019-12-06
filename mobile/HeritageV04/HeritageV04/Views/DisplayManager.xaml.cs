@@ -10,5 +10,10 @@ namespace HeritageV04.Views
         {
             InitializeComponent();
         }
+
+        private void ViewCell_Tapped(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }
