@@ -30,7 +30,7 @@ export const Container = styled.div`
     justify-content: flex-start;
     padding: 0 20px;
 
-    @media (max-width: 750px) {
+    @media (max-width: 840px) {
       display: flex;
       flex-direction: column;
       border-bottom: 1px solid ${colors.details};

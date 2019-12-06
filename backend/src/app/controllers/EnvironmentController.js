@@ -3,6 +3,7 @@ import { Op } from 'sequelize';
 
 import Environment from '../models/Environment';
 import User from '../models/User';
+import Historic from '../models/Historic';
 
 class EnvironmentController {
   async index(req, res) {
@@ -122,6 +123,13 @@ class EnvironmentController {
           .status(400)
           .json({ error: 'Esse nome já está sendo utilizado' });
       }
+
+      const user = await User.findByPk(req.userId);
+
+      await Historic.create({
+        company_id: environment.company_id,
+        message: `${user.email} renomeou o ambiente ${environment.name} para ${name}`,
+      });
     }
 
     await environment.update(req.body);
@@ -137,6 +145,13 @@ class EnvironmentController {
     if (!environment) {
       return res.status(400).json({ error: 'Ambiente não existe' });
     }
+
+    const user = await User.findByPk(req.userId);
+
+    await Historic.create({
+      company_id: environment.company_id,
+      message: `${user.email} excluiu o ambiente ${environment.name}`,
+    });
 
     await Environment.destroy({ where: { id } });
 

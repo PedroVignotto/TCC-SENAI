@@ -4,6 +4,7 @@ import { Op } from 'sequelize';
 import Heritage from '../models/Heritage';
 import Environment from '../models/Environment';
 import Historic from '../models/Historic';
+import User from '../models/User';
 
 class HeritageController {
   async index(req, res) {
@@ -181,6 +182,8 @@ class HeritageController {
       return res.status(400).json({ error: 'Código não pode ser alterado' });
     }
 
+    const user = await User.findByPk(req.userId);
+
     if (environment_id) {
       const oldEnvironment = await Environment.findByPk(
         heritage.environment_id
@@ -190,12 +193,12 @@ class HeritageController {
       if (!oldEnvironment) {
         await Historic.create({
           company_id: heritage.company_id,
-          message: `Patrimônio ${heritage.code} movido para o ambiente ${newEnvironment.name}`,
+          message: `${user.email} moveu o patrimônio ${heritage.code} para o ambiente ${newEnvironment.name}`,
         });
       } else {
         await Historic.create({
           company_id: heritage.company_id,
-          message: `Patrimônio ${heritage.code} movido do ambiente ${oldEnvironment.name} para ${newEnvironment.name}`,
+          message: `${user.email} moveu o patrimônio ${heritage.code} do ambiente ${oldEnvironment.name} para ${newEnvironment.name}`,
         });
       }
     }
@@ -213,6 +216,13 @@ class HeritageController {
     if (!heritage) {
       return res.status(400).json({ error: 'Heritage não existe' });
     }
+
+    const user = await User.findByPk(req.userId);
+
+    await Historic.create({
+      company_id: heritage.company_id,
+      message: `${user.email} excluiu o patrimônio ${heritage.code}`,
+    });
 
     await Heritage.destroy({ where: { id } });
 
