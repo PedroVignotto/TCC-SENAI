@@ -43,21 +43,22 @@ export default function Environment() {
   }
 
   async function loadEnvironments() {
-    if (profile.user_level === 1) {
+    try {
       setLoading(true);
-      const response = await api.get(`${profile.company_id}/environments`, {
-        params: { q: search },
-      });
+      if (profile.user_level === 1) {
+        const response = await api.get(`${profile.company_id}/environments`, {
+          params: { q: search },
+        });
 
-      setEnvironments(response.data);
-      setLoading(false);
-    } else {
-      setLoading(true);
-      const response = await api.get('/environments', {
-        params: { q: search },
-      });
+        setEnvironments(response.data);
+      } else {
+        const response = await api.get('/environments', {
+          params: { q: search },
+        });
 
-      setEnvironments(response.data);
+        setEnvironments(response.data);
+      }
+    } finally {
       setLoading(false);
     }
   }

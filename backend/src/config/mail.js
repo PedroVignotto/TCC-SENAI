@@ -7,6 +7,6 @@ export default {
     pass: process.env.MAIL_PASS,
   },
   default: {
-    from: 'Equipe GoBarber <noreply@gobarber.com>',
+    from: 'Equipe Heritage <noreply@cloudstate.com>',
   },
 };

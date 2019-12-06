@@ -68,16 +68,20 @@ export default function Heritage({ match }) {
   }
 
   async function loadHeritages() {
-    setLoading(true);
-    const response = await api.get(
-      `${profile.company_id}/environments/${environment_id}/heritages`,
-      {
-        params: { q: search },
-      }
-    );
+    try {
+      setLoading(true);
 
-    setHeritages(response.data);
-    setLoading(false);
+      const response = await api.get(
+        `${profile.company_id}/environments/${environment_id}/heritages`,
+        {
+          params: { q: search },
+        }
+      );
+
+      setHeritages(response.data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
