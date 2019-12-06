@@ -4,7 +4,7 @@ import colors from '~/styles/colors';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 1024px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 30px;
 
@@ -30,7 +30,7 @@ export const Container = styled.div`
     justify-content: flex-start;
     padding: 0 20px;
 
-    @media (max-width: 840px) {
+    @media (max-width: 1000px) {
       display: flex;
       flex-direction: column;
       border-bottom: 1px solid ${colors.details};
