@@ -5,7 +5,7 @@
 <p align="center">
   <a href="#-instalação-e-execução">Instação e execução</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>
 </p>
 
 <br>
@@ -38,7 +38,10 @@
 
 ### Mobile
 
----
+3. Entre na pasta `mobile` pelo `Explorador de Arquivos`;
+4. Abra o arquivo `HeritageV04.sln` no [Visual Studio 2019](https://visualstudio.microsoft.com/pt-br/vs/?rr=https%3A%2F%2Fwww.google.com%2F);
+5. Crie um emulador com a API do android acima da versão 28 (Pie 9.0);
+6. Rode o projeto `HeritageV04.Android` no emulador
 
 ## :rocket: Tecnologias
 
