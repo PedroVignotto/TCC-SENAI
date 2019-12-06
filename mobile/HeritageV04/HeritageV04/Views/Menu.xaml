@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:c="clr-namespace:HeritageV04.Converters"
+                  xmlns:b="http://prismlibrary.com"
+                  mc:Ignorable="d"
+                  x:Class="HeritageV04.Views.Menu"
+                  BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <MasterDetailPage.Resources>
+
+        <ResourceDictionary>
+
+            <c:ItemTappedEventArgsConverter x:Key="ItemTappedEventArgsConverter" />
+
+        </ResourceDictionary>
+
+    </MasterDetailPage.Resources>
+
+    <MasterDetailPage.Master>
+
+        <ContentPage Title="Menu">
+
+            <ContentPage.Content>
+
+                <StackLayout>
+
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="15, 15, 15, 30">
+
+                        <Frame CornerRadius="75"
+                               HeightRequest="100"
+                               WidthRequest="100"
+                               IsClippedToBounds="True"
+                               Padding="0"
+                               Margin="10">
+
+                            <Image Source="user.png"
+                                   BackgroundColor="Transparent"
+                                   Aspect="AspectFill"/>
+
+                        </Frame>
+
+
+                        <StackLayout Orientation="Vertical"
+                                     Margin="10, 10, 0, 0">
+
+                            <Label Text="{Binding CurrentUser.Name}"
+                                   Style="{DynamicResource LabelPrincipal}"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"/>
+
+                            <Label Text="{Binding CurrentUser.Email}"
+                                   Style="{DynamicResource Label}"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"/>
+
+                        </StackLayout>
+
+                    </StackLayout>
+
+
+                    <ListView ItemsSource="{Binding Itens}"
+                              IsRefreshing="{Binding IsBusy}"
+                              SeparatorColor="Transparent">
+
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate>
+
+                                <ViewCell>
+
+                                    <StackLayout Padding="15,10">
+
+                                        <StackLayout Orientation="Horizontal">
+
+                                            <Image Source="{Binding Icon}"
+                                                   Style="{DynamicResource ImgIconTableView}"/>
+
+                                            <Label Text="{Binding Name}" 
+                                                   VerticalTextAlignment="Center"
+                                                   Style="{DynamicResource Label}"/>
+
+                                        </StackLayout>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                            </DataTemplate>
+
+                        </ListView.ItemTemplate>
+
+                        <ListView.Behaviors>
+
+                            <b:EventToCommandBehavior EventName="ItemTapped" 
+                                                      Command="{Binding ItensCommand}"
+                                                      EventArgsConverter="{StaticResource ItemTappedEventArgsConverter}" />
+
+                        </ListView.Behaviors>
+
+                    </ListView>
+
+                </StackLayout>
+
+            </ContentPage.Content>
+
+        </ContentPage>
+
+    </MasterDetailPage.Master>
+
+</MasterDetailPage>

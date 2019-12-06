@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:custom="clr-namespace:HeritageV04.Extensions"
+             xmlns:b="http://prismlibrary.com"
+             mc:Ignorable="d"
+             x:Class="HeritageV04.Views.AddHeritage"
+             Title="{Binding Title}"
+             BackgroundColor="{DynamicResource BackgroundPage}">
+
+    <ContentPage.Content>
+
+        <ScrollView>
+
+            <StackLayout>
+
+                <FlexLayout Direction="Row"
+                            JustifyContent="Center"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            IsVisible="{Binding Body}">
+
+                    <Image Source="{Binding Icone}"
+                           Style="{DynamicResource ImgIcon}"/>
+
+                    <custom:CustomEntry Placeholder="Nome"
+                                        Text="{Binding Heritage.Name}"
+                                        ReturnType="Next">
+
+                        <custom:CustomEntry.Behaviors>
+
+                            <custom:EntryFocusBehavior NextFocusElementName="codigo"/>
+
+                        </custom:CustomEntry.Behaviors>
+
+                    </custom:CustomEntry>
+
+                    <custom:CustomEntry Placeholder="Código"
+                                        Text="{Binding Heritage.Code}"
+                                        x:Name="codigo"
+                                        FlexLayout.Basis="60%"/>
+
+                    <Button Text="Escanear"
+                            Command="{b:NavigateTo Name='Scanner'}"
+                            HeightRequest="40"
+                            Margin="10"
+                            FlexLayout.Basis="35%"/>
+
+                    <custom:CustomPicker Title="Ambiente"
+                                         ItemsSource="{Binding Environments}"
+                                         SelectedItem="{Binding Environment}"
+                                         ItemDisplayBinding="{Binding Name}"
+                                         FlexLayout.Basis="95%"
+                                         Margin="5"/>
+
+                    <custom:CustomEditor Placeholder="Descrição" 
+                                         Text="{Binding Heritage.Description}"
+                                         Margin="5"/>
+
+                    <Label Text="*Adicione as informações referentes ao patrimônio"
+                           Style="{DynamicResource Label}"
+                           Margin="10"/>
+
+                    <Button Text="Adicionar"
+                            Command="{Binding AddCommand}"
+                            Margin="10"/>
+
+                </FlexLayout>
+
+                <FlexLayout Direction="Row"
+                            JustifyContent="Center"
+                            Wrap="Wrap"
+                            VerticalOptions="CenterAndExpand"
+                            AlignItems="Center"
+                            IsVisible="{Binding Load}">
+
+                    <Image Source="{Binding Icone}"
+                           Style="{DynamicResource ImgIcon}"
+                           Margin="0, 30, 0, 0"/>
+
+                    <Label Text="Adicionando patrimônio"
+                           FlexLayout.AlignSelf="Center"
+                           Margin="0, 20, 0, 0"
+                           Style="{DynamicResource LabelTitle}"/>
+
+                    <ActivityIndicator Color="{DynamicResource PrimaryColor}"
+                                       Margin="0, 20, 0, 0"
+                                       FlexLayout.Basis="95%"
+                                       IsRunning="True"/>
+
+                </FlexLayout>
+
+            </StackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>

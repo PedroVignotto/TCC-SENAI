@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="HeritageV04.Views.WithoutInternet"
+             Title="{Binding Title}"
+             IconImageSource="{Binding Icon}">
+
+    <ContentPage.Content>
+
+        <StackLayout HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand">
+
+            <Image Source="{Binding IconPrincipal}"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"
+                   HeightRequest="200"
+                   WidthRequest="200"/>
+
+            <Label Text="Sem conexão com a internet"
+                   Style="{DynamicResource Label}"
+                   FontSize="Medium"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+
+            <ImageButton Command="{Binding RefreshCommand}"
+                         HorizontalOptions="Center"
+                         Padding="10"
+                         Margin="0, 20, 0, 0"
+                         Style="{DynamicResource FloatImageButton}"
+                         Source="refreshDark.png"/>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>
