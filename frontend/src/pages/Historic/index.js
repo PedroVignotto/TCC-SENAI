@@ -19,21 +19,24 @@ export default function Environment() {
   const profile = useSelector(state => state.user.profile);
 
   async function loadHistorics() {
-    setLoading(true);
-    const response = await api.get(`${profile.company_id}/historical`, {
-      params: { q: search },
-    });
+    try {
+      setLoading(true);
+      const response = await api.get(`${profile.company_id}/historical`, {
+        params: { q: search },
+      });
 
-    const data = response.data.map(historic => ({
-      ...historic,
-      createdAt: formatDistance(parseISO(historic.createdAt), new Date(), {
-        addSuffix: true,
-        locale: pt,
-      }),
-    }));
+      const data = response.data.map(historic => ({
+        ...historic,
+        createdAt: formatDistance(parseISO(historic.createdAt), new Date(), {
+          addSuffix: true,
+          locale: pt,
+        }),
+      }));
 
-    setHistorics(data);
-    setLoading(false);
+      setHistorics(data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {

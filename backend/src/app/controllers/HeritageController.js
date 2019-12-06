@@ -68,7 +68,7 @@ class HeritageController {
     });
 
     if (!heritage) {
-      return res.status(400).json({ error: 'Heritage não existe' });
+      return res.status(400).json({ error: 'Patrimônio não existe' });
     }
 
     return res.json(heritage);
@@ -90,9 +90,11 @@ class HeritageController {
     const { company_id } = req.params;
     const { code, problem, id } = req.body;
 
+    const user = await User.findByPk(req.userId);
+
     await Historic.create({
       company_id,
-      message: `Pedido de manutenção solicitado para o patrimônio ${code}`,
+      message: `${user.email} solicitou um pedido de manutenção para o patrimônio ${code}`,
     });
 
     return res.json({ id, code, problem });
@@ -214,7 +216,7 @@ class HeritageController {
     const heritage = await Heritage.findByPk(id);
 
     if (!heritage) {
-      return res.status(400).json({ error: 'Heritage não existe' });
+      return res.status(400).json({ error: 'Patrimônio não existe' });
     }
 
     const user = await User.findByPk(req.userId);
@@ -226,7 +228,7 @@ class HeritageController {
 
     await Heritage.destroy({ where: { id } });
 
-    return res.status(200).json({ success: 'Heritage foi excluído' });
+    return res.status(200).json({ success: 'Patrimônio foi excluído' });
   }
 }
 

@@ -50,13 +50,16 @@ export default function User() {
   }
 
   async function loadUsers() {
-    setLoading(true);
-    const response = await api.get(`${profile.company_id}/users`, {
-      params: { q: search },
-    });
+    try {
+      setLoading(true);
+      const response = await api.get(`${profile.company_id}/users`, {
+        params: { q: search },
+      });
 
-    setUsers(response.data);
-    setLoading(false);
+      setUsers(response.data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {

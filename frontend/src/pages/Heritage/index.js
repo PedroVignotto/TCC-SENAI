@@ -66,13 +66,16 @@ export default function Heritage() {
   }
 
   async function loadHeritages() {
-    setLoading(true);
-    const response = await api.get(`${profile.company_id}/heritages`, {
-      params: { q: search },
-    });
+    try {
+      setLoading(true);
+      const response = await api.get(`${profile.company_id}/heritages`, {
+        params: { q: search },
+      });
 
-    setHeritages(response.data);
-    setLoading(false);
+      setHeritages(response.data);
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
