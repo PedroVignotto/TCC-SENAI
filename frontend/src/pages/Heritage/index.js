@@ -10,6 +10,7 @@ import {
   MdSave,
   MdSearch,
   MdAddCircleOutline,
+  MdCheckCircle,
 } from 'react-icons/md';
 import { FaTools, FaBoxOpen } from 'react-icons/fa';
 
@@ -220,11 +221,18 @@ export default function Heritage() {
                       type="button"
                       onClick={() => handleShowInfo(heritage)}
                     >
-                      <strong>{heritage.code}</strong>
-                      <span>
-                        {(heritage.environment && heritage.environment.name) ||
-                          ''}
-                      </span>
+                      <MdCheckCircle
+                        size={20}
+                        color={heritage.state ? colors.green : colors.details}
+                      />
+                      <div>
+                        <strong>{heritage.code}</strong>
+                        <span>
+                          {(heritage.environment &&
+                            heritage.environment.name) ||
+                            ''}
+                        </span>
+                      </div>
                     </button>
 
                     <div>
@@ -353,7 +361,7 @@ export default function Heritage() {
         </Modals.Header>
         <Modals.Body>
           <Form onSubmit={handleAdd} schema={schema}>
-            <Input label="Código *" name="code" />
+            <Input label="Código *" name="code" autoComplete="off" />
             <Input label="Nome *" name="name" />
             <Input label="Descrição" name="description" multiline />
             <Input label="Ambiente" name="environment_name" />

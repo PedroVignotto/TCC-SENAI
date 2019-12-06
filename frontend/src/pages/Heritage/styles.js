@@ -49,22 +49,30 @@ export const Container = styled.div`
 
       button {
         display: flex;
-        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
         padding: 0 0 0 15px;
         border: 0;
         background: 0;
 
-        strong {
-          font-weight: 500;
-          font-size: 18px;
-          color: ${colors.primary};
-          margin-bottom: 10px;
-        }
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: center;
 
-        span {
-          font-weight: 500;
-          font-size: 16px;
-          color: ${colors.secondary};
+          strong {
+            font-weight: 500;
+            font-size: 18px;
+            color: ${colors.primary};
+            margin-bottom: 10px;
+          }
+
+          span {
+            font-weight: 500;
+            font-size: 16px;
+            color: ${colors.secondary};
+          }
         }
       }
 
