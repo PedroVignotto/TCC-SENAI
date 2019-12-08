@@ -22,6 +22,14 @@ export const Container = styled.div`
       font-weight: 500;
       color: ${colors.secondary};
       margin-top: 16px;
+
+      @media (max-width: 650px) {
+        font-size: 24px;
+      }
+
+      @media (max-width: 450px) {
+        font-size: 16px;
+      }
     }
   }
 
