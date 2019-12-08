@@ -156,6 +156,7 @@ export default function Heritage({ match }) {
           name,
           description,
           code,
+          state: true,
           company_id: profile.company_id,
           environment_id: select.data.id,
         });
@@ -168,6 +169,7 @@ export default function Heritage({ match }) {
           name,
           description,
           code,
+          state: true,
           company_id: profile.company_id,
         });
 

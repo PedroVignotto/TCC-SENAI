@@ -123,6 +123,16 @@ export default function User() {
     }
   }
 
+  function handleUserLevel(user_level) {
+    if (user_level === 1) {
+      return 'Administrador';
+    }
+    if (user_level === 2) {
+      return 'Gerenciador';
+    }
+    return 'Suporte';
+  }
+
   return (
     <>
       <Container>
@@ -171,13 +181,7 @@ export default function User() {
                         onClick={() => handleShowInfo(user)}
                       >
                         <strong>{user.name.split(' ', 1)}</strong>
-                        <span>
-                          {user.user_level === 1 ? 'Administrador' : ''}
-                        </span>
-                        <span>
-                          {user.user_level === 2 ? 'Gerenciador' : ''}
-                        </span>
-                        <span>{user.user_level === 3 ? 'Suporte' : ''}</span>
+                        <span>{handleUserLevel(user.user_level)}</span>
                       </button>
                     </section>
 

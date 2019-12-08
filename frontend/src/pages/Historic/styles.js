@@ -53,7 +53,7 @@ export const Container = styled.div`
         text-transform: capitalize;
       }
 
-      @media (min-width: 750px) {
+      @media (min-width: 1000px) {
         :last-of-type {
           padding-left: 10px;
         }

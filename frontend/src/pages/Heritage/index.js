@@ -128,20 +128,26 @@ export default function Heritage() {
         const response = await api.get(
           `${profile.company_id}/environments/${rest.environment.name}`
         );
-        await api.put(`heritages/${id}`, {
+        const data = await api.put(`heritages/${id}`, {
           name,
           description,
           environment_id: response.data.id,
         });
 
+        setHeritages(
+          heritages.map(heritage => (heritage.id === data.id ? data : heritage))
+        );
         toast.success('Patrimônio atualizado com sucesso');
         setShowEdit(false);
       } else {
-        await api.put(`heritages/${id}`, {
+        const data = await api.put(`heritages/${id}`, {
           name,
           description,
         });
 
+        setHeritages(
+          heritages.map(heritage => (heritage.id === data.id ? data : heritage))
+        );
         toast.success('Patrimônio atualizado com sucesso');
         setShowEdit(false);
       }
@@ -161,6 +167,7 @@ export default function Heritage() {
           name,
           description,
           code,
+          state: true,
           company_id: profile.company_id,
           environment_id: select.data.id,
         });
@@ -173,6 +180,7 @@ export default function Heritage() {
           name,
           description,
           code,
+          state: true,
           company_id: profile.company_id,
         });
 
