@@ -124,7 +124,7 @@ class HeritageController {
       return res.status(400).json({ error: 'Código já existe' });
     }
 
-    const { id, name, description, environment_id } = await Heritage.create(
+    const { id, name, description, state, environment_id } = await Heritage.create(
       req.body
     );
 
@@ -133,6 +133,7 @@ class HeritageController {
       name,
       description,
       code,
+      state,
       company_id,
       environment_id,
     });
@@ -207,7 +208,7 @@ class HeritageController {
 
     await heritage.update(req.body);
 
-    return res.json({ id, name, description });
+    return res.json(heritage);
   }
 
   async delete(req, res) {
