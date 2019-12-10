@@ -1,7 +1,6 @@
 ﻿using HeritageV04.Models;
 using HeritageV04.Services.Abstractions;
 using HeritageV04.Utilities;
-using Plugin.Connectivity;
 using Prism.Commands;
 using Prism.Navigation;
 using Prism.Services;
@@ -9,14 +8,14 @@ using Prism.Services.Dialogs;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Environment = HeritageV04.Models.Environment;
 
 namespace HeritageV04.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
 
-        #region Variáveis
+        #region Variables
 
         private int _numberHeritages;
 
@@ -42,28 +41,28 @@ namespace HeritageV04.ViewModels
             set => SetProperty(ref _numberUsers, value);
         }
 
-        private int _numberManager;
+        private int _numberManagers;
 
-        public int NumberManager
+        public int NumberManagers
         {
-            get => _numberManager;
-            set => SetProperty(ref _numberManager, value);
+            get => _numberManagers;
+            set => SetProperty(ref _numberManagers, value);
         }
 
-        private int _numberAdmin;
+        private int _numberAdmins;
 
-        public int NumberAdmin
+        public int NumberAdmins
         {
-            get => _numberAdmin;
-            set => SetProperty(ref _numberAdmin, value);
+            get => _numberAdmins;
+            set => SetProperty(ref _numberAdmins, value);
         }
 
-        private int _numberSupport;
+        private int _numberSupports;
 
-        public int NumberSupport
+        public int NumberSupports
         {
-            get => _numberSupport;
-            set => SetProperty(ref _numberSupport, value);
+            get => _numberSupports;
+            set => SetProperty(ref _numberSupports, value);
         }
 
         #endregion
@@ -74,7 +73,7 @@ namespace HeritageV04.ViewModels
             Icone = "homeIcon.png";
         }
 
-        #region Métodos
+        #region Methods
 
         public override async void Initialize(INavigationParameters parameters)
         {
@@ -83,6 +82,11 @@ namespace HeritageV04.ViewModels
             IconTheme = new IconTheme();
             CurrentUser = UserJson.GetUsuarioJson();
 
+            await LoadAsync();
+        }
+
+        public override async void OnNavigatedTo(INavigationParameters parameters)
+        {
             await LoadAsync();
         }
 
@@ -103,30 +107,30 @@ namespace HeritageV04.ViewModels
                         heritages_publish.Add(heritage);
                 }
 
-                ObservableCollection<Ambiente> ambientes = await HeritageAPIService.GetAsyncAmbientes(UsuarioAtual.Id_empresa);
+                ObservableCollection<Environment> environments = await HeritageAPIService.GetAsyncEnvironments(CurrentUser.CompanyId);
 
-                NumeroAmbientes = 0;
+                NumberEnvironments = 0;
 
-                foreach (Ambiente ambiente in ambientes)
-                    NumeroAmbientes++;
+                foreach (Environment environment in environments)
+                    NumberEnvironments++;
 
-                ObservableCollection<Usuario> usuarios = await HeritageAPIService.GetAsyncUsuarios(UsuarioAtual.Id_empresa);
+                ObservableCollection<User> users = await HeritageAPIService.GetAsyncUsers(CurrentUser.CompanyId);
 
-                NumeroUsuarios = 0;
-                NumeroGerenciadores = 0;
-                NumeroAdm = 0;
-                NumeroSuportes = 0;
+                NumberUsers = 0;
+                NumberManagers = 0;
+                NumberAdmins = 0;
+                NumberSupports = 0;
 
-                foreach (Usuario usuario in usuarios)
+                foreach (User user in users)
                 {
-                    NumeroUsuarios++;
+                    NumberUsers++;
 
-                    if (usuario.Id_nivel_usuario == 2)
-                        NumeroGerenciadores++;
-                    else if (usuario.Id_nivel_usuario == 3)
-                        NumeroSuportes++;
-                    else if (usuario.Id_nivel_usuario == 1)
-                        NumeroAdm++;
+                    if (user.UserLevel == 2)
+                        NumberManagers++;
+                    else if (user.UserLevel == 3)
+                        NumberSupports++;
+                    else if (user.UserLevel == 1)
+                        NumberAdmins++;
                 }
 
                 IsBusy = true;
@@ -137,7 +141,7 @@ namespace HeritageV04.ViewModels
                 {
                     { "Message", "Erro ao carregar algumas informções" },
                     { "Title", "Erro" },
-                    { "Icon", Icon.IconName("bug") }
+                    { "Icon", IconTheme.IconName("bug") }
                 };
 
                 DialogService.ShowDialog("DialogPage", param, CloseDialogCallback);
@@ -153,14 +157,6 @@ namespace HeritageV04.ViewModels
         void CloseDialogCallback(IDialogResult dialogResult)
         {
 
-        }
-
-        public override void Destroy()
-        {
-            UsuarioAtual = null;
-            JsonUsuario = null;
-            Icon = null;
-            UsuarioAtual = null;
         }
 
         #endregion

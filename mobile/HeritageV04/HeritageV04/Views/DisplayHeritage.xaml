@@ -45,7 +45,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="385"
+                               HeightRequest="520"
                                Margin="0, 10, 0, 0"
                                x:Name="tbvPatr">
 
@@ -58,7 +58,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNome}"
+                                        <Image Source="{Binding IconName}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -94,17 +94,16 @@
 
                                 </ViewCell>
 
-                                <ViewCell Tapped="Exibir_Codigo_Tapped">
+                                <ViewCell>
 
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconCodigo}"
+                                        <Image Source="{Binding IconCode}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0"
-                                                     x:Name="stkCod">
+                                                     Margin="5, 0, 0, 0">
 
                                             <Label Text="Código"
                                                    Style="{DynamicResource LabelTableView}"/>
@@ -113,31 +112,6 @@
                                                    Style="{DynamicResource Label}"/>
 
                                         </StackLayout>
-
-                                        <FlexLayout IsVisible="False"
-                                                    Direction="Row"
-                                                    JustifyContent="Center"
-                                                    Wrap="Wrap"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    AlignItems="Center"
-                                                    x:Name="flexCod">
-
-                                            <Label Text="Código"
-                                                   HorizontalTextAlignment="Center"
-                                                   FlexLayout.Basis="100%"
-                                                   Style="{DynamicResource LabelTableView}"
-                                                   FlexLayout.AlignSelf="Start"/>
-
-                                            <custom:CustomEntry Text="{Binding Heritage.Code}"
-                                                                Placeholder="Código"
-                                                                FlexLayout.Basis="60%"/>
-
-                                            <Button Text="Escanear"
-                                                    Margin="10"
-                                                    
-                                                    FlexLayout.Basis="40%"/>
-
-                                        </FlexLayout>
 
                                     </StackLayout>
 
@@ -148,7 +122,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconDescricao}"
+                                        <Image Source="{Binding IconDescription}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -187,12 +161,12 @@
 
                                 </ViewCell>
 
-                                <ViewCell Tapped="Exibir_Amb_Tapped">
+                                <ViewCell>
 
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconAmbiente }"
+                                        <Image Source="{Binding IconEnvironment }"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -202,31 +176,10 @@
                                             <Label Text="Ambiente"
                                                    Style="{DynamicResource LabelTableView}"/>
 
-                                            <Label Text="{Binding Environment.Name}"
+                                            <Label Text="{Binding Heritage.Environment.Name}"
                                                    Style="{DynamicResource Label}"/>
 
                                         </StackLayout>
-
-                                        <FlexLayout IsVisible="False"
-                                                    Direction="Row"
-                                                    JustifyContent="Center"
-                                                    Wrap="Wrap"
-                                                    HorizontalOptions="FillAndExpand"
-                                                    AlignItems="Center"
-                                                    x:Name="flexAmb">
-
-                                            <Label Text="Ambiente"
-                                                   Style="{DynamicResource LabelTableView}"
-                                                   FlexLayout.AlignSelf="Start"/>
-
-                                            <custom:CustomPicker Title="Ambiente"
-                                                                 SelectedItem="{Binding Environment}"
-                                                                 ItemsSource="{Binding Environments}"
-                                                                 ItemDisplayBinding="{Binding Name}"
-                                                                 FlexLayout.Basis="95%"
-                                                                 Margin="5"/>
-
-                                        </FlexLayout>
 
                                     </StackLayout>
 
@@ -237,7 +190,67 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconExcluir}"
+                                        <Image Source="{Binding IconState}"
+                                               Style="{DynamicResource ImgIconTableView}"/>
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+
+                                            <Label Text="Estado do patrimônio"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="{Binding Heritage.MessageState}"
+                                                   Style="{DynamicResource Label}"/>
+
+                                        </StackLayout>
+
+                                        <Button Text="Verificar"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding ScanCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Margin="10">
+
+                                        <Image Source="{Binding IconMaintenance}"
+                                               Style="{DynamicResource ImgIconTableView}"/>
+
+                                        <StackLayout Orientation="Vertical"
+                                                     Margin="5, 0, 0, 0">
+
+                                            <Label Text="Manutenção do patrimônio"
+                                                   Style="{DynamicResource LabelTableView}"/>
+
+                                            <Label Text="Adicionar manutenção do patrimônio"
+                                                   Style="{DynamicResource Label}"/>
+
+                                        </StackLayout>
+
+                                        <Button Text="Manutenção"
+                                                BackgroundColor="Transparent"
+                                                TextColor="{DynamicResource TextColor}"
+                                                FontAttributes="Bold"
+                                                BorderColor="Transparent"
+                                                Command="{Binding AddCommand}"/>
+
+                                    </StackLayout>
+
+                                </ViewCell>
+
+                                <ViewCell>
+
+                                    <StackLayout Orientation="Horizontal" 
+                                                 Margin="10">
+
+                                        <Image Source="{Binding IconDelete}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -262,36 +275,6 @@
 
                                 </ViewCell>
 
-                                <ViewCell>
-
-                                    <StackLayout Orientation="Horizontal" 
-                                                 Margin="10">
-
-                                        <Image Source="{Binding IconEstado}"
-                                               Style="{DynamicResource ImgIconTableView}"/>
-
-                                        <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0">
-
-                                            <Label Text="Estado do patrimônio"
-                                                   Style="{DynamicResource LabelTableView}"/>
-
-                                            <Label Text="{Binding Heritage.StateMessage}"
-                                                   Style="{DynamicResource Label}"/>
-
-                                        </StackLayout>
-
-                                        <Button Text="Verificar"
-                                                BackgroundColor="Transparent"
-                                                TextColor="{DynamicResource TextColor}"
-                                                FontAttributes="Bold"
-                                                BorderColor="Transparent"
-                                                Command="{Binding ScanCommand}"/>
-
-                                    </StackLayout>
-
-                                </ViewCell>
-
                             </TableSection>
 
                         </TableRoot>
@@ -304,7 +287,8 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding Load}">
+                            IsVisible="{Binding Load}"
+                            VerticalOptions="CenterAndExpand">
 
                     <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"

@@ -32,5 +32,14 @@ namespace HeritageV04.Models
             set { SetProperty(ref quantityHeritages, value); }
         }
 
+        private User user;
+
+        [JsonProperty("user")]
+        public User User
+        {
+            get { return user; }
+            set { SetProperty(ref user, value); }
+        }
+
     }
 }

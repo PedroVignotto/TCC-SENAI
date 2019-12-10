@@ -11,6 +11,12 @@ namespace HeritageV04.Views
         public Main()
         {
             InitializeComponent();
+
+            Children.Add(new Home());
+            Children.Add(new Heritages());
+            Children.Add(new Environments());
+            Children.Add(new Users());
+
         }
 
         protected override void OnAppearing()

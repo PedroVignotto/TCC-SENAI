@@ -144,7 +144,7 @@
 
                 </ListView>
 
-                <Button Command="{b:NavigateTo Name='AdicionarUsuario'}"
+                <Button Command="{b:NavigateTo Name='AddUser'}"
                         IsVisible="{Binding IsAuthorized}"
                         Style="{DynamicResource FloatButton}"/>
 
@@ -188,7 +188,7 @@
                     <ImageButton Command="{Binding RefreshCommand}"
                              HorizontalOptions="Center"
                              Margin="0, 20, 0, 0"
-                             Padding="10"
+                             Padding="15"
                              Style="{DynamicResource FloatImageButton}"
                              Source="refreshDark.png"/>
                     

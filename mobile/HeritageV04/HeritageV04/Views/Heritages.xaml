@@ -67,7 +67,7 @@
                                                               FontAttributes="Bold" 
                                                               FontSize="17"/>
 
-                                                        <Span Text="{Binding EnvironmentName}"/>
+                                                        <Span Text="{Binding Environment.Name}"/>
 
                                                     </FormattedString>
 

@@ -65,7 +65,7 @@
                                                               FontAttributes="Bold" 
                                                               FontSize="17"/>
 
-                                                        <Span Text="{Binding UserName}"/>
+                                                        <Span Text="{Binding User.Email}"/>
 
                                                     </FormattedString>
 

@@ -62,10 +62,9 @@ namespace HeritageV04.ViewModels
             Itens = new ObservableCollection<Itens>
             {
                 new Itens { Name = "Início", Icon = IconTheme.IconName("home"), Page = "Menu/NavigationPage/Main"},
-                new Itens { Name = "Perfil", Icon = IconTheme.IconName("avatar"), Page = "NavigationPage/Perfil"},
-                new Itens { Name = "Manutenções", Icon = IconTheme.IconName("tools"), Page = "NavigationPage/Manutencoes"},
-                new Itens { Name = "Movimentações", Icon = IconTheme.IconName("acceleration"), Page = "NavigationPage/Movimentacoes"},
-                new Itens { Name = "Configurações", Icon = IconTheme.IconName("settings"), Page = "NavigationPage/Configuracoes"},
+                new Itens { Name = "Perfil", Icon = IconTheme.IconName("avatar"), Page = "NavigationPage/Profile"},
+                new Itens { Name = "Historicos", Icon = IconTheme.IconName("notebook"), Page = "NavigationPage/Historics"},
+                new Itens { Name = "Configurações", Icon = IconTheme.IconName("settings"), Page = "NavigationPage/Settings"},
                 new Itens { Name = "Sair", Icon = IconTheme.IconName("logout"), Page = "Login"},
             };
 

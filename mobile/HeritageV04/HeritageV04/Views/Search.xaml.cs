@@ -9,6 +9,11 @@ namespace HeritageV04.Views
         public Search()
         {
             InitializeComponent();
+
+            Children.Add(new SearchHeritages());
+            Children.Add(new SearchEnvironments());
+            Children.Add(new SearchUsers());
+
         }
 
         protected override void OnAppearing()

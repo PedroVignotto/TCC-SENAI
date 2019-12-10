@@ -33,6 +33,15 @@ namespace HeritageV04.Models
             set { SetProperty(ref avatarId, value); }
         }
 
+        private int? userLevel;
+
+        [JsonProperty("user_level")]
+        public int? UserLevel
+        {
+            get { return userLevel; }
+            set { SetProperty(ref userLevel, value); }
+        }
+
         private Avatar avatar;
 
         [JsonProperty("avatar")]
@@ -40,6 +49,29 @@ namespace HeritageV04.Models
         {
             get { return avatar; }
             set { SetProperty(ref avatar, value); }
+        }
+
+        private string userLevelDescription;
+
+        [JsonIgnore]
+        public string UserLevelDescription
+        {
+            get { return userLevelDescription; }
+            set { SetProperty(ref userLevelDescription, value); }
+        }
+
+        private bool serializeName;
+
+        [JsonIgnore]
+        public bool SerializeName
+        {
+            get { return serializeName; }
+            set { SetProperty(ref serializeName, value); }
+        }
+
+        public bool ShouldSerializeName()
+        {
+            return SerializeName;
         }
 
     }

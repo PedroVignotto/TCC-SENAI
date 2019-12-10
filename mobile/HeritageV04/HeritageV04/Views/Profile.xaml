@@ -34,18 +34,18 @@
                        IsClippedToBounds="True"
                        Margin="10">
 
-                    <Image Source="{Binding CurrentUser.Imagem}"
+                    <Image Source="{Binding CurrentUser.Avatar.Url}"
                            BackgroundColor="Transparent"
                            Aspect="AspectFill" />
 
                 </Frame>
 
-                <ImageButton Source="{Binding IconFoto}"
+                <ImageButton Source="{Binding IconPhoto}"
                              WidthRequest="30"
                              HeightRequest="30"
                              FlexLayout.AlignSelf="End"
                              BackgroundColor="Transparent"
-                             Command="{Binding PegarFotoCommand}"
+                             Command="{Binding GetPhotoCommand}"
                              Margin="-20, 0, 0, 0"/>
 
                 <Label Text="{Binding CurrentUser.Name}"
@@ -67,7 +67,7 @@
                                 <StackLayout Orientation="Horizontal"
                                              Margin="10">
 
-                                    <Image Source="{Binding IconNome}"
+                                    <Image Source="{Binding IconName}"
                                            Style="{DynamicResource ImgIconTableView}"/>
 
                                     <StackLayout Orientation="Vertical"
@@ -150,7 +150,7 @@
                                 <StackLayout Orientation="Horizontal"
                                              Margin="10">
 
-                                    <Image Source="{Binding IconNivel}"
+                                    <Image Source="{Binding IconLevel}"
                                            Style="{DynamicResource ImgIconTableView}"/>
 
                                     <StackLayout Orientation="Vertical"
@@ -173,7 +173,7 @@
                                 <StackLayout Orientation="Horizontal" 
                                              Margin="10">
 
-                                    <Image Source="{Binding IconExcluir}"
+                                    <Image Source="{Binding IconDelete}"
                                            Style="{DynamicResource ImgIconTableView}"/>
 
                                     <StackLayout Orientation="Vertical"

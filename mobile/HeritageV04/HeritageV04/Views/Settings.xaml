@@ -67,7 +67,7 @@
                     <StackLayout Orientation="Horizontal"
                                  Margin="10">
 
-                        <Image Source="{Binding IconTheme}"
+                        <Image Source="{Binding ThemeIcon}"
                                Style="{DynamicResource ImgIconTableView}"/>
 
                         <StackLayout Orientation="Vertical"

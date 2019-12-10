@@ -39,9 +39,9 @@ namespace HeritageV04.Utilities
             try
             {
 
-                if (Application.Current.Properties.ContainsKey("Usuario"))
+                if (Application.Current.Properties.ContainsKey("User"))
                 {
-                    string data = Application.Current.Properties["Usuario"] as string;
+                    string data = Application.Current.Properties["User"] as string;
                     User userJson = JsonConvert.DeserializeObject<User>(data);
                     user = userJson;
                 }

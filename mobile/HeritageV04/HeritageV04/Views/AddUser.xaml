@@ -51,7 +51,7 @@
                             AlignItems="Center"
                             IsVisible="{Binding Load}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
                            Margin="0, 30, 0, 0"/>
 

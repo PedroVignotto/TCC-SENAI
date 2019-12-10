@@ -251,7 +251,7 @@
                                             <Label Text="Número de usuários"
                                                    Style="{DynamicResource LabelTableView}"/>
 
-                                            <Label Text="{Binding NumbersUsers, StringFormat='{0} usuário(s)'}"
+                                            <Label Text="{Binding NumberUsers, StringFormat='{0} usuário(s)'}"
                                                    MaxLines="1"
                                                    LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource Label}"/>
@@ -273,7 +273,7 @@
                                             <Label Text="Número de administradores"
                                                    Style="{DynamicResource LabelTableView}"/>
 
-                                            <Label Text="{Binding NumberAdmins, StringFormat='{0} administradore(s)'}"
+                                            <Label Text="{Binding NumberAdmins, StringFormat='{0} administrador(es)'}"
                                                    MaxLines="1"
                                                    LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource Label}"/>
@@ -295,7 +295,7 @@
                                             <Label Text="Número de gerenciadores"
                                                    Style="{DynamicResource LabelTableView}"/>
 
-                                            <Label Text="{Binding NumberManagers, StringFormat='{0} gerenciadore(s)'}"
+                                            <Label Text="{Binding NumberManagers, StringFormat='{0} gerenciador(es)'}"
                                                    MaxLines="1"
                                                    LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource Label}"/>

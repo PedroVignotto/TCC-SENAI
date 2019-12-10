@@ -31,13 +31,13 @@
                                  Margin="15, 15, 15, 30">
 
                         <Frame CornerRadius="75"
-                               HeightRequest="100"
+                               HeightRequest="120"
                                WidthRequest="100"
                                IsClippedToBounds="True"
                                Padding="0"
                                Margin="10">
 
-                            <Image Source="user.png"
+                            <Image Source="http://localhost:3333/uploads/8f671d5bc4a33d2933bab5810e320865.png"
                                    BackgroundColor="Transparent"
                                    Aspect="AspectFill"/>
 

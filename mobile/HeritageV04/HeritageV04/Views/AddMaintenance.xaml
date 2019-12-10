@@ -21,14 +21,11 @@
                             AlignItems="Center"
                             IsVisible="{Binding Body}">
 
-                    <Image Source="{Binding Icon}"
+                    <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"/>
 
-                    <custom:CustomEntry Placeholder="Local de destino do patrimônio"
-                                        Text="{Binding Historico.Local_destino}"/>
-
                     <custom:CustomEditor Placeholder="Descrição" 
-                                         Text="{Binding Historico.Descricao}"
+                                         Text="{Binding Maintenance.Problem}"
                                          Margin="5"/>
 
                     <Label Text="*Adicione as informações referentes a manutenção"
@@ -36,7 +33,7 @@
                            Margin="10"/>
 
                     <Button Text="Adicionar"
-                            Command="{Binding AdicionaManutencaoCommand}"
+                            Command="{Binding AddCommand}"
                             Margin="10"/>
 
                 </FlexLayout>

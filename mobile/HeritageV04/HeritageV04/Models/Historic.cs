@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 
 namespace HeritageV04.Models
 {
@@ -14,14 +15,13 @@ namespace HeritageV04.Models
             set { SetProperty(ref message, value); }
         }
 
-        private string name;
+        private DateTime createdAt;
 
-        [JsonIgnore]
-        public new string Name
+        [JsonProperty("createdAt")]
+        public DateTime CreatedAt
         {
-            get { return name; }
-            set { SetProperty(ref name, value); }
+            get { return createdAt; }
+            set { SetProperty(ref createdAt, value); }
         }
-
     }
 }

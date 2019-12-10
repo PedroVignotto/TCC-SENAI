@@ -32,7 +32,7 @@
 
         <StackLayout>
 
-            <RelativeLayout IsVisible="{Binding Body}">
+            <RelativeLayout>
 
                 <ListView IsRefreshing="{Binding IsBusy}"
                           ItemsSource="{Binding Heritages}"
@@ -70,7 +70,7 @@
                                                               FontAttributes="Bold" 
                                                               FontSize="17"/>
 
-                                                        <Span Text="{Binding EnvironmentName}"/>
+                                                        <Span Text="{Binding Environment.Name}"/>
 
                                                     </FormattedString>
 

@@ -58,7 +58,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="329">
+                               HeightRequest="300">
 
                         <TableRoot>
 
@@ -69,7 +69,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNome}"
+                                        <Image Source="{Binding IconName}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -115,7 +115,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNivel}"
+                                        <Image Source="{Binding IconLevel}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -159,7 +159,7 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconExcluir}"
+                                        <Image Source="{Binding IconDelete}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -272,7 +272,7 @@
                                                                                   FontAttributes="Bold" 
                                                                                   FontSize="17"/>
 
-                                                                            <Span Text="{Binding UserName}"/>
+                                                                            <Span Text="{Binding User.Email}"/>
 
                                                                         </FormattedString>
 
@@ -363,7 +363,8 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding Load}">
+                            IsVisible="{Binding Load}"
+                            VerticalOptions="Center">
 
                     <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
@@ -373,6 +374,8 @@
                     <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
+                           FlexLayout.Basis="100%"
+                           HorizontalTextAlignment="Center"
                            Style="{DynamicResource LabelTitle}"/>
 
                     <ActivityIndicator Color="{DynamicResource PrimaryColor}"

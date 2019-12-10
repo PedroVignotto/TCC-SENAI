@@ -5,6 +5,7 @@ using HeritageV04.Views;
 using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -32,14 +33,24 @@ namespace HeritageV04
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("Login");
+            bool login = false;
+
+            if (Application.Current.Properties.ContainsKey("Login"))
+                login = Convert.ToBoolean(Application.Current.Properties["Login"]);
+
+            if (login == true)
+                await NavigationService.NavigateAsync("Menu/NavigationPage/Main");
+            else
+                await NavigationService.NavigateAsync("Login");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
-
             containerRegistry.RegisterForNavigation<Login, LoginViewModel>();
+
+
+            containerRegistry.RegisterDialog<DialogPage, DialogPageViewModel>();
 
             containerRegistry.RegisterSingleton<IHeritageAPIService, HeritageAPIService>();
 

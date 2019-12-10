@@ -55,7 +55,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNome}"
+                                        <Image Source="{Binding IconName}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -101,7 +101,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNivel}"
+                                        <Image Source="{Binding IconLevel}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -145,7 +145,7 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconExcluir}"
+                                        <Image Source="{Binding IconDelete}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -182,7 +182,8 @@
                             JustifyContent="Center"
                             AlignContent="Center"
                             Wrap="Wrap"
-                            IsVisible="{Binding Load}">
+                            IsVisible="{Binding Load}"
+                            VerticalOptions="Center">
 
                     <Image Source="{Binding Icone}"
                            Style="{DynamicResource ImgIcon}"
@@ -192,7 +193,9 @@
                     <Label Text="{Binding LoadMessage}"
                            FlexLayout.AlignSelf="Center"
                            Margin="0, 20, 0, 0"
-                           Style="{DynamicResource LabelTitle}"/>
+                           HorizontalTextAlignment="Center"
+                           Style="{DynamicResource LabelTitle}"
+                           FlexLayout.Basis="100%"/>
 
                     <ActivityIndicator Color="{DynamicResource PrimaryColor}"
                                        Margin="0, 20, 0, 0"

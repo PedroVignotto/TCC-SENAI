@@ -69,7 +69,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconNome}"
+                                        <Image Source="{Binding IconName}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -110,7 +110,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconPatrimonio}"
+                                        <Image Source="{Binding IconHeritage}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -133,7 +133,7 @@
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconUsuario}"
+                                        <Image Source="{Binding IconUser}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -177,7 +177,7 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconVerificar}"
+                                        <Image Source="{Binding IconVerification}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -208,7 +208,7 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconExcluir}"
+                                        <Image Source="{Binding IconDelete}"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"
@@ -241,7 +241,8 @@
                     </TableView>
 
                     <expandable:ExpandableView HorizontalOptions="FillAndExpand"
-                                               FlexLayout.Basis="100%">
+                                               FlexLayout.Basis="100%"
+                                               Margin="0, 0, 0, 10">
 
                         <expandable:ExpandableView.PrimaryView >
 
