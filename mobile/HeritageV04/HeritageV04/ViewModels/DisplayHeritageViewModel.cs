@@ -38,6 +38,18 @@ namespace HeritageV04.ViewModels
             set { SetProperty(ref environments, value); }
         }
 
+        private Environment environment;
+        public Environment Environment
+        {
+            get { return environment; }
+            set 
+            {
+                SetProperty(ref environment, value);
+            }
+        }
+
+        public int? EnvironmentId { get; set; }
+
         private string iconName;
         public string IconName
         {
@@ -120,6 +132,11 @@ namespace HeritageV04.ViewModels
             if (parameters.ContainsKey("heritage"))
                 Heritage = (Heritage)parameters["heritage"];
 
+            Environment = new Environment();
+
+            if (Heritage.Environment != null)
+                EnvironmentId = Heritage.Environment.Id;
+
             if (Heritage.State)
                 Heritage.MessageState = "Patrimônio conferido";
             else
@@ -139,8 +156,8 @@ namespace HeritageV04.ViewModels
             {
                 ObservableCollection<Environment> environments = await HeritageAPIService.GetAsyncEnvironments(CurrentUser.CompanyId);
 
-                foreach (Environment environment in environments)
-                    Environments.Add(environment);
+                foreach (Environment environmente in environments)
+                    Environments.Add(environmente);
 
                 if (Environments.Count < 0)
                     Environments = new ObservableCollection<Environment>() { new Environment() { Name = "Sem ambientes para exibir" } };
@@ -190,6 +207,12 @@ namespace HeritageV04.ViewModels
                         Load = true;
                         Body = false;
                         LoadMessage = "Atualizando patrimônio";
+
+                        if (Environment.Id != EnvironmentId)
+                        {
+                            Heritage.EnvironmentId = Environment.Id;
+                            Heritage.SerializeEnvironmentId = true;
+                        }
 
                         bool up = await HeritageAPIService.PutAsync(Heritage);
 

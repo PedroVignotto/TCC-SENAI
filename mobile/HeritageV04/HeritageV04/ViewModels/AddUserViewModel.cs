@@ -93,7 +93,7 @@ namespace HeritageV04.ViewModels
                         User.UserLevel = 3;
 
                     User.CompanyId = CurrentUser.CompanyId;
-
+                    User.SerializeName = false;
                     Repost repost = await HeritageAPIService.AddUserAsync(User);
 
                     if (repost.Success)

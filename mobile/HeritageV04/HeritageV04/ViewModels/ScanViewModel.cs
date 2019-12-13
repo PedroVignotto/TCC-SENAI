@@ -72,7 +72,7 @@ namespace HeritageV04.ViewModels
                     {
                         var navigationParams = new NavigationParameters
                         {
-                            {"codigo", Result.Text}
+                            {"code", Result.Text}
                         };
 
                         if (Envio == "Main")

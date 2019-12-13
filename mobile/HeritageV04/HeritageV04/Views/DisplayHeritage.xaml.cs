@@ -39,6 +39,23 @@ namespace HeritageV04.Views
             }
         }
 
+        private void Exibir_Amb_Tapped(object sender, EventArgs e)
+        {
+            if (User.UserLevel == 1)
+            {
+                if (flexAmb.IsVisible == false)
+                {
+                    flexAmb.IsVisible = true;
+                    stkAmb.IsVisible = false;
+                }
+                else if (flexAmb.IsVisible == true)
+                {
+                    flexAmb.IsVisible = false;
+                    stkAmb.IsVisible = true;
+                }
+            }
+        }
+
         private void Exibir_Nome_Tapped(object sender, EventArgs e)
         {
             if (User.UserLevel == 1)

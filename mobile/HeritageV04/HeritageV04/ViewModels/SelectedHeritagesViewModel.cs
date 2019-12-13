@@ -127,7 +127,7 @@ namespace HeritageV04.ViewModels
 
                 if (up)
                 {
-                    Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Patrimônio alterado com sucesso");
+                    Xamarin.Forms.DependencyService.Get<IMessage>().LongAlert("Patrimônio verificado com sucesso");
 
                     Load = false;
                     Body = true;

@@ -87,9 +87,9 @@ namespace HeritageV04.ViewModels
             var navigationMode = parameters.GetNavigationMode();
             if (navigationMode == NavigationMode.Back)
             {
-                if (parameters.ContainsKey("codigo"))
+                if (parameters.ContainsKey("code"))
                 {
-                    Heritage.Code = (string)parameters["codigo"];
+                    Heritage.Code = (string)parameters["code"];
 
                     foreach (Heritage heritage in Heritages)
                     {
@@ -187,6 +187,9 @@ namespace HeritageV04.ViewModels
                 {
                     Heritage.EnvironmentId = Environment.Id;
                     Heritage.CompanyId = CurrentUser.CompanyId;
+                    Heritage.State = true;
+                    Heritage.SerializeCode = true;
+                    Heritage.SerializeEnvironmentId = true;
 
                     Repost repost = await HeritageAPIService.PostAsync(Heritage);
 

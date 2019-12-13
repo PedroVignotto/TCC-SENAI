@@ -2,7 +2,6 @@
 using HeritageV04.Services.Abstractions;
 using HeritageV04.Utilities;
 using Newtonsoft.Json;
-using Plugin.Media.Abstractions;
 using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
@@ -10,7 +9,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Environment = HeritageV04.Models.Environment;
-using System.IO;
 
 namespace HeritageV04.Services
 {
@@ -46,9 +44,21 @@ namespace HeritageV04.Services
         #region UserRequests
         async Task<UserRoot> UserLoginRequest(User user)
         {
-            var data = JsonConvert.SerializeObject(user);
-            var content = new StringContent(data, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await HttpClient.PostAsync($"{ApiBaseUrl}sessions", content);
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            try
+            {
+                var data = JsonConvert.SerializeObject(user);
+                var content = new StringContent(data, Encoding.UTF8, "application/json");
+                response = await HttpClient.PostAsync($"{ApiBaseUrl}sessions", content);
+
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
 
             if (response.IsSuccessStatusCode)
             {

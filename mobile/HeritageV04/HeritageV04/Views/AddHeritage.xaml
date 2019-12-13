@@ -43,7 +43,7 @@
                                         FlexLayout.Basis="60%"/>
 
                     <Button Text="Escanear"
-                            Command="{b:NavigateTo Name='Scanner'}"
+                            Command="{b:NavigateTo Name='Scan'}"
                             HeightRequest="40"
                             Margin="10"
                             FlexLayout.Basis="35%"/>

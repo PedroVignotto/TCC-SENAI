@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:pancake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              mc:Ignorable="d"
+             xmlns:b="http://prismlibrary.com"
              x:Class="HeritageV04.Views.Home"
              BackgroundColor="{DynamicResource BackgroundPage}"
              IconImageSource="{Binding Icone}"
@@ -97,7 +98,7 @@
                                                 TextColor="{DynamicResource TextColor}"
                                                 FontAttributes="Bold"
                                                 BorderColor="Transparent"
-                                                Command="{Binding DisplayHeritagesCommand}"/>
+                                                Command="{b:NavigateTo Name='SearchHeritages'}"/>
 
                                     </StackLayout>
 
@@ -139,7 +140,7 @@
 
                     <TableView HasUnevenRows="True"
                                HorizontalOptions="FillAndExpand"
-                               HeightRequest="140">
+                               HeightRequest="90">
 
                         <TableRoot>
 
@@ -162,33 +163,6 @@
                                                    Style="{DynamicResource Label}"/>
 
                                         </StackLayout>
-
-                                    </StackLayout>
-
-                                </ViewCell>
-
-                                <ViewCell>
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="10">
-
-                                        <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0">
-
-                                            <Label Text="Ultimos ambientes adicionados"
-                                                   Style="{DynamicResource LabelTableView}"/>
-
-                                            <Label Text="Ver ultimos ambientes adicionados"
-                                                   Style="{DynamicResource Label}"/>
-
-                                        </StackLayout>
-
-                                        <Button Text="Ver"
-                                                BackgroundColor="Transparent"
-                                                TextColor="{DynamicResource TextColor}"
-                                                FontAttributes="Bold"
-                                                BorderColor="Transparent"
-                                                Command="{Binding DisplayEnvironmentsCommand}"/>
 
                                     </StackLayout>
 
@@ -234,7 +208,7 @@
 
                     <TableView HasUnevenRows="True"
                                HorizontalOptions="FillAndExpand"
-                               HeightRequest="350">
+                               HeightRequest="300">
 
                         <TableRoot>
 
@@ -323,33 +297,6 @@
                                                    Style="{DynamicResource Label}"/>
 
                                         </StackLayout>
-
-                                    </StackLayout>
-
-                                </ViewCell>
-
-                                <ViewCell>
-
-                                    <StackLayout Orientation="Horizontal"
-                                                 Margin="10">
-
-                                        <StackLayout Orientation="Vertical"
-                                                     Margin="5, 0, 0, 0">
-
-                                            <Label Text="Ultimos usuários adicionados"
-                                                   Style="{DynamicResource LabelTableView}"/>
-
-                                            <Label Text="Ver ultimos usuários adicionados"
-                                                   Style="{DynamicResource Label}"/>
-
-                                        </StackLayout>
-
-                                        <Button Text="Ver"
-                                                BackgroundColor="Transparent"
-                                                TextColor="{DynamicResource TextColor}"
-                                                FontAttributes="Bold"
-                                                BorderColor="Transparent"
-                                                Command="{Binding DisplayUsersCommand}"/>
 
                                     </StackLayout>
 

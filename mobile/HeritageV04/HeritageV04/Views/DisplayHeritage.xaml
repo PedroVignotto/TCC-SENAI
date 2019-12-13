@@ -45,7 +45,7 @@
 
                     <TableView HasUnevenRows="True"
                                FlexLayout.Basis="100%"
-                               HeightRequest="520"
+                               HeightRequest="540"
                                Margin="0, 10, 0, 0"
                                x:Name="tbvPatr">
 
@@ -161,7 +161,7 @@
 
                                 </ViewCell>
 
-                                <ViewCell>
+                                <ViewCell Tapped="Exibir_Amb_Tapped">
 
                                     <StackLayout Orientation="Horizontal"
                                                  Margin="10">
@@ -176,10 +176,31 @@
                                             <Label Text="Ambiente"
                                                    Style="{DynamicResource LabelTableView}"/>
 
-                                            <Label Text="{Binding Heritage.Environment.Name}"
+                                            <Label Text="{Binding Environment.Name}"
                                                    Style="{DynamicResource Label}"/>
 
                                         </StackLayout>
+
+                                        <FlexLayout IsVisible="False"
+                                                    Direction="Row"
+                                                    JustifyContent="Center"
+                                                    Wrap="Wrap"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    AlignItems="Center"
+                                                    x:Name="flexAmb">
+
+                                            <Label Text="Ambiente"
+                                                   Style="{DynamicResource LabelTableView}"
+                                                   FlexLayout.AlignSelf="Start"/>
+
+                                            <custom:CustomPicker Title="Ambiente"
+                                                                 SelectedItem="{Binding Environment}"
+                                                                 ItemsSource="{Binding Environments}"
+                                                                 ItemDisplayBinding="{Binding Name}"
+                                                                 FlexLayout.Basis="95%"
+                                                                 Margin="5"/>
+
+                                        </FlexLayout>
 
                                     </StackLayout>
 
@@ -220,7 +241,7 @@
                                     <StackLayout Orientation="Horizontal" 
                                                  Margin="10">
 
-                                        <Image Source="{Binding IconMaintenance}"
+                                        <Image Source="toolsLight.png"
                                                Style="{DynamicResource ImgIconTableView}"/>
 
                                         <StackLayout Orientation="Vertical"

@@ -37,7 +37,7 @@
                                Padding="0"
                                Margin="10">
 
-                            <Image Source="http://localhost:3333/uploads/8f671d5bc4a33d2933bab5810e320865.png"
+                            <Image Source="user.png"
                                    BackgroundColor="Transparent"
                                    Aspect="AspectFill"/>
 

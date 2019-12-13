@@ -24,7 +24,7 @@
     <ContentPage.ToolbarItems>
 
         <ToolbarItem IconImageSource="qrcodeDark.png"
-                     Command="{Binding ScanCommand}"/>
+                     Command="{b:NavigateTo Name='Scan'}"/>
 
     </ContentPage.ToolbarItems>
 
